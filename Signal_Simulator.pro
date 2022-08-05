@@ -9,13 +9,17 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    adc_delay.cpp \
     controlsettings_1.cpp \
+    controlsettings_2.cpp \
     main.cpp \
     mainwindow.cpp \
     signalsui.cpp
 
 HEADERS += \
+    adc_delay.h \
     controlsettings_1.h \
+    controlsettings_2.h \
     mainwindow.h \
     signalsui.h
 

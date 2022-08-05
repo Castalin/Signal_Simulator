@@ -35,7 +35,7 @@ ControlSettings_1::ControlSettings_1(QWidget *parent)
     ctrSettingsGroup->setLayout(ctrSettingsLayout);
 
     ctrSettingsLayout->addWidget(new QLabel(QString("ADC Rx")), 0, 0, 1, 1, Qt :: AlignHCenter | Qt::AlignBottom);
-    ctrSettingsLayout->addWidget(new QLabel(QString("clock Source")), 0, 1, 1, 1, Qt :: AlignHCenter | Qt::AlignBottom);
+    ctrSettingsLayout->addWidget(new QLabel(QString("Clock Source")), 0, 1, 1, 1, Qt :: AlignHCenter | Qt::AlignBottom);
     ctrSettingsLayout->addWidget(new QLabel(QString("Sample Freq")), 0, 2, 1, 1, Qt :: AlignHCenter | Qt::AlignBottom);
     ctrSettingsLayout->addWidget(w_ADCRxBox, 1, 0, 1, 1, Qt :: AlignCenter);
     ctrSettingsLayout->addWidget(w_clockSourceBox, 1, 1, 1, 1, Qt :: AlignCenter);
