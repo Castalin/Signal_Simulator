@@ -38,6 +38,7 @@ signalsUI::signalsUI(QWidget *parent)
 
     w_signalsBoxModul = new QComboBox;
     w_signalsBoxModul->addItems(QStringList{"None", "Sin", "Rect"});
+    w_signalsBoxModul->setEnabled(false);
 
     w_frequanceBoxModul = new QComboBox;
     w_frequanceBoxModul->addItems(QStringList{"Hz", "kHz", "MHz", "GHz"});
@@ -100,5 +101,26 @@ signalsUI::signalsUI(QWidget *parent)
 
     this->setLayout(mainForm);
 
+    connect(w_checkModulation, &QCheckBox :: stateChanged, this, &signalsUI :: slot_checkedModul);
 
+}
+
+void signalsUI :: slot_checkedModul(int state)
+{
+    if (state == Qt :: Checked)
+    {
+        w_signalsBoxModul->setEnabled(true);
+        w_frequanceBoxModul->setEnabled(true);
+        w_frequanceNumModul->setEnabled(true);
+        w_durationSignalBoxModul->setEnabled(true);
+        w_durationSignalNumModul->setEnabled(true);
+    }
+    else
+    {
+        w_signalsBoxModul->setEnabled(false);
+        w_frequanceBoxModul->setEnabled(false);
+        w_frequanceNumModul->setEnabled(false);
+        w_durationSignalBoxModul->setEnabled(false);
+        w_durationSignalNumModul->setEnabled(false);
+    }
 }

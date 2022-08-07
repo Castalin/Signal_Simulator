@@ -32,7 +32,8 @@ private:
     QPushButton *w_setSignalSettings;
 
 
-
+public slots:
+    void slot_checkedModul(int state);
 
 
 
