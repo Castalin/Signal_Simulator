@@ -18,6 +18,7 @@ ADC_Delay::ADC_Delay(QWidget *parent)
     w_setDelay_2->setEnabled(false);
 
     w_checkSynchronize = new QCheckBox(QString("Synchronize"));
+    w_checkSynchronize->setCheckState(Qt :: Checked);
     w_label_2 = new QLabel(QString("ADC"));
     w_label_2->setEnabled(false);
 
@@ -38,5 +39,25 @@ ADC_Delay::ADC_Delay(QWidget *parent)
 
     this->setLayout(ADC_DelayForm);
 
+    connect(w_checkSynchronize, &QCheckBox :: stateChanged, this, &ADC_Delay :: slot_SynchronizeChanged);
 
+
+}
+
+
+
+void ADC_Delay :: slot_SynchronizeChanged(int state)
+{
+    if (state == Qt :: Checked)
+    {
+        w_spinDelay_2->setEnabled(false);
+        w_setDelay_2->setEnabled(false);
+        w_label_2->setEnabled(false);
+    }
+    else
+    {
+        w_spinDelay_2->setEnabled(true);
+        w_setDelay_2->setEnabled(true);
+        w_label_2->setEnabled(true);
+    }
 }

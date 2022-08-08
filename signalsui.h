@@ -34,6 +34,8 @@ private:
 
 public slots:
     void slot_checkedModul(int state);
+    void slot_signalChanged(int currentIndex);
+    void slot_signalModulChanged(int currentIndex);
 
 
 

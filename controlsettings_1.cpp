@@ -26,6 +26,7 @@ ControlSettings_1::ControlSettings_1(QWidget *parent)
     w_setSettings = new QPushButton(QString("Set"));
 
     w_testLED = new QCheckBox("Test LED");
+    w_testLED->setCheckState(Qt :: Checked);
 
     QFormLayout *ctrSettingsForm = new QFormLayout;
     QGroupBox *ctrSettingsGroup = new QGroupBox(QString("Control Settings"));

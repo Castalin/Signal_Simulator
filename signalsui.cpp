@@ -102,6 +102,8 @@ signalsUI::signalsUI(QWidget *parent)
     this->setLayout(mainForm);
 
     connect(w_checkModulation, &QCheckBox :: stateChanged, this, &signalsUI :: slot_checkedModul);
+    connect(w_signalsBox, QOverload<int> :: of(&QComboBox :: currentIndexChanged), this, &signalsUI :: slot_signalChanged);
+    connect(w_signalsBoxModul, QOverload<int> :: of(&QComboBox :: currentIndexChanged), this, &signalsUI :: slot_signalModulChanged);
 
 }
 
@@ -110,10 +112,7 @@ void signalsUI :: slot_checkedModul(int state)
     if (state == Qt :: Checked)
     {
         w_signalsBoxModul->setEnabled(true);
-        w_frequanceBoxModul->setEnabled(true);
-        w_frequanceNumModul->setEnabled(true);
-        w_durationSignalBoxModul->setEnabled(true);
-        w_durationSignalNumModul->setEnabled(true);
+        slot_signalModulChanged(w_signalsBoxModul->currentIndex());
     }
     else
     {
@@ -122,5 +121,69 @@ void signalsUI :: slot_checkedModul(int state)
         w_frequanceNumModul->setEnabled(false);
         w_durationSignalBoxModul->setEnabled(false);
         w_durationSignalNumModul->setEnabled(false);
+
     }
+}
+
+
+void signalsUI :: slot_signalChanged(int currentIndex)
+{
+    switch (currentIndex)
+    {
+    case 0:
+    {
+        w_frequanceBox->setEnabled(false);
+        w_frequanceNum->setEnabled(false);
+        w_durationSignalBox->setEnabled(false);
+        w_durationSignalNum->setEnabled(false);
+        break;
+    }
+    case 1:
+    {
+        w_frequanceBox->setEnabled(true);
+        w_frequanceNum->setEnabled(true);
+        w_durationSignalBox->setEnabled(false);
+        w_durationSignalNum->setEnabled(false);
+        break;
+    }
+    case 2:
+    {
+        w_frequanceBox->setEnabled(true);
+        w_frequanceNum->setEnabled(true);
+        w_durationSignalBox->setEnabled(true);
+        w_durationSignalNum->setEnabled(true);
+        break;
+    }
+    };
+}
+
+void signalsUI :: slot_signalModulChanged(int currentIndex)
+{
+    switch (currentIndex)
+    {
+    case 0:
+    {
+        w_frequanceBoxModul->setEnabled(false);
+        w_frequanceNumModul->setEnabled(false);
+        w_durationSignalBoxModul->setEnabled(false);
+        w_durationSignalNumModul->setEnabled(false);
+        break;
+    }
+    case 1:
+    {
+        w_frequanceBoxModul->setEnabled(true);
+        w_frequanceNumModul->setEnabled(true);
+        w_durationSignalBoxModul->setEnabled(false);
+        w_durationSignalNumModul->setEnabled(false);
+        break;
+    }
+    case 2:
+    {
+        w_frequanceBoxModul->setEnabled(true);
+        w_frequanceNumModul->setEnabled(true);
+        w_durationSignalBoxModul->setEnabled(true);
+        w_durationSignalNumModul->setEnabled(true);
+        break;
+    }
+    };
 }

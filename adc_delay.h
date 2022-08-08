@@ -24,6 +24,10 @@ private:
     QLabel *w_label_2;
 
 
+public slots:
+    void slot_SynchronizeChanged(int state);
+
+
 };
 
 #endif // ADC_DELAY_H
