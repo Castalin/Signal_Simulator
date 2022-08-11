@@ -15,8 +15,8 @@ public:
     explicit ControlSettingsOne(QWidget *parent = nullptr);
 
 private:
-    QComboBox *w_ADCRxBox;
-    QComboBox *w_clockSourceBox;
+     QComboBox *w_ADCRxBox;
+     QComboBox *w_clockSourceBox;
     QComboBox *w_sampleFrequanceBox;
     QComboBox *w_trigFrequanceBox;
     QComboBox *w_trigSrcBox;
