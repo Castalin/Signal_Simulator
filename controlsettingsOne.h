@@ -6,7 +6,7 @@
 #include <QGridLayout>
 #include <QLabel>
 #include <QPushButton>
-#include <QCheckBox>
+ #include <QCheckBox>
 
 class ControlSettingsOne : public QWidget
 {
