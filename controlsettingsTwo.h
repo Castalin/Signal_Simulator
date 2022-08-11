@@ -1,15 +1,15 @@
-#ifndef CONTROLSETTINGS_2_H
-#define CONTROLSETTINGS_2_H
+#ifndef CONTROLSETTINGSTWO_H
+#define CONTROLSETTINGSTWO_H
 
 #include <QWidget>
 #include <QComboBox>
 #include <QPushButton>
 
-class ControlSettings_2 : public QWidget
+class ControlSettingsTwo : public QWidget
 {
     Q_OBJECT
 public:
-    explicit ControlSettings_2(QWidget *parent = nullptr);
+    explicit ControlSettingsTwo(QWidget *parent = nullptr);
 
 signals:
 
@@ -22,4 +22,4 @@ private:
 
 };
 
-#endif // CONTROLSETTINGS_2_H
+#endif // CONTROLSETTINGSTWO_H

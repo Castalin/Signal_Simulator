@@ -10,16 +10,16 @@ CONFIG += c++17
 
 SOURCES += \
     adc_delay.cpp \
-    controlsettings_1.cpp \
-    controlsettings_2.cpp \
+    controlsettingsOne.cpp \
+    controlsettingsTwo.cpp \
     main.cpp \
     mainwindow.cpp \
     signalsui.cpp
 
 HEADERS += \
     adc_delay.h \
-    controlsettings_1.h \
-    controlsettings_2.h \
+    controlsettingsOne.h \
+    controlsettingsTwo.h \
     mainwindow.h \
     signalsui.h
 

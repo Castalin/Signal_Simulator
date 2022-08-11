@@ -1,5 +1,5 @@
-#ifndef CONTROLSETTINGS_1_H
-#define CONTROLSETTINGS_1_H
+#ifndef CONTROLSETTINGSONE_H
+#define CONTROLSETTINGSONE_H
 
 #include <QWidget>
 #include <QComboBox>
@@ -8,11 +8,11 @@
 #include <QPushButton>
 #include <QCheckBox>
 
-class ControlSettings_1 : public QWidget
+class ControlSettingsOne : public QWidget
 {
     Q_OBJECT
 public:
-    explicit ControlSettings_1(QWidget *parent = nullptr);
+    explicit ControlSettingsOne(QWidget *parent = nullptr);
 
 private:
     QComboBox *w_ADCRxBox;
@@ -29,4 +29,4 @@ signals:
 
 };
 
-#endif // CONTROLSETTINGS_1_H
+#endif // CONTROLSETTINGSONE_H

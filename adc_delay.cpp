@@ -4,7 +4,7 @@
 #include <QFormLayout>
 
 
-ADC_Delay::ADC_Delay(QWidget *parent)
+ADCDelay::ADCDelay(QWidget *parent)
     : QWidget{parent}
 {
     w_spinDelay_1 = new QSpinBox;
@@ -39,14 +39,14 @@ ADC_Delay::ADC_Delay(QWidget *parent)
 
     this->setLayout(ADC_DelayForm);
 
-    connect(w_checkSynchronize, &QCheckBox :: stateChanged, this, &ADC_Delay :: slot_SynchronizeChanged);
+    connect(w_checkSynchronize, &QCheckBox :: stateChanged, this, &ADCDelay :: slot_SynchronizeChanged);
 
 
 }
 
 
 
-void ADC_Delay :: slot_SynchronizeChanged(int state)
+void ADCDelay :: slot_SynchronizeChanged(int state)
 {
     if (state == Qt :: Checked)
     {
@@ -61,3 +61,5 @@ void ADC_Delay :: slot_SynchronizeChanged(int state)
         w_label_2->setEnabled(true);
     }
 }
+
+

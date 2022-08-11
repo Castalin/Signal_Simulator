@@ -1,10 +1,10 @@
-#include "controlsettings_1.h"
+#include "controlsettingsOne.h"
 #include <QFormLayout>
 #include <QGroupBox>
 #include <QHBoxLayout>
 #include <QSpacerItem>
 
-ControlSettings_1::ControlSettings_1(QWidget *parent)
+ControlSettingsOne::ControlSettingsOne(QWidget *parent)
     : QWidget{parent}
 {
     w_ADCRxBox = new QComboBox;

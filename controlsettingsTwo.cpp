@@ -1,11 +1,11 @@
-#include "controlsettings_2.h"
+#include "controlsettingsTwo.h"
 #include <QStringList>
 #include <QGridLayout>
 #include <QFormLayout>
 #include <QGroupBox>
 #include <QLabel>
 
-ControlSettings_2::ControlSettings_2(QWidget *parent)
+ControlSettingsTwo::ControlSettingsTwo(QWidget *parent)
     : QWidget{parent}
 {
     w_trigFrequanceBox = new QComboBox;

@@ -7,11 +7,11 @@
 #include <QCheckBox>
 #include <QLabel>
 
-class ADC_Delay : public QWidget
+class ADCDelay : public QWidget
 {
     Q_OBJECT
 public:
-    explicit ADC_Delay(QWidget *parent = nullptr);
+    explicit ADCDelay(QWidget *parent = nullptr);
 
 signals:
 
@@ -26,7 +26,6 @@ private:
 
 public slots:
     void slot_SynchronizeChanged(int state);
-
 
 };
 
