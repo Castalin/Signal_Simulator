@@ -6,7 +6,7 @@
 #include <QGridLayout>
 #include <QLabel>
 #include <QPushButton>
- #include <QCheckBox>
+#include <QCheckBox>
 
 class ControlSettingsOne : public QWidget
 {
@@ -15,12 +15,11 @@ public:
     explicit ControlSettingsOne(QWidget *parent = nullptr);
 
 private:
-     QComboBox *w_ADCRxBox;
-     QComboBox *w_clockSourceBox;
+    QComboBox *w_ADCRxBox;
+    QComboBox *w_clockSourceBox;
     QComboBox *w_sampleFrequanceBox;
     QComboBox *w_trigFrequanceBox;
     QComboBox *w_trigSrcBox;
-    QPushButton *w_initADC;
     QPushButton *w_setSettings;
     QCheckBox *w_testLED;
 

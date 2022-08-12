@@ -10,6 +10,7 @@ CONFIG += c++17
 
 SOURCES += \
     adc_delay.cpp \
+    controlangle.cpp \
     controlsettingsOne.cpp \
     controlsettingsTwo.cpp \
     main.cpp \
@@ -18,6 +19,7 @@ SOURCES += \
 
 HEADERS += \
     adc_delay.h \
+    controlangle.h \
     controlsettingsOne.h \
     controlsettingsTwo.h \
     mainwindow.h \

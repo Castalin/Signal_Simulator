@@ -22,7 +22,6 @@ ControlSettingsOne::ControlSettingsOne(QWidget *parent)
     w_trigSrcBox = new QComboBox;
     w_trigSrcBox->addItems(QStringList{"Internal", "External"});
 
-    w_initADC = new QPushButton(QString("Init ADC"));
     w_setSettings = new QPushButton(QString("Set"));
 
     w_testLED = new QCheckBox("Test LED");
@@ -46,8 +45,7 @@ ControlSettingsOne::ControlSettingsOne(QWidget *parent)
     ctrSettingsLayout->addWidget(w_testLED, 2, 2, 2, 1, Qt :: AlignCenter);
     ctrSettingsLayout->addWidget(w_trigFrequanceBox, 3, 0, 1, 1, Qt :: AlignCenter);
     ctrSettingsLayout->addWidget(w_trigSrcBox, 3, 1, 1, 1, Qt :: AlignCenter);
-    ctrSettingsLayout->addWidget(w_initADC, 4, 0, 1, 1, Qt :: AlignCenter);
-    ctrSettingsLayout->addItem(new QSpacerItem(0, 0, QSizePolicy :: Expanding), 4, 1, 1, 1);
+    ctrSettingsLayout->addItem(new QSpacerItem(0, 0, QSizePolicy :: Expanding), 4, 1, 1, 2);
     ctrSettingsLayout->addWidget(w_setSettings, 4, 2, 1, 1, Qt :: AlignCenter);
 
     ctrSettingsLayout->setVerticalSpacing(10);
