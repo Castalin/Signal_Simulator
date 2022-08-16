@@ -4,21 +4,34 @@
 #include <QWidget>
 #include <QDial>
 #include <QLabel>
+#include <QPushButton>
+#include <QDoubleSpinBox>
 
 class ControlAngle : public QWidget
 {
     Q_OBJECT
 public:
     explicit ControlAngle(QWidget *parent = nullptr);
+    ~ControlAngle();
 
 signals:
 
 private:
-    QDial *dialForAngle;
-    QLabel *angleLabel;
+    QDial *w_dialForAngle;
+    QLabel *w_angleLabel;
+    QTimer *w_timer;
+    QPushButton *w_startChangeAngle;
+    QPushButton *w_stopChangeAngle;
+    QDoubleSpinBox *w_angleSpeedBox;
+    double *m_angleValue;
+    void timeOut();
+
+
 
 private slots:
-    void angleChanged(int position);
+    void slot_angleChanged(int position);
+    void slot_startBtn();
+    void slot_stopBtn();
 
 };
 

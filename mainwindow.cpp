@@ -21,7 +21,7 @@ MainWindow::MainWindow(QWidget *parent)
     mainLayout->addWidget(m_ctrSettings_1, 0, 6, 4, 4);
     mainLayout->addWidget(m_ctrSettings_2, 4, 6, 2, 4, Qt :: AlignTop);
     mainLayout->addWidget(m_adc_Delay, 6, 6, 1, 4, Qt :: AlignTop);
-    mainLayout->addWidget(m_ctrAngle, 5, 0, 1, 4);
+    mainLayout->addWidget(m_ctrAngle, 5, 0, 2, 6);
     mainLayout->setVerticalSpacing(1);
     mainWidget->setLayout(mainLayout);
     this->setCentralWidget(mainWidget);
