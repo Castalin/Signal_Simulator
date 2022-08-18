@@ -17,7 +17,6 @@ private:
     QComboBox *w_trigFrequanceBox;
     QComboBox *w_trigOutBox;
     QComboBox *w_strobSizeBox;
-    QPushButton *w_setSettings;
 
 
 };

@@ -6,7 +6,7 @@
 #include <QGroupBox>
 #include <QFormLayout>
 
-signalsUI::signalsUI(QWidget *parent)
+SignalsUI::SignalsUI(QWidget *parent)
     : QWidget{parent}
 {
 
@@ -59,7 +59,7 @@ signalsUI::signalsUI(QWidget *parent)
     w_durationSignalNumModul->setEnabled(false);
 
     QGridLayout *signalLayout = new QGridLayout();
-    signalLayout->setVerticalSpacing(14);
+    signalLayout->setVerticalSpacing(10);
 
     signalLayout->addWidget(new QLabel(QString("Signal type")), 0, 0, 1, 1, Qt :: AlignHCenter | Qt :: AlignBottom);
     signalLayout->addWidget(new QLabel(QString("Frequance")), 0, 1, 1, 2, Qt :: AlignHCenter | Qt :: AlignBottom);
@@ -101,13 +101,13 @@ signalsUI::signalsUI(QWidget *parent)
 
     this->setLayout(mainForm);
 
-    connect(w_checkModulation, &QCheckBox :: stateChanged, this, &signalsUI :: slot_checkedModul);
-    connect(w_signalsBox, QOverload<int> :: of(&QComboBox :: currentIndexChanged), this, &signalsUI :: slot_signalChanged);
-    connect(w_signalsBoxModul, QOverload<int> :: of(&QComboBox :: currentIndexChanged), this, &signalsUI :: slot_signalModulChanged);
+    connect(w_checkModulation, &QCheckBox :: stateChanged, this, &SignalsUI :: slot_checkedModul);
+    connect(w_signalsBox, QOverload<int> :: of(&QComboBox :: currentIndexChanged), this, &SignalsUI :: slot_signalChanged);
+    connect(w_signalsBoxModul, QOverload<int> :: of(&QComboBox :: currentIndexChanged), this, &SignalsUI :: slot_signalModulChanged);
 
 }
 
-void signalsUI :: slot_checkedModul(int state)
+void SignalsUI :: slot_checkedModul(int state)
 {
     if (state == Qt :: Checked)
     {
@@ -126,7 +126,7 @@ void signalsUI :: slot_checkedModul(int state)
 }
 
 
-void signalsUI :: slot_signalChanged(int currentIndex)
+void SignalsUI :: slot_signalChanged(int currentIndex)
 {
     switch (currentIndex)
     {
@@ -157,7 +157,7 @@ void signalsUI :: slot_signalChanged(int currentIndex)
     };
 }
 
-void signalsUI :: slot_signalModulChanged(int currentIndex)
+void SignalsUI :: slot_signalModulChanged(int currentIndex)
 {
     switch (currentIndex)
     {

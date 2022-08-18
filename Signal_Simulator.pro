@@ -1,4 +1,5 @@
 QT       += core gui
+QT       += network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -10,6 +11,7 @@ CONFIG += c++17
 
 SOURCES += \
     adc_delay.cpp \
+    controladdresses.cpp \
     controlangle.cpp \
     controlsettingsOne.cpp \
     controlsettingsTwo.cpp \
@@ -19,6 +21,7 @@ SOURCES += \
 
 HEADERS += \
     adc_delay.h \
+    controladdresses.h \
     controlangle.h \
     controlsettingsOne.h \
     controlsettingsTwo.h \

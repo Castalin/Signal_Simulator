@@ -14,15 +14,13 @@ ControlSettingsOne::ControlSettingsOne(QWidget *parent)
     w_clockSourceBox->addItems(QStringList{"Internal", "External"});
 
     w_sampleFrequanceBox = new QComboBox;
-    w_sampleFrequanceBox->addItems(QStringList{"60 MHz", "80 MHz", "100 MHz", "120 MHz"});
+    w_sampleFrequanceBox->addItems(QStringList{"80 MHz", "40 MHz", "20 MHz", "20 MHz", "5 MHz", "2500 kHz", "1125 kHz", "562.5 kHz"});
 
     w_trigFrequanceBox = new QComboBox;
     w_trigFrequanceBox->addItems(QStringList{"1 kHz", "2 kHz", "4 kHz", "8 kHz"});
 
     w_trigSrcBox = new QComboBox;
     w_trigSrcBox->addItems(QStringList{"Internal", "External"});
-
-    w_setSettings = new QPushButton(QString("Set"));
 
     w_testLED = new QCheckBox("Test LED");
     w_testLED->setCheckState(Qt :: Checked);
@@ -46,7 +44,6 @@ ControlSettingsOne::ControlSettingsOne(QWidget *parent)
     ctrSettingsLayout->addWidget(w_trigFrequanceBox, 3, 0, 1, 1, Qt :: AlignCenter);
     ctrSettingsLayout->addWidget(w_trigSrcBox, 3, 1, 1, 1, Qt :: AlignCenter);
     ctrSettingsLayout->addItem(new QSpacerItem(0, 0, QSizePolicy :: Expanding), 4, 1, 1, 2);
-    ctrSettingsLayout->addWidget(w_setSettings, 4, 2, 1, 1, Qt :: AlignCenter);
 
     ctrSettingsLayout->setVerticalSpacing(10);
     ctrSettingsLayout->setHorizontalSpacing(12);

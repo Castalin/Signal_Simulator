@@ -20,7 +20,6 @@ private:
     QComboBox *w_sampleFrequanceBox;
     QComboBox *w_trigFrequanceBox;
     QComboBox *w_trigSrcBox;
-    QPushButton *w_setSettings;
     QCheckBox *w_testLED;
 
 

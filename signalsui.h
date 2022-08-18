@@ -7,11 +7,11 @@
 #include <QSpinBox>
 #include <QCheckBox>
 
-class signalsUI : public QWidget
+class SignalsUI : public QWidget
 {
     Q_OBJECT
 public:
-    explicit signalsUI(QWidget *parent = nullptr);
+    explicit SignalsUI(QWidget *parent = nullptr);
 
 signals:
 
