@@ -14,24 +14,39 @@ public:
     explicit ControlAddresses(QWidget *parent = nullptr);
 
 signals:
+    void signal_setControlSettings(const QString &address, const int &sendPort);
+    void signal_startControlThread(const QString &address, const int &receiverPort);
+    void signal_stopControlThread();
+
+    //void signal_setSignalSettings(const QHostAddress &address, const int &sendPort);
 
 private:
     QLineEdit *w_signalAddress;
-    QSpinBox *w_signalDataPort;
-    QSpinBox *w_signalAnswerPort;
+    QSpinBox *w_signalSendPort;
+    QSpinBox *w_signalReceivePort;
 
     QLineEdit *w_controlAddress;
-    QSpinBox *w_controlDataPort;
-    QSpinBox *w_controlAnswerPort;
+    QSpinBox *w_controlSendPort;
+    QSpinBox *w_controlReceivePort;
 
     QPushButton *w_setSettings;
     QPushButton *w_startReceiving;
     QPushButton *w_stopReceiving;
 
-    QUdpSocket *m_sendingSocket;
+
+    QHostAddress getControlAddress();
+    int getControlSendPort();
+    int getControlReceivePort();
+    QHostAddress getSignalAddress();
+    int getSignalSendPort();
+    int getSignalReceivePort();
 
 private slots:
-    void slot_setSendingSettings();
+    void slot_setControlSettings();
+    void slot_startControlThread();
+    void slot_stopControlThread();
+
+
 };
 
 #endif // CONTROLADDRESSES_H

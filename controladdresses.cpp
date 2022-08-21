@@ -4,12 +4,10 @@
 #include <QGroupBox>
 #include <QLabel>
 #include <QSpacerItem>
-#include <QHostAddress>
 
 ControlAddresses::ControlAddresses(QWidget *parent)
     : QWidget{parent}
 {
-    m_sendingSocket = new QUdpSocket;
 
     QString IpRange = "(?:[0-1]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])";
     QRegularExpression IpRegex ("^" + IpRange
@@ -21,28 +19,30 @@ ControlAddresses::ControlAddresses(QWidget *parent)
     w_signalAddress = new QLineEdit;
     w_signalAddress->setValidator(ipValidator);
 
-    w_signalDataPort = new QSpinBox;
-    w_signalDataPort->setMinimum(0);
-    w_signalDataPort->setMaximum(65535);
+    w_signalSendPort = new QSpinBox;
+    w_signalSendPort->setMinimum(0);
+    w_signalSendPort->setMaximum(65535);
 
-    w_signalAnswerPort = new QSpinBox;
-    w_signalAnswerPort->setMinimum(0);
-    w_signalAnswerPort->setMaximum(65535);
+    w_signalReceivePort = new QSpinBox;
+    w_signalReceivePort->setMinimum(0);
+    w_signalReceivePort->setMaximum(65535);
 
     w_controlAddress = new QLineEdit;
     w_controlAddress->setValidator(ipValidator);
 
-    w_controlDataPort = new QSpinBox;
-    w_controlDataPort->setMinimum(0);
-    w_controlDataPort->setMaximum(65535);
+    w_controlSendPort = new QSpinBox;
+    w_controlSendPort->setMinimum(0);
+    w_controlSendPort->setMaximum(65535);
 
-    w_controlAnswerPort = new QSpinBox;
-    w_controlAnswerPort->setMinimum(0);
-    w_controlAnswerPort->setMaximum(65535);
+    w_controlReceivePort = new QSpinBox;
+    w_controlReceivePort->setMinimum(0);
+    w_controlReceivePort->setMaximum(65535);
 
     w_setSettings = new QPushButton(QString("Set"));
     w_startReceiving = new QPushButton(QString("Start"));
+    w_startReceiving->setEnabled(false);
     w_stopReceiving = new QPushButton(QString("Stop"));
+    w_stopReceiving->setEnabled(false);
 
     QFormLayout *mainForm = new QFormLayout;
     QGroupBox *ctrAddressesBox = new QGroupBox(QString("Control Addresses"));
@@ -56,16 +56,16 @@ ControlAddresses::ControlAddresses(QWidget *parent)
     ctrAddressesLayout->addWidget(new QLabel(QString("Control Port")), 0, 2, 1, 1);
 
     ctrAddressesLayout->addWidget(w_signalAddress, 1, 0, 1, 1);
-    ctrAddressesLayout->addWidget(w_signalDataPort, 1, 1, 1, 1);
-    ctrAddressesLayout->addWidget(w_signalAnswerPort, 1, 2, 1, 1);
+    ctrAddressesLayout->addWidget(w_signalSendPort, 1, 1, 1, 1);
+    ctrAddressesLayout->addWidget(w_signalReceivePort, 1, 2, 1, 1);
 
     ctrAddressesLayout->addWidget(new QLabel(QString("Board Address")), 2, 0, 1, 1);
     ctrAddressesLayout->addWidget(new QLabel(QString("Data Port")), 2, 1, 1, 1);
     ctrAddressesLayout->addWidget(new QLabel(QString("Control Port")), 2, 2, 1, 1);
 
     ctrAddressesLayout->addWidget(w_controlAddress, 3, 0, 1, 1);
-    ctrAddressesLayout->addWidget(w_controlDataPort, 3, 1, 1, 1);
-    ctrAddressesLayout->addWidget(w_controlAnswerPort, 3, 2, 1, 1);
+    ctrAddressesLayout->addWidget(w_controlSendPort, 3, 1, 1, 1);
+    ctrAddressesLayout->addWidget(w_controlReceivePort, 3, 2, 1, 1);
 
 
     ctrAddressesLayout->addWidget(w_setSettings, 4, 0, 1, 1);
@@ -74,11 +74,68 @@ ControlAddresses::ControlAddresses(QWidget *parent)
 
     this->setLayout(mainForm);
 
+    connect(w_setSettings, &QPushButton :: clicked, this, &ControlAddresses :: slot_setControlSettings);
+    // connect(w_setSettings, &QPushButton :: clicked, this, &ControlAddresses :: slot_setSignalSettings); will be added soon
+    connect(w_startReceiving, &QPushButton :: clicked, this, &ControlAddresses :: slot_startControlThread);
+    connect(w_stopReceiving, &QPushButton :: clicked, this, &ControlAddresses :: slot_stopControlThread);
 }
 
-void ControlAddresses :: slot_setSendingSettings()
+QHostAddress ControlAddresses::getControlAddress()
 {
-    m_sendingSocket->abort();
-    m_sendingSocket->bind(QHostAddress(w_controlAddress->text()), w_controlAnswerPort->value());
-    m_sendingSocket->open(QUdpSocket :: ReadWrite);
+    return QHostAddress(w_controlAddress->text());
 }
+
+int ControlAddresses::getControlSendPort()
+{
+    return w_controlSendPort->value();
+}
+
+int ControlAddresses::getControlReceivePort()
+{
+    return w_controlReceivePort->value();
+}
+
+QHostAddress ControlAddresses::getSignalAddress()
+{
+    return QHostAddress(w_signalAddress->text());
+}
+
+int ControlAddresses::getSignalSendPort()
+{
+    return w_signalSendPort->value();
+}
+
+int ControlAddresses::getSignalReceivePort()
+{
+    return w_signalReceivePort->value();
+}
+
+void ControlAddresses::slot_setControlSettings()
+{
+    w_startReceiving->setEnabled(true);
+    emit signal_setControlSettings(w_controlAddress->text(), w_controlSendPort->value());
+}
+
+void ControlAddresses::slot_startControlThread()
+{
+    w_stopReceiving->setEnabled(true);
+    w_startReceiving->setEnabled(false);
+    w_controlSendPort->setEnabled(false);
+    w_controlReceivePort->setEnabled(false);
+    emit signal_startControlThread(w_controlAddress->text(), w_controlReceivePort->value());
+
+}
+
+void ControlAddresses::slot_stopControlThread()
+{
+    w_stopReceiving->setEnabled(false);
+    w_startReceiving->setEnabled(true);
+    w_controlSendPort->setEnabled(true);
+    w_controlReceivePort->setEnabled(true);
+    emit signal_stopControlThread();
+}
+
+
+
+
+

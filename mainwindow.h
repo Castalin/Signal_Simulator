@@ -8,6 +8,7 @@
 #include "adc_delay.h"
 #include "controlangle.h"
 #include "controladdresses.h"
+#include "controldatamain.h"
 
 class MainWindow : public QMainWindow
 {
@@ -30,5 +31,7 @@ private:
     ADCDelay *m_adc_Delay;
     ControlAngle *m_ctrAngle;
     ControlAddresses *m_ctrAddresses;
+    ControlDataMain *m_ctrDataMain;
+
 };
 #endif // MAINWINDOW_H

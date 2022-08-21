@@ -18,13 +18,11 @@ signals:
 private:
     QSpinBox *w_spinDelay_1;
     QSpinBox *w_spinDelay_2;
-    QPushButton *w_setDelay_1;
-    QPushButton *w_setDelay_2;
     QCheckBox *w_checkSynchronize;
     QLabel *w_label_2;
 
 
-public slots:
+private slots:
     void slot_SynchronizeChanged(int state);
 
 };

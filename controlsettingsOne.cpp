@@ -40,7 +40,7 @@ ControlSettingsOne::ControlSettingsOne(QWidget *parent)
     ctrSettingsLayout->addWidget(w_sampleFrequanceBox, 1, 2, 1, 1, Qt :: AlignCenter);
     ctrSettingsLayout->addWidget(new QLabel(QString("Trig Freq")), 2, 0, 1, 1, Qt :: AlignHCenter | Qt::AlignBottom);
     ctrSettingsLayout->addWidget(new QLabel(QString("Trig Src")), 2, 1, 1, 1, Qt :: AlignHCenter | Qt::AlignBottom);
-    ctrSettingsLayout->addWidget(w_testLED, 2, 2, 2, 1, Qt :: AlignCenter);
+    ctrSettingsLayout->addWidget(w_testLED, 3, 2, 1, 1, Qt :: AlignCenter);
     ctrSettingsLayout->addWidget(w_trigFrequanceBox, 3, 0, 1, 1, Qt :: AlignCenter);
     ctrSettingsLayout->addWidget(w_trigSrcBox, 3, 1, 1, 1, Qt :: AlignCenter);
     ctrSettingsLayout->addItem(new QSpacerItem(0, 0, QSizePolicy :: Expanding), 4, 1, 1, 2);

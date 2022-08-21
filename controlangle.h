@@ -12,7 +12,6 @@ class ControlAngle : public QWidget
     Q_OBJECT
 public:
     explicit ControlAngle(QWidget *parent = nullptr);
-    ~ControlAngle();
 
 signals:
 

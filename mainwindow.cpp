@@ -14,20 +14,10 @@ MainWindow::MainWindow(QWidget *parent)
     m_ctrAddresses = new ControlAddresses;
     QGroupBox *mainWidget = new QGroupBox(QString("  Signal Simulator"));
     QGridLayout *mainLayout = new QGridLayout;
-/*
-    QFormLayout *testOne = new QFormLayout;
 
-    testOne->addWidget(m_signalUI, 0, 0);
-    testOne->addWidget(m_ctrSettings_1);
-    testOne->addWidget(m_ctrSettings_2);
-    testOne->addWidget(m_adc_Delay);
-    testOne->addWidget(m_ctrAngle);
-    testOne->addWidget(m_ctrAddresses);
-*/
-
-    mainLayout->setVerticalSpacing(3);
+    mainLayout->setVerticalSpacing(6);
     mainLayout->setMargin(2);
-    mainLayout->addWidget(m_signalUI, 0, 0, 5, 6);
+    mainLayout->addWidget(m_signalUI, 0, 0, 5, 6, Qt :: AlignTop);
     mainLayout->addWidget(m_ctrSettings_1, 0, 6, 2, 2);
     mainLayout->addWidget(m_ctrSettings_2, 2, 6, 2, 2, Qt :: AlignTop);
     mainLayout->addWidget(m_adc_Delay, 4, 6, 2, 2, Qt :: AlignTop);
@@ -36,6 +26,13 @@ MainWindow::MainWindow(QWidget *parent)
 
     mainWidget->setLayout(mainLayout);
     this->setCentralWidget(mainWidget);
+    // ui ends here
+
+    m_ctrDataMain = new ControlDataMain;
+
+    connect(m_ctrAddresses, &ControlAddresses :: signal_setControlSettings, m_ctrDataMain, &ControlDataMain :: slot_setControlSettings);
+    connect(m_ctrAddresses, &ControlAddresses :: signal_startControlThread, m_ctrDataMain, &ControlDataMain :: slot_startControlThread);
+    connect(m_ctrAddresses, &ControlAddresses :: signal_stopControlThread, m_ctrDataMain, &ControlDataMain :: slot_stopControlThread);
 
 
 }

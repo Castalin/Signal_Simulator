@@ -19,8 +19,8 @@ ControlAngle::ControlAngle(QWidget *parent)
     w_stopChangeAngle = new QPushButton(QString("Stop"));
     w_stopChangeAngle->setEnabled(false);
     w_angleSpeedBox = new QDoubleSpinBox;
-    w_angleSpeedBox->setMinimum(-10.0);
-    w_angleSpeedBox->setMaximum(10.0);
+    w_angleSpeedBox->setMinimum(-60.0);
+    w_angleSpeedBox->setMaximum(60.0);
 
     QGridLayout *ctrAngleGrid = new QGridLayout;
     QGroupBox *angleBox = new QGroupBox(QString("Angle Control"));
@@ -87,9 +87,6 @@ void ControlAngle :: timeOut()
     }
 
     w_angleLabel->setText(QString :: number(*m_angleValue));
+    w_dialForAngle->setValue(static_cast<int>(*m_angleValue));
 }
 
-ControlAngle :: ~ControlAngle()
-{
-    delete m_angleValue;
-}
