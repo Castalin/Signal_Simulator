@@ -35,6 +35,7 @@ private:
         SPI_BYTE_2                          =   0x0B
     };
 
+
     GreenBoardAddressBytes m_address;
 
 signals:

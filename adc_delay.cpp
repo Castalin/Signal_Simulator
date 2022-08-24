@@ -54,4 +54,24 @@ void ADCDelay :: slot_SynchronizeChanged(int state)
     }
 }
 
+void ADCDelay::slot_proccessingADC_A_DELAY_0(const unsigned char &info)
+{
+
+}
+
+void ADCDelay::slot_proccessingADC_A_DELAY_1(const unsigned char &info)
+{
+
+}
+
+void ADCDelay::slot_proccessingADC_B_DELAY_0(const unsigned char &info)
+{
+
+}
+
+void ADCDelay::slot_proccessingADC_B_DELAY_1(const unsigned char &info)
+{
+
+}
+
 

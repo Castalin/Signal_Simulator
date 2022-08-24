@@ -7,10 +7,21 @@ ControlDataMain::ControlDataMain(QObject *parent)
 {
     m_sendingSocket = new QUdpSocket;
     m_receiveSocket = new SettingsReceiver;
-    m_condition = new QByteArray(48, static_cast<qint8>(0x00));
+    m_condition = new QByteArray;
     m_hostAddress = new QHostAddress;
     m_hostPort = new int;
 
+    for (int i{0}; i < 8; ++i)
+    {
+        m_condition->append(0xAA);
+        m_condition->append(0x55);
+    }
+
+    for (int i{0}; i < 16; ++i)
+    {
+        m_condition->append(0x00 + i);
+        m_condition->append(static_cast<quint8>(0));
+    }
 
     connect(m_receiveSocket, &SettingsReceiver :: signal_messageReceived, this, &ControlDataMain :: slot_processingAddress);
 }
@@ -25,71 +36,84 @@ void ControlDataMain::slot_processingAddress(const QByteArray &receivedMessage)
 
         case GreenBoardAddressBytes::CONTROL:
         {
+            m_condition->at(16 + 2 * static_cast<quint16>(GreenBoardAddressBytes::CONTROL));
             emit signal_controlSettingsOne(receivedMessage[1]);
             break;
         }
 
         case GreenBoardAddressBytes::ADC_A_DELAY_0:
         {
+            m_condition->at(16 + 2 * static_cast<quint16>(GreenBoardAddressBytes::ADC_A_DELAY_0));
             emit signal_ADC_A_DELAY_0(receivedMessage[1]);
             break;
         }
 
         case GreenBoardAddressBytes::ADC_A_DELAY_1:
         {
+            m_condition->at(16 + 2 * static_cast<quint16>(GreenBoardAddressBytes::ADC_A_DELAY_1));
             emit signal_ADC_A_DELAY_1(receivedMessage[1]);
             break;
         }
 
         case GreenBoardAddressBytes::ADC_B_DELAY_0:
         {
+            m_condition->at(16 + 2 * static_cast<quint16>(GreenBoardAddressBytes::ADC_B_DELAY_0));
             emit signal_ADC_B_DELAY_0(receivedMessage[1]);
             break;
         }
 
         case GreenBoardAddressBytes::ADC_B_DELAY_1:
         {
+            m_condition->at(16 + 2 * static_cast<quint16>(GreenBoardAddressBytes::ADC_B_DELAY_1));
             emit signal_ADC_B_DELAY_1(receivedMessage[1]);
             break;
         }
 
         case GreenBoardAddressBytes::ADC_CONTROLWORD_0:
         {
+            //m_condition->at(16 + 2 * static_cast<quint16>(GreenBoardAddressBytes::ADC_CONTROLWORD_0));
             //emit signal_controlSettingsOne(receivedMessage[1]);
             break;
         }
 
         case GreenBoardAddressBytes::ADC_CONTROLWORD_1:
         {
+            //m_condition->at(16 + 2 * static_cast<quint16>(GreenBoardAddressBytes::ADC_CONTROLWORD_1));
             //emit signal_controlSettingsOne(receivedMessage[1]);
             break;
         }
 
         case GreenBoardAddressBytes::CONTROL2:
         {
+            m_condition->at(16 + 2 * static_cast<quint16>(GreenBoardAddressBytes::CONTROL2));
             emit signal_controlSettingsTwo(receivedMessage[1]);
             break;
         }
 
         case GreenBoardAddressBytes::LED:
         {
+            m_condition->at(16 + 2 * static_cast<quint16>(GreenBoardAddressBytes::LED));
             emit signal_LED(receivedMessage[1]);
             break;
         }
 
         case GreenBoardAddressBytes::SPI_BYTE_0:
         {
+            //m_condition->at(16 + 2 * static_cast<quint16>(GreenBoardAddressBytes::SPI_BYTE_0));
             //emit signal_controlSettingsOne(receivedMessage[1]);
             break;
         }
+
         case GreenBoardAddressBytes::SPI_BYTE_1:
         {
+            //m_condition->at(16 + 2 * static_cast<quint16>(GreenBoardAddressBytes::SPI_BYTE_1));
             //emit signal_controlSettingsOne(receivedMessage[1]);
             break;
         }
 
         case GreenBoardAddressBytes::SPI_BYTE_2:
         {
+            //m_condition->at(16 + 2 * static_cast<quint16>(GreenBoardAddressBytes::SPI_BYTE_2));
             //emit signal_controlSettingsOne(receivedMessage[1]);
             break;
         }
