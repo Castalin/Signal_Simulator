@@ -1,4 +1,4 @@
-#include "controlangle.h"
+#include "UI/controlangle.h"
 #include <QGridLayout>
 #include <QFormLayout>
 #include <QGroupBox>

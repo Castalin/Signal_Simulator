@@ -1,4 +1,4 @@
-#include "controlsettingsTwo.h"
+#include "UI/controlsettingsTwo.h"
 #include <QStringList>
 #include <QGridLayout>
 #include <QFormLayout>

@@ -1,4 +1,4 @@
-#include "signalsui.h"
+#include "UI/signalsui.h"
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QGridLayout>

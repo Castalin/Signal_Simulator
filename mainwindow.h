@@ -2,12 +2,12 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "signalsui.h"
-#include "controlsettingsOne.h"
-#include "controlsettingsTwo.h"
-#include "adc_delay.h"
-#include "controlangle.h"
-#include "controladdresses.h"
+#include "UI/signalsui.h"
+#include "UI/controlsettingsOne.h"
+#include "UI/controlsettingsTwo.h"
+#include "UI/adc_delay.h"
+#include "UI/controlangle.h"
+#include "UI/controladdresses.h"
 #include "controldatamain.h"
 
 class MainWindow : public QMainWindow

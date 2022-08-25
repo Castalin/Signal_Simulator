@@ -1,4 +1,4 @@
-#include "adc_delay.h"
+#include "UI/adc_delay.h"
 #include <QGridLayout>
 #include <QGroupBox>
 #include <QFormLayout>

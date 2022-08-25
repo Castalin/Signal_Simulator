@@ -1,4 +1,4 @@
-#include "controlsettingsOne.h"
+#include "UI/controlsettingsOne.h"
 #include <QFormLayout>
 #include <QGroupBox>
 #include <QHBoxLayout>
