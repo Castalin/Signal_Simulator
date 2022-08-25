@@ -51,16 +51,20 @@ ControlAddresses::ControlAddresses(QWidget *parent)
     mainForm->addWidget(ctrAddressesBox);
     ctrAddressesBox->setLayout(ctrAddressesLayout);
 
-    ctrAddressesLayout->addWidget(new QLabel(QString("PC Address")), 0, 0, 1, 1);
-    ctrAddressesLayout->addWidget(new QLabel(QString("Data Port")), 0, 1, 1, 1);
+    ctrAddressesLayout->addWidget(new QLabel(QString("Signal Address")), 0, 0, 1, 1);
+    ctrAddressesLayout->addWidget(new QLabel(QString("Send Port")), 0, 1, 1, 1);
     ctrAddressesLayout->addWidget(new QLabel(QString("Control Port")), 0, 2, 1, 1);
 
     ctrAddressesLayout->addWidget(w_signalAddress, 1, 0, 1, 1);
     ctrAddressesLayout->addWidget(w_signalSendPort, 1, 1, 1, 1);
     ctrAddressesLayout->addWidget(w_signalReceivePort, 1, 2, 1, 1);
 
-    ctrAddressesLayout->addWidget(new QLabel(QString("Board Address")), 2, 0, 1, 1);
-    ctrAddressesLayout->addWidget(new QLabel(QString("Data Port")), 2, 1, 1, 1);
+    w_signalAddress->setEnabled(false);
+    w_signalSendPort->setEnabled(false);
+    w_signalReceivePort->setEnabled(false);
+
+    ctrAddressesLayout->addWidget(new QLabel(QString("Settings Address")), 2, 0, 1, 1);
+    ctrAddressesLayout->addWidget(new QLabel(QString("Send Port")), 2, 1, 1, 1);
     ctrAddressesLayout->addWidget(new QLabel(QString("Control Port")), 2, 2, 1, 1);
 
     ctrAddressesLayout->addWidget(w_controlAddress, 3, 0, 1, 1);
@@ -122,6 +126,8 @@ void ControlAddresses::slot_startControlThread()
     w_startReceiving->setEnabled(false);
     w_controlSendPort->setEnabled(false);
     w_controlReceivePort->setEnabled(false);
+    w_setSettings->setEnabled(false);
+    w_controlAddress->setEnabled(false);
     emit signal_startControlThread(w_controlAddress->text(), w_controlReceivePort->value());
 
 }
@@ -132,6 +138,8 @@ void ControlAddresses::slot_stopControlThread()
     w_startReceiving->setEnabled(true);
     w_controlSendPort->setEnabled(true);
     w_controlReceivePort->setEnabled(true);
+    w_setSettings->setEnabled(true);
+    w_controlAddress->setEnabled(true);
     emit signal_stopControlThread();
 }
 

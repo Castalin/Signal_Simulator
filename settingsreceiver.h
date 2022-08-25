@@ -31,7 +31,7 @@ public slots:
 
 
 signals:
-    void signal_messageReceived(const QByteArray &message);
+    void signal_messageReceived(const QByteArray message);
 
 };
 

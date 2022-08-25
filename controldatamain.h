@@ -61,7 +61,7 @@ signals:
 
 public slots:
     void slot_setControlSettings(const QString &address, const int &port);
-    void slot_processingAddress(const QByteArray &receivedMessage);
+    void slot_processingAddress(const QByteArray receivedMessage);
     void slot_sendCondition();
     void slot_startControlThread(const QString &address, const int &port);
     void slot_stopControlThread();

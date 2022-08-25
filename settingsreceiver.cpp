@@ -54,7 +54,7 @@ void SettingsReceiver::run()
         if (m_socket->state() == QUdpSocket :: BoundState)
         {
             receivedMessage = m_socket->receiveDatagram().data();
-            if (receivedMessage.size() == 2 && static_cast<quint8>(receivedMessage[0]) < 12)
+            if (receivedMessage.size() == 2 && (static_cast<quint8>(receivedMessage[0]) < 0x0C))
             {
                 emit signal_messageReceived(receivedMessage);
             }

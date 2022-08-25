@@ -21,6 +21,10 @@ private:
     QCheckBox *w_checkSynchronize;
     QLabel *w_label_2;
 
+    quint16 m_delay[2]; // 0 for A chanel, 1 for B chanel
+    bool m_firstByteReceived_A;
+    bool m_firstByteReceived_B;
+
 
 private slots:
     void slot_SynchronizeChanged(int state);

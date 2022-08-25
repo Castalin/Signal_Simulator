@@ -36,6 +36,11 @@ ADCDelay::ADCDelay(QWidget *parent)
 
     connect(w_checkSynchronize, &QCheckBox :: stateChanged, this, &ADCDelay :: slot_SynchronizeChanged);
 
+    m_delay[0] = 0x0000;
+    m_delay[0] = 0x0000;
+    m_firstByteReceived_A = false;
+    m_firstByteReceived_B = false;
+
 }
 
 
@@ -56,22 +61,35 @@ void ADCDelay :: slot_SynchronizeChanged(int state)
 
 void ADCDelay::slot_proccessingADC_A_DELAY_0(const unsigned char &info)
 {
-
+    m_firstByteReceived_A = true;
+    m_delay[0] = static_cast<quint16>(info);
 }
 
 void ADCDelay::slot_proccessingADC_A_DELAY_1(const unsigned char &info)
 {
+    if (m_firstByteReceived_A == true)
+    {
+        m_delay[0] += (static_cast<quint16>(info) << 8);
+        m_firstByteReceived_A = false;
+        w_spinDelay_1->setValue(m_delay[0]);
+    }
 
 }
 
 void ADCDelay::slot_proccessingADC_B_DELAY_0(const unsigned char &info)
 {
-
+    m_firstByteReceived_B = true;
+    m_delay[1] = static_cast<quint16>(info);
 }
 
 void ADCDelay::slot_proccessingADC_B_DELAY_1(const unsigned char &info)
 {
-
+    if (m_firstByteReceived_B == true)
+    {
+        m_delay[1] += (static_cast<quint16>(info) << 8);
+        m_firstByteReceived_B = false;
+        w_spinDelay_2->setValue(m_delay[1]);
+    }
 }
 
 
