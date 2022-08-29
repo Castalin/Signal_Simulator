@@ -8,8 +8,8 @@
 #include "UI/adc_delay.h"
 #include "UI/controlangle.h"
 #include "UI/controladdresses.h"
-#include "controldatamain.h"
-#include "signaldatamain.h"
+#include "BackEnd/controldatamain.h"
+#include "BackEnd/signaldatamain.h"
 
 class MainWindow : public QMainWindow
 {

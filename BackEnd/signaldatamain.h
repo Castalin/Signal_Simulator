@@ -25,6 +25,8 @@ private:
     RxEnable m_rxEnable;
 
 public slots:
+    void slot_angleChanged(const double &value);
+    void slot_velocityOfAngleChanged(const double &value);
     void slot_prepareData();
 
 };

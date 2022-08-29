@@ -1,7 +1,7 @@
 #ifndef CONTROLDATAMAIN_H
 #define CONTROLDATAMAIN_H
 
-#include <a_controller.h>
+#include "a_controller.h"
 
 class ControlDataMain : public a_Controller
 {

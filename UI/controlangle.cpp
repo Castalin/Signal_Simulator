@@ -51,6 +51,7 @@ ControlAngle::ControlAngle(QWidget *parent)
 void ControlAngle::slot_angleChanged(int position)
 {
     *m_angleValue = static_cast<double>(position);
+    emit signal_angleValueChanged(*m_angleValue);
     w_angleLabel->setText(QString :: number(position));
 }
 
@@ -61,6 +62,7 @@ void ControlAngle::slot_startBtn()
     w_angleSpeedBox->setEnabled(false);
     w_stopChangeAngle->setEnabled(true);
     w_timer->start(100);
+    emit signal_velocityOfAngleChanged(w_angleSpeedBox->value());
 
 }
 
@@ -71,11 +73,13 @@ void ControlAngle::slot_stopBtn()
     w_angleSpeedBox->setEnabled(true);
     w_stopChangeAngle->setEnabled(false);
     w_timer->stop();
+    emit signal_velocityOfAngleChanged(0.0);
 }
 
 void ControlAngle :: timeOut()
 {
     *m_angleValue += w_timer->interval()*(w_angleSpeedBox->value()) / 1000;
+    emit signal_angleValueChanged(*m_angleValue);
 
     if (*m_angleValue < 0.0)
     {

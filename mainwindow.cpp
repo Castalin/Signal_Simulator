@@ -50,6 +50,9 @@ MainWindow::MainWindow(QWidget *parent)
     m_signalDataMain = new SignalDataMain;
 
     connect(m_ctrAddresses, &ControlAddresses :: signal_setSignalSettings, m_signalDataMain, &SignalDataMain :: slot_setAddressSettings);
+
+    connect(m_ctrAngle, &ControlAngle :: signal_angleValueChanged, m_signalDataMain, &SignalDataMain :: slot_angleChanged);
+    connect(m_ctrAngle, &ControlAngle :: signal_velocityOfAngleChanged, m_signalDataMain, &SignalDataMain :: slot_velocityOfAngleChanged);
 }
 
 MainWindow::~MainWindow()
