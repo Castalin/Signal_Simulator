@@ -23,6 +23,7 @@ ControlAddresses::ControlAddresses(QWidget *parent)
     w_PCDataPort = new QSpinBox;
     w_PCDataPort->setMinimum(0);
     w_PCDataPort->setMaximum(65535);
+    w_PCDataPort->setValue(16386);
 
     w_PCControlPort = new QSpinBox;
     w_PCControlPort->setMinimum(0);
@@ -36,6 +37,7 @@ ControlAddresses::ControlAddresses(QWidget *parent)
     w_BoardDataPort = new QSpinBox;
     w_BoardDataPort->setMinimum(0);
     w_BoardDataPort->setMaximum(65535);
+    w_BoardDataPort->setValue(16481);
 
     w_BoardControlPort = new QSpinBox;
     w_BoardControlPort->setMinimum(0);
@@ -56,7 +58,7 @@ ControlAddresses::ControlAddresses(QWidget *parent)
     ctrAddressesBox->setLayout(ctrAddressesLayout);
 
     ctrAddressesLayout->addWidget(new QLabel(QString("PC Address")), 0, 0, 1, 1);
-    ctrAddressesLayout->addWidget(new QLabel(QString("Send Port")), 0, 1, 1, 1);
+    ctrAddressesLayout->addWidget(new QLabel(QString("Data Port")), 0, 1, 1, 1);
     ctrAddressesLayout->addWidget(new QLabel(QString("Control Port")), 0, 2, 1, 1);
 
     ctrAddressesLayout->addWidget(w_PCAddress, 1, 0, 1, 1);
@@ -64,7 +66,7 @@ ControlAddresses::ControlAddresses(QWidget *parent)
     ctrAddressesLayout->addWidget(w_PCControlPort, 1, 2, 1, 1);
 
     ctrAddressesLayout->addWidget(new QLabel(QString("Board Address")), 2, 0, 1, 1);
-    ctrAddressesLayout->addWidget(new QLabel(QString("Send Port")), 2, 1, 1, 1);
+    ctrAddressesLayout->addWidget(new QLabel(QString("Data Port")), 2, 1, 1, 1);
     ctrAddressesLayout->addWidget(new QLabel(QString("Control Port")), 2, 2, 1, 1);
 
     ctrAddressesLayout->addWidget(w_BoardAddress, 3, 0, 1, 1);
@@ -79,9 +81,10 @@ ControlAddresses::ControlAddresses(QWidget *parent)
     this->setLayout(mainForm);
 
     connect(w_setSettings, &QPushButton :: clicked, this, &ControlAddresses :: slot_setControlSettings);
-    // connect(w_setSettings, &QPushButton :: clicked, this, &ControlAddresses :: slot_setSignalSettings); will be added soon
     connect(w_startReceiving, &QPushButton :: clicked, this, &ControlAddresses :: slot_startControlThread);
     connect(w_stopReceiving, &QPushButton :: clicked, this, &ControlAddresses :: slot_stopControlThread);
+
+    connect(w_setSettings, &QPushButton :: clicked, this, &ControlAddresses :: slot_setSignalSettings);
 }
 
 QHostAddress ControlAddresses::getBoardAddress()
@@ -124,10 +127,11 @@ void ControlAddresses::slot_startControlThread()
 {
     w_stopReceiving->setEnabled(true);
     w_startReceiving->setEnabled(false);
-    w_BoardDataPort->setEnabled(false);
     w_BoardControlPort->setEnabled(false);
+    w_PCControlPort->setEnabled(false);
     w_setSettings->setEnabled(false);
     w_BoardAddress->setEnabled(false);
+    w_PCAddress->setEnabled(false);
     emit signal_startControlThread(w_BoardAddress->text(), w_BoardControlPort->value());
 
 }
@@ -136,11 +140,17 @@ void ControlAddresses::slot_stopControlThread()
 {
     w_stopReceiving->setEnabled(false);
     w_startReceiving->setEnabled(true);
-    w_BoardDataPort->setEnabled(true);
+    w_PCControlPort->setEnabled(true);
     w_BoardControlPort->setEnabled(true);
     w_setSettings->setEnabled(true);
     w_BoardAddress->setEnabled(true);
+    w_PCAddress->setEnabled(true);
     emit signal_stopControlThread();
+}
+
+void ControlAddresses::slot_setSignalSettings()
+{
+    emit signal_setSignalSettings(w_PCAddress->text(), w_PCDataPort->value());
 }
 
 

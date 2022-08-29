@@ -2,6 +2,7 @@
 #include <QGridLayout>
 #include <QGroupBox>
 #include <QFormLayout>
+#include <QLabel>
 
 
 ADCDelay::ADCDelay(QWidget *parent)
@@ -14,11 +15,6 @@ ADCDelay::ADCDelay(QWidget *parent)
     w_spinDelay_2->setEnabled(false);
 
 
-    w_checkSynchronize = new QCheckBox(QString("Synchronize"));
-    w_checkSynchronize->setCheckState(Qt :: Checked);
-    w_label_2 = new QLabel(QString("ADC"));
-    w_label_2->setEnabled(false);
-
     QFormLayout *ADC_DelayForm = new QFormLayout;
     QGroupBox *ADC_DelayBox = new QGroupBox(QString("ADC Delay Settings"));
     QGridLayout *ADC_DelayLayout = new QGridLayout;
@@ -26,15 +22,12 @@ ADCDelay::ADCDelay(QWidget *parent)
     ADC_DelayForm->addWidget(ADC_DelayBox);
     ADC_DelayBox->setLayout(ADC_DelayLayout);
 
-    ADC_DelayLayout->addWidget(new QLabel(QString("ADC")), 0, 0, 1, 1);
+    ADC_DelayLayout->addWidget(new QLabel(QString("ADC Chanel A")), 0, 0, 1, 1);
     ADC_DelayLayout->addWidget(w_spinDelay_1, 0, 1, 1, 1);
-    ADC_DelayLayout->addWidget(w_label_2, 1, 0, 1, 1);
+    ADC_DelayLayout->addWidget(new QLabel(QString("ADC Chanel B")), 1, 0, 1, 1);
     ADC_DelayLayout->addWidget(w_spinDelay_2, 1, 1, 1, 1);
-    ADC_DelayLayout->addWidget(w_checkSynchronize, 1, 2, 1, 1, Qt :: AlignRight);
 
     this->setLayout(ADC_DelayForm);
-
-    connect(w_checkSynchronize, &QCheckBox :: stateChanged, this, &ADCDelay :: slot_SynchronizeChanged);
 
     m_delay[0] = 0x0000;
     m_delay[0] = 0x0000;
@@ -43,21 +36,6 @@ ADCDelay::ADCDelay(QWidget *parent)
 
 }
 
-
-
-void ADCDelay :: slot_SynchronizeChanged(int state)
-{
-    if (state == Qt :: Checked)
-    {
-        w_spinDelay_2->setEnabled(false);
-        w_label_2->setEnabled(false);
-    }
-    else
-    {
-        w_spinDelay_2->setEnabled(true);
-        w_label_2->setEnabled(true);
-    }
-}
 
 void ADCDelay::slot_proccessingADC_A_DELAY_0(const unsigned char &info)
 {

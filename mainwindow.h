@@ -9,6 +9,7 @@
 #include "UI/controlangle.h"
 #include "UI/controladdresses.h"
 #include "controldatamain.h"
+#include "signaldatamain.h"
 
 class MainWindow : public QMainWindow
 {
@@ -18,11 +19,8 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    const ControlAddresses &ctrAddresses() const;
-    void setCtrAddresses(const ControlAddresses &newCtrAddresses);
-
 signals:
-    void ctrAddressesChanged();
+
 
 private:
     SignalsUI *m_signalUI;
@@ -32,6 +30,7 @@ private:
     ControlAngle *m_ctrAngle;
     ControlAddresses *m_ctrAddresses;
     ControlDataMain *m_ctrDataMain;
+    SignalDataMain *m_signalDataMain;
 
 };
 #endif // MAINWINDOW_H

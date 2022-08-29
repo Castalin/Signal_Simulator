@@ -5,7 +5,6 @@
 #include <QSpinBox>
 #include <QPushButton>
 #include <QCheckBox>
-#include <QLabel>
 
 class ADCDelay : public QWidget
 {
@@ -18,8 +17,6 @@ signals:
 private:
     QSpinBox *w_spinDelay_1;
     QSpinBox *w_spinDelay_2;
-    QCheckBox *w_checkSynchronize;
-    QLabel *w_label_2;
 
     quint16 m_delay[2]; // 0 for A chanel, 1 for B chanel
     bool m_firstByteReceived_A;
@@ -27,7 +24,7 @@ private:
 
 
 private slots:
-    void slot_SynchronizeChanged(int state);
+
 
 public slots:
     void slot_proccessingADC_A_DELAY_0(const unsigned char &info);

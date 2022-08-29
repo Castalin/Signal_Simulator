@@ -35,6 +35,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(m_ctrAddresses, &ControlAddresses :: signal_startControlThread, m_ctrDataMain, &ControlDataMain :: slot_startControlThread);
     connect(m_ctrAddresses, &ControlAddresses :: signal_stopControlThread, m_ctrDataMain, &ControlDataMain :: slot_stopControlThread);
 
+
     // connects incoming data with UI
     connect(m_ctrDataMain, &ControlDataMain :: signal_controlSettingsOne, m_ctrSettings_1, &ControlSettingsOne :: slot_processingIncomingDataControl);
     connect(m_ctrDataMain, &ControlDataMain :: signal_LED, m_ctrSettings_1, &ControlSettingsOne :: slot_processingIncomingDataLED);
@@ -46,6 +47,9 @@ MainWindow::MainWindow(QWidget *parent)
     connect(m_ctrDataMain, &ControlDataMain :: signal_ADC_B_DELAY_1, m_adc_Delay, &ADCDelay :: slot_proccessingADC_B_DELAY_1);
 
 
+    m_signalDataMain = new SignalDataMain;
+
+    connect(m_ctrAddresses, &ControlAddresses :: signal_setSignalSettings, m_signalDataMain, &SignalDataMain :: slot_setSignalSettings);
 }
 
 MainWindow::~MainWindow()

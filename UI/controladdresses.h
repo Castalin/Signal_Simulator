@@ -14,11 +14,13 @@ public:
     explicit ControlAddresses(QWidget *parent = nullptr);
 
 signals:
-    void signal_setControlSettings(const QString &address, const int &sendPort);
+    void signal_setControlSettings(const QString &address, const int &dataPort);
     void signal_startControlThread(const QString &address, const int &receiverPort);
     void signal_stopControlThread();
-
-    //void signal_setSignalSettings(const QHostAddress &address, const int &sendPort);
+    // signals for signal data address
+    void signal_setSignalSettings(const QString &address, const int &dataPort);
+    //void signal_startSignslThread(const QString &address, const int &receiverPort);
+    //void signal_stopSignalThread();
 
 private:
     QLineEdit *w_PCAddress;
@@ -45,6 +47,11 @@ private slots:
     void slot_setControlSettings();
     void slot_startControlThread();
     void slot_stopControlThread();
+
+    void slot_setSignalSettings();
+  // void slot_startSignalThread();
+  // void slot_stopSignalThread();
+
 
 
 };
