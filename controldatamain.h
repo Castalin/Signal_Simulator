@@ -1,23 +1,16 @@
 #ifndef CONTROLDATAMAIN_H
 #define CONTROLDATAMAIN_H
 
-#include <QObject>
-#include <QUdpSocket>
-#include <settingsreceiver.h>
+#include <a_controller.h>
 
-class ControlDataMain : public QObject
+class ControlDataMain : public a_Controller
 {
     Q_OBJECT
 public:
-    explicit ControlDataMain(QObject *parent = nullptr);
+    ControlDataMain();
 
 
 private:
-    QUdpSocket *m_sendingSocket;
-    SettingsReceiver *m_receiveSocket;
-    QByteArray *m_condition;
-    QHostAddress *m_hostAddress;
-    int m_hostPort;
 
     enum struct GreenBoardAddressBytes
     {
@@ -60,12 +53,7 @@ signals:
 
 
 public slots:
-    void slot_setControlSettings(const QString &address, const int &port);
     void slot_processingAddress(const QByteArray receivedMessage);
-    void slot_sendCondition();
-    void slot_startControlThread(const QString &address, const int &port);
-    void slot_stopControlThread();
-
 
 };
 

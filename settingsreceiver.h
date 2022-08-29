@@ -10,7 +10,7 @@ class SettingsReceiver : public QThread
 {
     Q_OBJECT
 public:
-    explicit SettingsReceiver(QObject *parent = nullptr);
+    explicit SettingsReceiver(int validLength, QObject *parent = nullptr);
 
 private:
     QMutex *m_mutex;
@@ -21,6 +21,7 @@ private:
     int m_port;
     void run() override;
     bool isWorking();
+    int m_validLength;
 
 public slots:
     void slot_startThread(const QString &address, const int &port);

@@ -1,12 +1,13 @@
 #include "settingsreceiver.h"
 #include <QNetworkDatagram>
 
-SettingsReceiver::SettingsReceiver(QObject *parent)
+
+SettingsReceiver::SettingsReceiver(int validLength, QObject *parent)
     : QThread{parent}
 {
+    m_validLength = validLength;
     m_mutex = new QMutex;
 }
-
 
 bool SettingsReceiver::isWorking()
 {
@@ -54,7 +55,7 @@ void SettingsReceiver::run()
         if (m_socket->state() == QUdpSocket :: BoundState)
         {
             receivedMessage = m_socket->receiveDatagram().data();
-            if (receivedMessage.size() == 2 && (static_cast<quint8>(receivedMessage[0]) < 0x0C))
+            if (receivedMessage.size() == m_validLength)
             {
                 emit signal_messageReceived(receivedMessage);
             }

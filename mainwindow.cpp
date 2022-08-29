@@ -31,9 +31,9 @@ MainWindow::MainWindow(QWidget *parent)
     m_ctrDataMain = new ControlDataMain;
 
     // connects controlAdresses object and receiving/bindings slots
-    connect(m_ctrAddresses, &ControlAddresses :: signal_setControlSettings, m_ctrDataMain, &ControlDataMain :: slot_setControlSettings);
-    connect(m_ctrAddresses, &ControlAddresses :: signal_startControlThread, m_ctrDataMain, &ControlDataMain :: slot_startControlThread);
-    connect(m_ctrAddresses, &ControlAddresses :: signal_stopControlThread, m_ctrDataMain, &ControlDataMain :: slot_stopControlThread);
+    connect(m_ctrAddresses, &ControlAddresses :: signal_setControlSettings, m_ctrDataMain, &ControlDataMain :: slot_setAddressSettings);
+    connect(m_ctrAddresses, &ControlAddresses :: signal_startControlThread, m_ctrDataMain, &ControlDataMain :: slot_startThread);
+    connect(m_ctrAddresses, &ControlAddresses :: signal_stopControlThread, m_ctrDataMain, &ControlDataMain :: slot_stopThread);
 
 
     // connects incoming data with UI
@@ -49,7 +49,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     m_signalDataMain = new SignalDataMain;
 
-    connect(m_ctrAddresses, &ControlAddresses :: signal_setSignalSettings, m_signalDataMain, &SignalDataMain :: slot_setSignalSettings);
+    connect(m_ctrAddresses, &ControlAddresses :: signal_setSignalSettings, m_signalDataMain, &SignalDataMain :: slot_setAddressSettings);
 }
 
 MainWindow::~MainWindow()
