@@ -21,25 +21,25 @@ signals:
     //void signal_setSignalSettings(const QHostAddress &address, const int &sendPort);
 
 private:
-    QLineEdit *w_signalAddress;
-    QSpinBox *w_signalSendPort;
-    QSpinBox *w_signalReceivePort;
+    QLineEdit *w_PCAddress;
+    QSpinBox *w_PCDataPort;
+    QSpinBox *w_PCControlPort;
 
-    QLineEdit *w_controlAddress;
-    QSpinBox *w_controlSendPort;
-    QSpinBox *w_controlReceivePort;
+    QLineEdit *w_BoardAddress;
+    QSpinBox *w_BoardDataPort;
+    QSpinBox *w_BoardControlPort;
 
     QPushButton *w_setSettings;
     QPushButton *w_startReceiving;
     QPushButton *w_stopReceiving;
 
 
-    QHostAddress getControlAddress();
-    int getControlSendPort();
-    int getControlReceivePort();
-    QHostAddress getSignalAddress();
-    int getSignalSendPort();
-    int getSignalReceivePort();
+    QHostAddress getBoardAddress();
+    int getBoardDataPort();
+    int getBoardControlPort();
+    QHostAddress getPCAddress();
+    int getPCDataPort();
+    int getPCControlPort();
 
 private slots:
     void slot_setControlSettings();

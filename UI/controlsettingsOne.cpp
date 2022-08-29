@@ -14,7 +14,7 @@ ControlSettingsOne::ControlSettingsOne(QWidget *parent)
     w_clockSourceBox->addItems(QStringList{"Internal", "External"});
 
     w_sampleFrequencyBox = new QComboBox;
-    w_sampleFrequencyBox->addItems(QStringList{"80 MHz", "40 MHz", "20 MHz", "20 MHz", "5 MHz", "2500 kHz", "1125 kHz", "562.5 kHz"});
+    w_sampleFrequencyBox->addItems(QStringList{"80 MHz", "40 MHz", "20 MHz", "10 MHz", "5 MHz", "2500 kHz", "1125 kHz", "562.5 kHz"});
 
     w_trigFrequencyBox = new QComboBox;
     w_trigFrequencyBox->addItems(QStringList{"1 kHz", "2 kHz"});
@@ -61,7 +61,7 @@ ControlSettingsOne::ControlSettingsOne(QWidget *parent)
     w_sampleFrequencyBox->setCurrentIndex(static_cast<quint8>(m_decimation));
     m_frequencyScale = IntenernalStartSourceScale :: Frequency_1kHz;
     w_trigFrequencyBox->setCurrentIndex(static_cast<quint8>(m_frequencyScale));
-    m_startSignalSource = StartSignalSource :: INTERNAL;
+    m_startSignalSource = StartSignalSource :: EXTERNAL;
     w_trigSrcBox->setCurrentIndex(static_cast<quint8>(m_startSignalSource));
 
 }
@@ -87,15 +87,15 @@ void ControlSettingsOne::slot_processingIncomingDataControl(const unsigned char 
         w_sampleFrequencyBox->setCurrentIndex(static_cast<quint8>(m_decimation));
     }
 
-    if (((info & 0b01000000) << 2) != static_cast<quint8>(m_frequencyScale))
+    if (((info & 0b01000000) >> 6) != static_cast<quint8>(m_frequencyScale))
     {
-        m_frequencyScale = static_cast<IntenernalStartSourceScale>((info & 0b01000000) << 2);
+        m_frequencyScale = static_cast<IntenernalStartSourceScale>((info & 0b01000000) >> 6);
         w_trigFrequencyBox->setCurrentIndex(static_cast<quint8>(m_frequencyScale));
     }
 
-    if (((info & 0b10000000) << 1) != static_cast<quint8>(m_startSignalSource))
+    if (((info & 0b10000000) >> 7) != static_cast<quint8>(m_startSignalSource))
     {
-        m_startSignalSource = static_cast<StartSignalSource>((info & 0b10000000) << 1);
+        m_startSignalSource = static_cast<StartSignalSource>((info & 0b10000000) >> 7);
         w_trigSrcBox->setCurrentIndex(static_cast<quint8>(m_startSignalSource));
     }
      // the second bit is used for test ADC
@@ -104,7 +104,7 @@ void ControlSettingsOne::slot_processingIncomingDataControl(const unsigned char 
 
 void ControlSettingsOne::slot_processingIncomingDataLED(const unsigned char &info)
 {
-    if ((info & 0b00000001) == true)
+    if ((info & 0b00000001) == false)
     {
         w_testLED->setCheckState(Qt :: Checked);
         m_LED = true;

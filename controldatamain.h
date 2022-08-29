@@ -17,7 +17,7 @@ private:
     SettingsReceiver *m_receiveSocket;
     QByteArray *m_condition;
     QHostAddress *m_hostAddress;
-    int *m_hostPort;
+    int m_hostPort;
 
     enum struct GreenBoardAddressBytes
     {

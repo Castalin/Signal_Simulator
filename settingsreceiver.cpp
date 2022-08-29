@@ -59,7 +59,7 @@ void SettingsReceiver::run()
                 emit signal_messageReceived(receivedMessage);
             }
         }
-        usleep(10);
+        usleep(5);
     }
 
     delete m_socket;

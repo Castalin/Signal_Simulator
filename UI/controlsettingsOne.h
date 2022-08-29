@@ -48,8 +48,8 @@ private:
 
     enum struct IntenernalStartSourceScale
     {
-        Frequency_1kHz                  =   0b00,
-        Frequency_2kHz                  =   0b01
+        Frequency_1kHz                  =   0b0,
+        Frequency_2kHz                  =   0b1
     };
 
     enum struct StartSignalSource
