@@ -13,11 +13,11 @@ public:
 signals:
 
 private:
-    quint8 m_angle[2];
-    quint8 m_velocityOfAngle[2];
+    char m_angle[2];
+    char m_velocityOfAngle[2];
 
     enum
-    {
+    {    // firstly
         ANGLE_BYTE_0                = 0,
         ANGLE_BYTE_1                = 1,
         ANGLE_VELOC_BYTE_0          = 2,

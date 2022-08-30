@@ -203,7 +203,7 @@ void SignalsUI::slot_signalSendData()
     emit signal_sendData(m_counter);
     if (m_counter == 8)
     {
-        m_counter = 1;
+        m_counter = 0;
         m_internalTimer->stop();
     }
 }
