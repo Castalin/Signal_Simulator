@@ -11,6 +11,7 @@ class SettingsReceiver : public QThread
     Q_OBJECT
 public:
     explicit SettingsReceiver(int validLength, QObject *parent = nullptr);
+    ~SettingsReceiver();
 
 private:
     QMutex *m_mutex;

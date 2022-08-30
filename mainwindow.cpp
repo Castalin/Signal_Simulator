@@ -53,7 +53,12 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(m_ctrAngle, &ControlAngle :: signal_angleValueChanged, m_signalDataMain, &SignalDataMain :: slot_angleChanged);
     connect(m_ctrAngle, &ControlAngle :: signal_velocityOfAngleChanged, m_signalDataMain, &SignalDataMain :: slot_velocityOfAngleChanged);
+
+    connect(m_ctrSettings_1, &ControlSettingsOne :: signal_RxEnableValueChanged, m_signalUI, &SignalsUI :: slot_RxEnableValueChanged);
+
+    connect(m_signalUI, &SignalsUI :: signal_sendData, m_signalDataMain, &SignalDataMain :: slot_prepareData);
 }
+
 
 MainWindow::~MainWindow()
 {

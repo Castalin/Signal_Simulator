@@ -68,7 +68,7 @@ private:
 
 
 signals:
-    void signal_RxEnableValueChanged(const ControlSettingsOne :: RxEnable &m_rxEnable);
+    void signal_RxEnableValueChanged(const unsigned char &sendingData);
 
 public slots:
     void slot_processingIncomingDataControl(const unsigned char &info);

@@ -14,6 +14,7 @@ public:
     explicit SignalsUI(QWidget *parent = nullptr);
 
 signals:
+    void signal_sendData(const int &num);
 
 private:
     QComboBox *w_signalsBox;
@@ -30,12 +31,20 @@ private:
     QSpinBox *w_durationSignalNumModul;
 
     QPushButton *w_setSignalSettings;
+    QTimer *m_externalTimer;
+    QTimer *m_internalTimer;
+    int m_counter;
 
 
-public slots:
+
+private slots:
     void slot_checkedModul(int state);
     void slot_signalChanged(int currentIndex);
     void slot_signalModulChanged(int currentIndex);
+
+public slots:
+    void slot_signalSendData();
+    void slot_RxEnableValueChanged(const unsigned char &rxEnable);
 
 
 

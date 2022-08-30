@@ -14,13 +14,13 @@ public:
     explicit ControlAngle(QWidget *parent = nullptr);
 
 signals:
-    void signal_angleValueChanged(const double &value);
+    void signal_angleValueChanged(const int &value);
     void signal_velocityOfAngleChanged(const double &value);
 
 private:
     QDial *w_dialForAngle;
     QLabel *w_angleLabel;
-    QTimer *w_timer;
+    QTimer *m_timer;
     QPushButton *w_startChangeAngle;
     QPushButton *w_stopChangeAngle;
     QDoubleSpinBox *w_angleSpeedBox;

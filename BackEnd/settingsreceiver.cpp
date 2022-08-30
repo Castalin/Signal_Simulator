@@ -9,6 +9,7 @@ SettingsReceiver::SettingsReceiver(int validLength, QObject *parent)
     m_mutex = new QMutex;
 }
 
+
 bool SettingsReceiver::isWorking()
 {
     bool workingThreadEnable;
@@ -69,3 +70,11 @@ void SettingsReceiver::run()
     m_mutex->unlock();
 }
 
+SettingsReceiver::~SettingsReceiver()
+{
+    m_mutex->lock();
+    m_workingThreadEnabled = false;
+    m_mutex->unlock();
+
+    wait();
+}
