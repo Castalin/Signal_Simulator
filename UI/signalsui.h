@@ -31,9 +31,6 @@ private:
     QSpinBox *w_durationSignalNumModul;
 
     QPushButton *w_setSignalSettings;
-    QTimer *m_externalTimer;
-    QTimer *m_internalTimer;
-    int m_counter;
 
 
 
@@ -42,9 +39,6 @@ private slots:
     void slot_signalChanged(int currentIndex);
     void slot_signalModulChanged(int currentIndex);
 
-public slots:
-    void slot_signalSendData();
-    void slot_RxEnableValueChanged(const unsigned char &rxEnable);
 
 
 

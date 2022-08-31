@@ -10,8 +10,10 @@ ADCDelay::ADCDelay(QWidget *parent)
 {
     w_spinDelay_1 = new QSpinBox;
     w_spinDelay_1->setMinimum(0);
+    w_spinDelay_1->setMaximum(10e5);
     w_spinDelay_2 = new QSpinBox;
     w_spinDelay_2->setMinimum(0);
+    w_spinDelay_2->setMaximum(10e5);
     w_spinDelay_2->setEnabled(false);
 
 
@@ -30,7 +32,7 @@ ADCDelay::ADCDelay(QWidget *parent)
     this->setLayout(ADC_DelayForm);
 
     m_delay[0] = 0x0000;
-    m_delay[0] = 0x0000;
+    m_delay[1] = 0x0000;
     m_firstByteReceived_A = false;
     m_firstByteReceived_B = false;
 

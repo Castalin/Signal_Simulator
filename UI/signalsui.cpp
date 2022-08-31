@@ -13,7 +13,7 @@ SignalsUI::SignalsUI(QWidget *parent)
     w_signalsBox->addItems(QStringList{"None", "Sin", "Rect"});
 
     w_frequanceBox = new QComboBox;
-    w_frequanceBox->addItems(QStringList{"Hz", "kHz", "MHz", "GHz"});
+    w_frequanceBox->addItems(QStringList{"Hz", "kHz", "MHz"});
     w_frequanceBox->setEnabled(false);
 
     w_frequanceNum = new QSpinBox;
@@ -40,7 +40,7 @@ SignalsUI::SignalsUI(QWidget *parent)
     w_signalsBoxModul->setEnabled(false);
 
     w_frequanceBoxModul = new QComboBox;
-    w_frequanceBoxModul->addItems(QStringList{"Hz", "kHz", "MHz", "GHz"});
+    w_frequanceBoxModul->addItems(QStringList{"Hz", "kHz", "MHz"});
     w_frequanceBoxModul->setEnabled(false);
 
     w_frequanceNumModul = new QSpinBox;
@@ -104,14 +104,7 @@ SignalsUI::SignalsUI(QWidget *parent)
     connect(w_signalsBox, QOverload<int> :: of(&QComboBox :: currentIndexChanged), this, &SignalsUI :: slot_signalChanged);
     connect(w_signalsBoxModul, QOverload<int> :: of(&QComboBox :: currentIndexChanged), this, &SignalsUI :: slot_signalModulChanged);
 
-    // ui ends here
 
-    m_externalTimer = new QTimer(this);
-    m_internalTimer = new QTimer(this);
-    m_counter = 0;
-
-    connect(m_externalTimer, &QTimer :: timeout, this, [this]()->void{m_internalTimer->start(2);});
-    connect(m_internalTimer, &QTimer :: timeout, this, &SignalsUI :: slot_signalSendData);
 
 }
 
@@ -196,28 +189,4 @@ void SignalsUI :: slot_signalModulChanged(int currentIndex)
     };
 }
 
-
-void SignalsUI::slot_signalSendData()
-{
-    ++m_counter;
-    emit signal_sendData(m_counter);
-    if (m_counter == 8)
-    {
-        m_counter = 0;
-        m_internalTimer->stop();
-    }
-}
-
-void SignalsUI::slot_RxEnableValueChanged(const unsigned char &rxEnable)
-{
-    if (rxEnable == 0x00)
-    {
-        m_externalTimer->stop();
-    }
-    else
-    {
-        m_externalTimer->start(20);
-        m_internalTimer->start(1);
-    }
-}
 

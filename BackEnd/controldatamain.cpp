@@ -1,8 +1,12 @@
 #include "BackEnd/controldatamain.h"
 
-ControlDataMain::ControlDataMain()
-    : a_Controller(2)
+ControlDataMain::ControlDataMain(QObject *parent)
+    : QObject{parent}
 {
+    m_Message = new QByteArray;
+    m_ReceiveSocket = new SettingsReceiver(2);    // 2 - number of valid packages
+    m_SendingSocket = new SettingsSender;
+
     for (int i{0}; i < 8; ++i)
     {
         m_Message->append(0xAA);
@@ -15,7 +19,7 @@ ControlDataMain::ControlDataMain()
         m_Message->append(static_cast<quint8>(0));
     }
 
-    connect(m_receiveSocket, &SettingsReceiver :: signal_messageReceived, this, &ControlDataMain :: slot_processingAddress);
+    connect(m_ReceiveSocket, &SettingsReceiver :: signal_messageReceived, this, &ControlDataMain :: slot_processingAddress);
 
 }
 
@@ -34,42 +38,47 @@ void ControlDataMain::slot_processingAddress(const QByteArray receivedMessage)
 
         case GreenBoardAddressBytes::CONTROL:
         {
-            m_Message->replace(17 + 2 * static_cast<int>(GreenBoardAddressBytes::CONTROL), 1, QByteArray(1, receivedMessage.at(1)));
+            memcpy(m_Message->data() + 17 + 2 * static_cast<int>(GreenBoardAddressBytes::CONTROL), receivedMessage.data() + 1, 1);
+            //m_Message->replace(17 + 2 * static_cast<int>(GreenBoardAddressBytes::CONTROL), 1, QByteArray(1, receivedMessage.at(1)));
             emit signal_controlSettingsOne(receivedMessage.at(1));
             break;
         }
 
         case GreenBoardAddressBytes::ADC_A_DELAY_0:
         {
-            m_Message->replace((17 + 2 * static_cast<quint16>(GreenBoardAddressBytes::ADC_A_DELAY_0)), 1, QByteArray(1, receivedMessage.at(1)));
+            memcpy(m_Message->data() + 17 + 2 * static_cast<int>(GreenBoardAddressBytes::ADC_A_DELAY_0), receivedMessage.data() + 1, 1);
+            //m_Message->replace((17 + 2 * static_cast<quint16>(GreenBoardAddressBytes::ADC_A_DELAY_0)), 1, QByteArray(1, receivedMessage.at(1)));
             emit signal_ADC_A_DELAY_0(receivedMessage[1]);
             break;
         }
 
         case GreenBoardAddressBytes::ADC_A_DELAY_1:
         {
-            m_Message->replace((17 + 2 * static_cast<quint16>(GreenBoardAddressBytes::ADC_A_DELAY_1)), 1, QByteArray(1, receivedMessage.at(1)));
+            memcpy(m_Message->data() + 17 + 2 * static_cast<int>(GreenBoardAddressBytes::ADC_A_DELAY_1), receivedMessage.data() + 1, 1);
+            //m_Message->replace((17 + 2 * static_cast<quint16>(GreenBoardAddressBytes::ADC_A_DELAY_1)), 1, QByteArray(1, receivedMessage.at(1)));
             emit signal_ADC_A_DELAY_1(receivedMessage[1]);
             break;
         }
 
         case GreenBoardAddressBytes::ADC_B_DELAY_0:
         {
-            m_Message->replace((17 + 2 * static_cast<quint16>(GreenBoardAddressBytes::ADC_B_DELAY_0)), 1, QByteArray(1, receivedMessage.at(1)));
+            memcpy(m_Message->data() + 17 + 2 * static_cast<int>(GreenBoardAddressBytes::ADC_B_DELAY_0), receivedMessage.data() + 1, 1);
+            //m_Message->replace((17 + 2 * static_cast<quint16>(GreenBoardAddressBytes::ADC_B_DELAY_0)), 1, QByteArray(1, receivedMessage.at(1)));
             emit signal_ADC_B_DELAY_0(receivedMessage[1]);
             break;
         }
 
         case GreenBoardAddressBytes::ADC_B_DELAY_1:
         {
-
-            m_Message->replace((17 + 2 * static_cast<quint16>(GreenBoardAddressBytes::ADC_B_DELAY_1)), 1, QByteArray(1, receivedMessage.at(1)));
+            memcpy(m_Message->data() + 17 + 2 * static_cast<int>(GreenBoardAddressBytes::ADC_B_DELAY_1), receivedMessage.data() + 1, 1);
+            //m_Message->replace((17 + 2 * static_cast<quint16>(GreenBoardAddressBytes::ADC_B_DELAY_1)), 1, QByteArray(1, receivedMessage.at(1)));
             emit signal_ADC_B_DELAY_1(receivedMessage[1]);
             break;
         }
 
         case GreenBoardAddressBytes::ADC_CONTROLWORD_0:
         {
+            //memcpy(m_Message->data() + 17 + 2 * static_cast<int>(GreenBoardAddressBytes::ADC_CONTROLWORD_0), receivedMessage.data() + 1, 1);
             //m_Message->replace((17 + 2 * static_cast<quint16>(GreenBoardAddressBytes::ADC_CONTROLWORD_0)), 1, QByteArray(1, receivedMessage.at(1)));
             //emit signal_controlSettingsOne(receivedMessage[1]);
             break;
@@ -77,6 +86,7 @@ void ControlDataMain::slot_processingAddress(const QByteArray receivedMessage)
 
         case GreenBoardAddressBytes::ADC_CONTROLWORD_1:
         {
+            //memcpy(m_Message->data() + 17 + 2 * static_cast<int>(GreenBoardAddressBytes::ADC_CONTROLWORD_1), receivedMessage.data() + 1, 1);
             //m_Message->replace((17 + 2 * static_cast<quint16>(GreenBoardAddressBytes::ADC_CONTROLWORD_1)), 1, QByteArray(1, receivedMessage.at(1)));
             //emit signal_controlSettingsOne(receivedMessage[1]);
             break;
@@ -84,20 +94,23 @@ void ControlDataMain::slot_processingAddress(const QByteArray receivedMessage)
 
         case GreenBoardAddressBytes::CONTROL2:
         {
-            m_Message->replace((17 + 2 * static_cast<quint16>(GreenBoardAddressBytes::CONTROL2)), 1, QByteArray(1, receivedMessage.at(1)));
+            memcpy(m_Message->data() + 17 + 2 * static_cast<int>(GreenBoardAddressBytes::CONTROL2), receivedMessage.data() + 1, 1);
+            //m_Message->replace((17 + 2 * static_cast<quint16>(GreenBoardAddressBytes::CONTROL2)), 1, QByteArray(1, receivedMessage.at(1)));
             emit signal_controlSettingsTwo(receivedMessage[1]);
             break;
         }
 
         case GreenBoardAddressBytes::LED:
         {
-            m_Message->replace((17 + 2 * static_cast<quint16>(GreenBoardAddressBytes::LED)), 1, QByteArray(1, receivedMessage.at(1)));
+            memcpy(m_Message->data() + 17 + 2 * static_cast<int>(GreenBoardAddressBytes::LED), receivedMessage.data() + 1, 1);
+            //m_Message->replace((17 + 2 * static_cast<quint16>(GreenBoardAddressBytes::LED)), 1, QByteArray(1, receivedMessage.at(1)));
             emit signal_LED(receivedMessage[1]);
             break;
         }
 
         case GreenBoardAddressBytes::SPI_BYTE_0:
         {
+            //memcpy(m_Message->data() + 17 + 2 * static_cast<int>(GreenBoardAddressBytes::SPI_BYTE_0), receivedMessage.data() + 1, 1);
             //m_Message->replace((17 + 2 * static_cast<quint16>(GreenBoardAddressBytes::SPI_BYTE_0)), 1, QByteArray(1, receivedMessage.at(1)));
             //emit signal_controlSettingsOne(receivedMessage[1]);
             break;
@@ -105,6 +118,7 @@ void ControlDataMain::slot_processingAddress(const QByteArray receivedMessage)
 
         case GreenBoardAddressBytes::SPI_BYTE_1:
         {
+            //memcpy(m_Message->data() + 17 + 2 * static_cast<int>(GreenBoardAddressBytes::SPI_BYTE_1), receivedMessage.data() + 1, 1);
             //m_Message->replace((17 + 2 * static_cast<quint16>(GreenBoardAddressBytes::SPI_BYTE_1)), 1, QByteArray(1, receivedMessage.at(1)));
             //emit signal_controlSettingsOne(receivedMessage[1]);
             break;
@@ -112,10 +126,27 @@ void ControlDataMain::slot_processingAddress(const QByteArray receivedMessage)
 
         case GreenBoardAddressBytes::SPI_BYTE_2:
         {
+            //memcpy(m_Message->data() + 17 + 2 * static_cast<int>(GreenBoardAddressBytes::SPI_BYTE_2), receivedMessage.data() + 1, 1);
             //m_Message->replace((17 + 2 * static_cast<quint16>(GreenBoardAddressBytes::SPI_BYTE_2)), 1, QByteArray(1, receivedMessage.at(1)));
             //emit signal_controlSettingsOne(receivedMessage[1]);
             break;
         }
     }
-    slot_sendMessage();
+    m_SendingSocket->sendMessage(m_Message);
 }
+
+void ControlDataMain::slot_setAddressSettings(const QString &address, const int &port)
+{
+    m_SendingSocket->setAddressSettings(address, port);
+}
+
+void ControlDataMain::slot_startThread(const QString &address, const int &port)
+{
+    m_ReceiveSocket->slot_startThread(address, port);
+}
+
+void ControlDataMain::slot_stopThread()
+{
+    m_ReceiveSocket->slot_stopThread();
+}
+

@@ -10,9 +10,9 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    BackEnd/a_controller.cpp \
     BackEnd/controldatamain.cpp \
     BackEnd/settingsreceiver.cpp \
+    BackEnd/settingssender.cpp \
     BackEnd/signaldatamain.cpp \
     UI/adc_delay.cpp \
     UI/controladdresses.cpp \
@@ -24,9 +24,9 @@ SOURCES += \
     mainwindow.cpp \
 
 HEADERS += \
-    BackEnd/a_controller.h \
     BackEnd/controldatamain.h \
     BackEnd/settingsreceiver.h \
+    BackEnd/settingssender.h \
     BackEnd/signaldatamain.h \
     UI/adc_delay.h \
     UI/controladdresses.h \

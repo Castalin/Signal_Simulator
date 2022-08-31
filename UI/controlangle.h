@@ -14,8 +14,7 @@ public:
     explicit ControlAngle(QWidget *parent = nullptr);
 
 signals:
-    void signal_angleValueChanged(const int &value);
-    void signal_velocityOfAngleChanged(const double &value);
+    void signal_angleValueChanged(const double &value);
 
 private:
     QDial *w_dialForAngle;

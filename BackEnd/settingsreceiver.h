@@ -29,9 +29,6 @@ public slots:
     void slot_stopThread();
 
 
-
-
-
 signals:
     void signal_messageReceived(const QByteArray message);
 

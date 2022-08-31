@@ -19,8 +19,8 @@ ControlAngle::ControlAngle(QWidget *parent)
     w_stopChangeAngle = new QPushButton(QString("Stop"));
     w_stopChangeAngle->setEnabled(false);
     w_angleSpeedBox = new QDoubleSpinBox;
-    w_angleSpeedBox->setMinimum(-60.0);
-    w_angleSpeedBox->setMaximum(60.0);
+    w_angleSpeedBox->setMinimum(-360.0);
+    w_angleSpeedBox->setMaximum(360.0);
 
     QGridLayout *ctrAngleGrid = new QGridLayout;
     QGroupBox *angleBox = new QGroupBox(QString("Angle Control"));
@@ -61,8 +61,7 @@ void ControlAngle::slot_startBtn()
     w_dialForAngle->setEnabled(false);
     w_angleSpeedBox->setEnabled(false);
     w_stopChangeAngle->setEnabled(true);
-    m_timer->start(100);
-    emit signal_velocityOfAngleChanged(w_angleSpeedBox->value());
+    m_timer->start(1);
 
 }
 
@@ -73,7 +72,6 @@ void ControlAngle::slot_stopBtn()
     w_angleSpeedBox->setEnabled(true);
     w_stopChangeAngle->setEnabled(false);
     m_timer->stop();
-    emit signal_velocityOfAngleChanged(0.0);
 }
 
 void ControlAngle :: timeOut()

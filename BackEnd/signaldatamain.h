@@ -1,20 +1,20 @@
 #ifndef SIGNALDATAMAIN_H
 #define SIGNALDATAMAIN_H
 
-#include "a_controller.h"
+#include <QObject>
 
-
-class SignalDataMain : public a_Controller
+class SignalDataMain : public QObject
 {
     Q_OBJECT
 public:
-    SignalDataMain();
+    explicit SignalDataMain(QObject *parent = nullptr);
 
 signals:
 
 private:
     char m_angle[2];
     char m_velocityOfAngle[2];
+    QByteArray *m_Message;
 
     enum
     {    // firstly
@@ -32,8 +32,7 @@ private:
     };
 
 public slots:
-    void slot_angleChanged(const int &value);
-    void slot_velocityOfAngleChanged(const double &value);
+    void slot_angleChanged(const double &value);
     void slot_prepareData(const int &num);
 
 };

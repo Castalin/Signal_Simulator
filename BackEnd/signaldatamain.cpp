@@ -1,8 +1,10 @@
 #include "BackEnd/signaldatamain.h"
 
 
-SignalDataMain::SignalDataMain()
+SignalDataMain::SignalDataMain(QObject *parent)
+    : QObject{parent}
 {
+    m_Message = new QByteArray;
     m_Message->append(1032, 0x00);
     m_angle[0] = 0;
     m_angle[1] = 0;
@@ -11,30 +13,15 @@ SignalDataMain::SignalDataMain()
 
 }
 
-void SignalDataMain::slot_angleChanged(const int &value)
+void SignalDataMain::slot_angleChanged(const double &value)
 {
-    m_angle[1] = static_cast<quint8>(value);
+    double var = value / 360 * 32768.0;
+    m_angle[0] = static_cast<quint16>(var) & 0x00FF;
+    m_angle[1] = static_cast<quint16>(var) >> 8;
     m_Message->replace(ANGLE_BYTE_1, 1, QByteArray(1, m_angle[1]));
+    m_Message->replace(ANGLE_BYTE_0, 1, QByteArray(1, m_angle[0]));
 }
 
-void SignalDataMain::slot_velocityOfAngleChanged(const double &value)
-{
-    if (value > 0)
-    {
-        m_velocityOfAngle[0] = static_cast<quint16>(360 / value * 10e6) & 0x00FF;
-        m_velocityOfAngle[1] = static_cast<quint16>(360 / value * 10e6) >> 8;
-        m_Message->replace(ANGLE_VELOC_BYTE_1, 1, QByteArray(1, m_velocityOfAngle[1]));
-        m_Message->replace(ANGLE_VELOC_BYTE_0, 1, QByteArray(1, m_velocityOfAngle[0]));
-    }
-    else
-    {
-        m_velocityOfAngle[0] = static_cast<quint16>(360 / -value * 10e6) & 0x00FF;
-        m_velocityOfAngle[1] = static_cast<quint16>(360 / -value * 10e6) >> 8;
-        m_Message->replace(ANGLE_VELOC_BYTE_1, 1, QByteArray(1, m_velocityOfAngle[1]));
-        m_Message->replace(ANGLE_VELOC_BYTE_0, 1, QByteArray(1, m_velocityOfAngle[0]));
-    }
-
-}
 
 void SignalDataMain::slot_prepareData(const int &num)
 {
@@ -50,7 +37,6 @@ void SignalDataMain::slot_prepareData(const int &num)
         m_Message->replace(HEADER_BYTE_1, 1, QByteArray(1, 0x00));
         m_Message->replace(HEADER_BYTE_0, 1, QByteArray(1, 0x00));
     }
-    slot_sendMessage();
 }
 
 
