@@ -47,14 +47,12 @@ MainWindow::MainWindow(QWidget *parent)
     connect(m_ctrDataMain, &ControlDataMain :: signal_ADC_B_DELAY_1, m_adc_Delay, &ADCDelay :: slot_proccessingADC_B_DELAY_1);
 
 
-   // m_signalDataMain = new SignalDataMain;
+    m_signalDataMain = new SignalDataMain;
 
-  //  connect(m_ctrAddresses, &ControlAddresses :: signal_setSignalSettings, m_signalDataMain, &SignalDataMain :: slot_setAddressSettings);
-
-  //  connect(m_ctrAngle, &ControlAngle :: signal_angleValueChanged, m_signalDataMain, &SignalDataMain :: slot_angleChanged);
-
-    //connect(m_ctrSettings_1, &ControlSettingsOne :: signal_RxEnableValueChanged, m_signalUI, &SignalsUI :: slot_RxEnableValueChanged);
-
+    connect(m_ctrAddresses, &ControlAddresses :: signal_setSignalSettings, m_signalDataMain, &SignalDataMain :: slot_setAddressSettings);
+    connect(m_ctrAngle, &ControlAngle :: signal_angleValueChanged, m_signalDataMain, &SignalDataMain :: slot_angleChanged);
+    connect(m_ctrSettings_1, &ControlSettingsOne :: signal_RxEnableValueChanged, m_signalDataMain, &SignalDataMain :: slot_RxEnableValueChanged);
+    connect(m_ctrSettings_2, &ControlSettingsTwo :: signal_startSourceScale, m_signalDataMain, &SignalDataMain :: slot_startSourceScale);
 
 }
 

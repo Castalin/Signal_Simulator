@@ -1,11 +1,10 @@
-#include "settingssender.h"
+#include "BackEnd/settingssender.h"
 
 SettingsSender::SettingsSender()
 {
     m_hostPort = 0;
     m_sendingSocket = new QUdpSocket;
     m_hostAddress = new QHostAddress;
-
 }
 
 void SettingsSender::setAddressSettings(const QString &address, const int &port)

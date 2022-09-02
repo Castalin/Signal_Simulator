@@ -1,7 +1,6 @@
 #ifndef SETTINGSSENDER_H
 #define SETTINGSSENDER_H
 
-#include <QObject>
 #include <QUdpSocket>
 
 class SettingsSender
@@ -9,14 +8,13 @@ class SettingsSender
 public:
     SettingsSender();
 
-
-private:
+protected:
     QUdpSocket *m_sendingSocket;
     QHostAddress *m_hostAddress;
     int m_hostPort;
 
 public:
-    void setAddressSettings(const QString &address, const int &port);
+    virtual void setAddressSettings(const QString &address, const int &port);
     virtual void sendMessage(const QByteArray *data);
 
 };

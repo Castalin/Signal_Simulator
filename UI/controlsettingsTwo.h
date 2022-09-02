@@ -11,8 +11,6 @@ class ControlSettingsTwo : public QWidget
 public:
     explicit ControlSettingsTwo(QWidget *parent = nullptr);
 
-signals:
-
 private:
     QComboBox *w_trigFrequencyBox;
     QComboBox *w_trigOutBox;
@@ -45,6 +43,9 @@ private:
     IntenernalStartSourceScale m_frequencyScale;
     TriggerOut m_triggerOut;
     StrobeSize m_strobeSize;
+
+signals:
+    void signal_startSourceScale(const unsigned char &sentData);
 
 public slots:
     void slot_proccessingIncomingDataControl(const unsigned char &info);

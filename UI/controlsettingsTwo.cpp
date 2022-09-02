@@ -50,6 +50,7 @@ void ControlSettingsTwo::slot_proccessingIncomingDataControl(const unsigned char
 {
     if ((info & 0b00000011) != static_cast<quint8>(m_frequencyScale))
     {
+        emit signal_startSourceScale(info);
         m_frequencyScale = static_cast<IntenernalStartSourceScale>(info & 0b00000011);
         w_trigFrequencyBox->setCurrentIndex(static_cast<quint8>(m_frequencyScale));
 

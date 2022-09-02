@@ -11,6 +11,7 @@ CONFIG += c++17
 
 SOURCES += \
     BackEnd/controldatamain.cpp \
+    BackEnd/datasender.cpp \
     BackEnd/settingsreceiver.cpp \
     BackEnd/settingssender.cpp \
     BackEnd/signaldatamain.cpp \
@@ -25,6 +26,7 @@ SOURCES += \
 
 HEADERS += \
     BackEnd/controldatamain.h \
+    BackEnd/datasender.h \
     BackEnd/settingsreceiver.h \
     BackEnd/settingssender.h \
     BackEnd/signaldatamain.h \
