@@ -18,7 +18,7 @@ private:
     void run() override;
     bool isWorking();
     const QByteArray *m_ptrToData;
-    const int m_sleepArray[4]{1000 - 8, 500 - 8, 333 - 8, 250 - 8};
+    const int m_sleepArray[4]{1000 - 40, 500 - 40, 333 - 40, 250 - 40};
     int m_sleepValue;
     int m_numberOfPackage;
 
@@ -29,7 +29,7 @@ public:
     void stopThread();
     void sleepValueChanged(int i);
     void setAddressSettings(const QString &address, const int &port) override;
-    void messagePrepared(const int &numberOfPackage);
+    void messagePrepared(const int numberOfPackage);
 
 
 

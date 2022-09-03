@@ -34,7 +34,7 @@ void SignalDataMain::slot_angleChanged(const double &value)
 }
 
 
-void SignalDataMain::slot_prepareData(const int &num)
+void SignalDataMain::slot_prepareData(const int num)
 {
 
     if (num == 8)

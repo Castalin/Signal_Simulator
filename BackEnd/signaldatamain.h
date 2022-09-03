@@ -39,7 +39,7 @@ private:
 public slots:
     void slot_setAddressSettings(const QString &address, const int &port);
     void slot_angleChanged(const double &value);
-    void slot_prepareData(const int &num);
+    void slot_prepareData(const int num);
     void slot_RxEnableValueChanged(const unsigned char &sentData);
     void slot_startSourceScale(const unsigned char &info);
 

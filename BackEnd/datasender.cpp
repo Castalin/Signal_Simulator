@@ -32,7 +32,7 @@ void DataSender::run()
                 ++numPackAge;
 
             }
-            usleep(1);
+            usleep(5);
         }
 
         usleep(m_sleepValue);
@@ -80,9 +80,7 @@ void DataSender::sleepValueChanged(int i)
 {
     if (i < 4 && i >= 0)
     {
-        m_mutex->lock();
         m_sleepValue = m_sleepArray[i];
-        m_mutex->unlock();
     }
 }
 
@@ -92,7 +90,7 @@ void DataSender::setAddressSettings(const QString &address, const int &port)
     *m_hostAddress = QHostAddress(address);
 }
 
-void DataSender::messagePrepared(const int &numberOfPackage)
+void DataSender::messagePrepared(const int numberOfPackage)
 {
     m_numberOfPackage = numberOfPackage;
 }
