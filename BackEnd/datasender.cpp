@@ -6,6 +6,7 @@ DataSender::DataSender(QByteArray *ptrToData,QObject *parent)
     m_mutex = new QMutex;
     m_workingThreadEnable = false;
     m_sleepValue = m_sleepArray[0];
+    m_numberOfPackage = 1;
 
     delete m_sendingSocket;
 }
@@ -16,22 +17,26 @@ void DataSender::run()
     m_sendingSocket->abort();
     m_sendingSocket->bind(*m_hostAddress, m_hostPort);
     m_sendingSocket->open(QUdpSocket :: ReadWrite);
-    int numPackAge{0};
+    int numPackAge{1};
 
     while (m_workingThreadEnable == true)
     {
-        do
+        while (numPackAge != 9)
         {
-            ++numPackAge;
-            sendMessage(m_ptrToData);
-            m_sentMessages++;
-            emit signal_MessageSended(numPackAge);
-            usleep(2);
+            if (m_numberOfPackage == numPackAge)
+            {
+
+                sendMessage(m_ptrToData);
+                ++m_sentMessages;
+                emit signal_MessageSended(numPackAge);
+                ++numPackAge;
+
+            }
+            usleep(1);
         }
-        while (numPackAge != 8);
 
         usleep(m_sleepValue);
-        numPackAge = 0;
+        numPackAge = 1;
     }
     m_mutex->lock();
     m_workingThreadEnable = false;
@@ -56,6 +61,7 @@ void DataSender::startThread()
         m_mutex->lock();
         m_workingThreadEnable = true;
         m_mutex->unlock();
+        m_numberOfPackage = 1;
         start();
     }
 }
@@ -84,5 +90,10 @@ void DataSender::setAddressSettings(const QString &address, const int &port)
 {
     m_hostPort = port;
     *m_hostAddress = QHostAddress(address);
+}
+
+void DataSender::messagePrepared(const int &numberOfPackage)
+{
+    m_numberOfPackage = numberOfPackage;
 }
 

@@ -39,17 +39,20 @@ void SignalDataMain::slot_prepareData(const int &num)
 
     if (num == 8)
     {
-        m_Message->replace(HEADER_BYTE_1, 1, QByteArray(1, 0x55));
-        m_Message->replace(HEADER_BYTE_0, 1, QByteArray(1, 0xAA));
-        m_Message->replace(PACKAGE_NUM_BYTE_0, 1, QByteArray(1, static_cast<qint8>(1)));
+        memcpy(m_Message->data() + HEADER_BYTE_0, &c_constants[0], 1);
+        memcpy(m_Message->data() + HEADER_BYTE_1, &c_constants[1], 1);
+        memcpy(m_Message->data() + PACKAGE_NUM_BYTE_0, &c_constants[4], 1);
         num_Changed++;
+        m_DataSender->messagePrepared(c_constants[3]);
     }
     else
     {
-        m_Message->replace(PACKAGE_NUM_BYTE_0, 1, QByteArray(1, static_cast<qint8>(num + 1)));
-        m_Message->replace(HEADER_BYTE_1, 1, QByteArray(1, 0x00));
-        m_Message->replace(HEADER_BYTE_0, 1, QByteArray(1, 0x00));
+        int numm{num + 1};
+        memcpy(m_Message->data() + PACKAGE_NUM_BYTE_0, &(numm), 1);
+        memcpy(m_Message->data() + HEADER_BYTE_1, &c_constants[2], 1);
+        memcpy(m_Message->data() + HEADER_BYTE_0, &c_constants[2], 1);
         num_Changed++;
+        m_DataSender->messagePrepared(numm);
     }
 }
 
@@ -62,6 +65,7 @@ void SignalDataMain::slot_RxEnableValueChanged(const unsigned char &sentData)
     else
     {
         m_DataSender->stopThread();
+        num_Changed--;
     }
 }
 

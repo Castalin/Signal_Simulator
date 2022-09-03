@@ -17,7 +17,8 @@ private:
     DataSender *m_DataSender;
     char m_angle[2];
     char m_velocityOfAngle[2];
-    int num_Changed = 1;
+    int num_Changed = 0;
+    const quint8 c_constants[4]{0xAA, 0x55, 0x00, 0x01};
 
     enum
     {    // firstly
@@ -33,6 +34,7 @@ private:
         THE_LAST_DATA_ADDRESS       = 1031,
 
     };
+
 
 public slots:
     void slot_setAddressSettings(const QString &address, const int &port);
