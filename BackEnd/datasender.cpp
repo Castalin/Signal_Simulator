@@ -92,7 +92,7 @@ void DataSender::setAddressSettings(const QString &address, const int &port)
     *m_hostAddress = QHostAddress(address);
 }
 
-void DataSender::messagePrepared(const int numberOfPackage)
+void DataSender::messagePrepared(const int &numberOfPackage)
 {
     m_mutex->lock();
     m_numberOfPackage = numberOfPackage;

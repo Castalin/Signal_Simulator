@@ -34,14 +34,14 @@ void SignalDataMain::slot_angleChanged(const double &value)
 }
 
 
-void SignalDataMain::slot_prepareData(const int num)
+void SignalDataMain::slot_prepareData(const int &num)
 {
 
     if (num == 8)
     {
         memcpy(m_Message->data() + HEADER_BYTE_0, &c_constants[0], 1);
         memcpy(m_Message->data() + HEADER_BYTE_1, &c_constants[1], 1);
-        memcpy(m_Message->data() + PACKAGE_NUM_BYTE_0, &c_constants[4], 1);
+        memcpy(m_Message->data() + PACKAGE_NUM_BYTE_0, &c_constants[3], 1);
         num_Changed++;
         m_DataSender->messagePrepared(c_constants[3]);
     }

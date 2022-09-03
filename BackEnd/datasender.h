@@ -29,12 +29,12 @@ public:
     void stopThread();
     void sleepValueChanged(int i);
     void setAddressSettings(const QString &address, const int &port) override;
-    void messagePrepared(const int numberOfPackage);
+    void messagePrepared(const int &numberOfPackage);
 
 
 
 signals:
-    void signal_MessageSended(const int num);
+    void signal_MessageSended(const int &num);
 
 
 
