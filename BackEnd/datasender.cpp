@@ -27,12 +27,12 @@ void DataSender::run()
             {
 
                 sendMessage(m_ptrToData);
-                ++m_sentMessages;
                 emit signal_MessageSended(numPackAge);
+                ++m_sentMessages;                
                 ++numPackAge;
 
             }
-            usleep(5);
+            usleep(1);
         }
 
         usleep(m_sleepValue);
@@ -40,6 +40,7 @@ void DataSender::run()
     }
     m_mutex->lock();
     m_workingThreadEnable = false;
+    m_numberOfPackage = 1;
     m_mutex->unlock();
     delete m_sendingSocket;
     emit signal_MessageSended(8);
@@ -61,7 +62,6 @@ void DataSender::startThread()
         m_mutex->lock();
         m_workingThreadEnable = true;
         m_mutex->unlock();
-        m_numberOfPackage = 1;
         start();
     }
 }
@@ -80,7 +80,9 @@ void DataSender::sleepValueChanged(int i)
 {
     if (i < 4 && i >= 0)
     {
+        m_mutex->lock();
         m_sleepValue = m_sleepArray[i];
+        m_mutex->unlock();
     }
 }
 
@@ -92,6 +94,8 @@ void DataSender::setAddressSettings(const QString &address, const int &port)
 
 void DataSender::messagePrepared(const int numberOfPackage)
 {
+    m_mutex->lock();
     m_numberOfPackage = numberOfPackage;
+    m_mutex->unlock();
 }
 
