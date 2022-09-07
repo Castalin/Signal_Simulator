@@ -51,9 +51,11 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(m_ctrAddresses, &ControlAddresses :: signal_setSignalSettings, m_signalDataMain, &SignalDataMain :: slot_setAddressSettings);
     connect(m_ctrAngle, &ControlAngle :: signal_angleValueChanged, m_signalDataMain, &SignalDataMain :: slot_angleChanged);
+    connect(m_ctrAngle, &ControlAngle :: signal_angleSpeedValueChanged, m_signalDataMain, &SignalDataMain :: slot_angleSpeedChanged);
     connect(m_ctrSettings_1, &ControlSettingsOne :: signal_RxEnableValueChanged, m_signalDataMain, &SignalDataMain :: slot_RxEnableValueChanged);
     connect(m_ctrSettings_2, &ControlSettingsTwo :: signal_startSourceScale, m_signalDataMain, &SignalDataMain :: slot_startSourceScale);
 
+    connect(m_signalDataMain, &SignalDataMain :: signal_angleValueChanged, m_ctrAngle, QOverload<const double&> :: of(&ControlAngle :: slot_angleChanged));
 }
 
 

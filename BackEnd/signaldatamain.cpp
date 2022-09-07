@@ -4,19 +4,10 @@
 SignalDataMain::SignalDataMain(QObject *parent)
     : QObject{parent}
 {
-    m_Message = new QByteArray;
-    m_Message->append(1032, 0x00);
-    m_angle[0] = 0;
-    m_angle[1] = 0;
-    m_velocityOfAngle[0] = 0;
-    m_velocityOfAngle[1] = 0;
-    m_Message->replace(HEADER_BYTE_1, 1, QByteArray(1, 0x55));
-    m_Message->replace(HEADER_BYTE_0, 1, QByteArray(1, 0xAA));
-    m_Message->replace(PACKAGE_NUM_BYTE_0, 1, QByteArray(1, static_cast<qint8>(1)));
-
+    m_Message = new QByteArray(1032, 0x00);
     m_DataSender = new DataSender(m_Message);
-    connect(m_DataSender, &DataSender :: signal_MessageSended, this, &SignalDataMain :: slot_prepareData);
 
+    connect(m_DataSender, &DataSender :: signal_angleValueChanged, this, &SignalDataMain :: signal_angleValueChanged);
 }
 
 void SignalDataMain::slot_setAddressSettings(const QString &address, const int &port)
@@ -26,35 +17,14 @@ void SignalDataMain::slot_setAddressSettings(const QString &address, const int &
 
 void SignalDataMain::slot_angleChanged(const double &value)
 {
-    double var = value / 360 * 32768.0;
-    m_angle[0] = static_cast<quint16>(var) & 0x00FF;
-    m_angle[1] = static_cast<quint16>(var) >> 8;
-    memcpy(m_Message->data() + ANGLE_BYTE_1, &m_angle[1], 1);
-    memcpy(m_Message->data() + ANGLE_BYTE_0, &m_angle[0], 1);
+    m_DataSender->angleChanged(value);
 }
 
-
-void SignalDataMain::slot_prepareData(const int &num)
+void SignalDataMain::slot_angleSpeedChanged(const double &value)
 {
-
-    if (num == 8)
-    {
-        memcpy(m_Message->data() + HEADER_BYTE_0, &c_constants[0], 1);
-        memcpy(m_Message->data() + HEADER_BYTE_1, &c_constants[1], 1);
-        memcpy(m_Message->data() + PACKAGE_NUM_BYTE_0, &c_constants[3], 1);
-        num_Changed++;
-        m_DataSender->messagePrepared(c_constants[3]);
-    }
-    else
-    {
-        int numm{num + 1};
-        memcpy(m_Message->data() + PACKAGE_NUM_BYTE_0, &(numm), 1);
-        memcpy(m_Message->data() + HEADER_BYTE_1, &c_constants[2], 1);
-        memcpy(m_Message->data() + HEADER_BYTE_0, &c_constants[2], 1);
-        num_Changed++;
-        m_DataSender->messagePrepared(numm);
-    }
+    m_DataSender->angleSpeedChanged(value);
 }
+
 
 void SignalDataMain::slot_RxEnableValueChanged(const unsigned char &sentData)
 {
@@ -65,8 +35,8 @@ void SignalDataMain::slot_RxEnableValueChanged(const unsigned char &sentData)
     else
     {
         m_DataSender->stopThread();
-        num_Changed--;
     }
+
 }
 
 void SignalDataMain::slot_startSourceScale(const unsigned char &info)

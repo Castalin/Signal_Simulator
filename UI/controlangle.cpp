@@ -7,14 +7,12 @@
 ControlAngle::ControlAngle(QWidget *parent)
     : QWidget{parent}
 {
-    m_angleValue = new double{0.0};
+    m_angleValue = 0.0;
     w_dialForAngle = new QDial;
     w_dialForAngle->setMaximumSize(35, 35);
     w_dialForAngle->setMinimum(0);
     w_dialForAngle->setMaximum(360);
     w_angleLabel = new QLabel(QString("0"));
-
-    m_timer = new QTimer(this);
     w_startChangeAngle = new QPushButton(QString("Start"));
     w_stopChangeAngle = new QPushButton(QString("Stop"));
     w_stopChangeAngle->setEnabled(false);
@@ -41,18 +39,21 @@ ControlAngle::ControlAngle(QWidget *parent)
 
     this->setLayout(mainForm);
 
-    connect(w_dialForAngle, &QDial :: sliderMoved, this, &ControlAngle :: slot_angleChanged);
-    connect(w_dialForAngle, &QDial :: valueChanged, this, &ControlAngle :: slot_angleChanged);
+    connect(w_dialForAngle, &QDial :: sliderMoved, this, QOverload<int> :: of(&ControlAngle :: slot_angleChanged));
+    connect(w_dialForAngle, &QDial :: valueChanged, this, QOverload<int> :: of(&ControlAngle :: slot_angleChanged));
     connect(w_startChangeAngle, &QPushButton :: clicked, this, &ControlAngle :: slot_startBtn);
     connect(w_stopChangeAngle, &QPushButton :: clicked, this, &ControlAngle :: slot_stopBtn);
-    connect(m_timer, &QTimer :: timeout, this, &ControlAngle :: timeOut);
 }
 
 void ControlAngle::slot_angleChanged(int position)
 {
-    *m_angleValue = static_cast<double>(position);
-    emit signal_angleValueChanged(*m_angleValue);
+    emit signal_angleValueChanged(static_cast<double>(position));
     w_angleLabel->setText(QString :: number(position));
+}
+
+void ControlAngle::slot_angleChanged(const double &value)
+{
+    w_angleLabel->setText(QString :: number(value));
 }
 
 void ControlAngle::slot_startBtn()
@@ -61,7 +62,7 @@ void ControlAngle::slot_startBtn()
     w_dialForAngle->setEnabled(false);
     w_angleSpeedBox->setEnabled(false);
     w_stopChangeAngle->setEnabled(true);
-    m_timer->start(1);
+    emit signal_angleSpeedValueChanged(w_angleSpeedBox->value());
 
 }
 
@@ -71,24 +72,7 @@ void ControlAngle::slot_stopBtn()
     w_dialForAngle->setEnabled(true);
     w_angleSpeedBox->setEnabled(true);
     w_stopChangeAngle->setEnabled(false);
-    m_timer->stop();
+    emit signal_angleSpeedValueChanged(0.0);
 }
 
-void ControlAngle :: timeOut()
-{
-    *m_angleValue += m_timer->interval()*(w_angleSpeedBox->value()) / 1000;
-    emit signal_angleValueChanged(*m_angleValue);
-
-    if (*m_angleValue < 0.0)
-    {
-        *m_angleValue += 360.0;
-    }
-    else if (*m_angleValue > 360.0)
-    {
-        *m_angleValue -= 360.0;
-    }
-
-    w_angleLabel->setText(QString :: number(*m_angleValue));
-    w_dialForAngle->setValue(static_cast<int>(*m_angleValue));
-}
 
