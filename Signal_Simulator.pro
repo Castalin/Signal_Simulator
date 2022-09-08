@@ -12,10 +12,10 @@ CONFIG += c++17
 SOURCES += \
     BackEnd/anglecounter.cpp \
     BackEnd/controldatamain.cpp \
-    BackEnd/datasender.cpp \
     BackEnd/settingsreceiver.cpp \
     BackEnd/settingssender.cpp \
     BackEnd/signaldatamain.cpp \
+    BackEnd/signalgenerator.cpp \
     UI/adc_delay.cpp \
     UI/controladdresses.cpp \
     UI/controlangle.cpp \
@@ -28,10 +28,10 @@ SOURCES += \
 HEADERS += \
     BackEnd/anglecounter.h \
     BackEnd/controldatamain.h \
-    BackEnd/datasender.h \
     BackEnd/settingsreceiver.h \
     BackEnd/settingssender.h \
     BackEnd/signaldatamain.h \
+    BackEnd/signalgenerator.h \
     UI/adc_delay.h \
     UI/controladdresses.h \
     UI/controlangle.h \
