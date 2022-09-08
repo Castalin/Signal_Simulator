@@ -6,6 +6,7 @@
 #include <QPushButton>
 #include <QSpinBox>
 #include <QCheckBox>
+#include <QLabel>
 
 class SignalsUI : public QWidget
 {
@@ -14,7 +15,7 @@ public:
     explicit SignalsUI(QWidget *parent = nullptr);
 
 signals:
-    void signal_sendData(const int &num);
+    void signal_setValue(const int &num);
 
 private:
     QComboBox *w_signalsBox;
@@ -30,7 +31,12 @@ private:
     QComboBox *w_durationSignalBoxModul;
     QSpinBox *w_durationSignalNumModul;
 
-    QPushButton *w_setSignalSettings;
+    QSlider *w_levelSignalSlider;
+    QLabel *w_levelSignalLabel;
+    QPushButton *w_startSlider;
+    QPushButton *w_stopSlider;
+    QTimer *w_timer;
+
 
 
 
@@ -38,6 +44,10 @@ private slots:
     void slot_checkedModul(int state);
     void slot_signalChanged(int currentIndex);
     void slot_signalModulChanged(int currentIndex);
+
+    void slot_startMovingSlider();
+    void slot_stopMovingSlider();
+    void slot_timeOut();
 
 
 

@@ -5,6 +5,7 @@
 #include <QThread>
 #include <QMutex>
 #include "anglecounter.h"
+#include "signalgenerator.h"
 
 class SignalDataMain : public QThread, public SettingsSender
 {
@@ -24,6 +25,7 @@ private:
     int m_sleepValue;
 
     AngleCounter *m_angleCounter;
+    SignalGenerator *m_signalGenerator;
 
     enum
     {    // firstly
@@ -48,6 +50,7 @@ public slots:
     void slot_angleSpeedChanged(const double &value);
     void slot_RxEnableValueChanged(const unsigned char &sentData);
     void slot_startSourceScale(const unsigned char &info);
+    void slot_setSignalValue(const int &value);
 
 private:
 

@@ -6,7 +6,7 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
-    m_signalUI = new SignalsUI;
+    m_signalsUI = new SignalsUI;
     m_ctrSettings_1 = new ControlSettingsOne;
     m_ctrSettings_2 = new ControlSettingsTwo;
     m_adc_Delay = new ADCDelay;
@@ -17,7 +17,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     mainLayout->setVerticalSpacing(6);
     mainLayout->setMargin(2);
-    mainLayout->addWidget(m_signalUI, 0, 0, 5, 6, Qt :: AlignTop);
+    mainLayout->addWidget(m_signalsUI, 0, 0, 5, 6, Qt :: AlignTop);
     mainLayout->addWidget(m_ctrSettings_1, 0, 6, 2, 2);
     mainLayout->addWidget(m_ctrSettings_2, 2, 6, 2, 2, Qt :: AlignTop);
     mainLayout->addWidget(m_adc_Delay, 4, 6, 2, 2, Qt :: AlignTop);
@@ -56,6 +56,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(m_ctrSettings_2, &ControlSettingsTwo :: signal_startSourceScale, m_signalDataMain, &SignalDataMain :: slot_startSourceScale);
 
     connect(m_signalDataMain, &SignalDataMain :: signal_angleValueChanged, m_ctrAngle, QOverload<const double&> :: of(&ControlAngle :: slot_angleChanged));
+
+    connect(m_signalsUI, &SignalsUI :: signal_setValue, m_signalDataMain, &SignalDataMain :: slot_setSignalValue);
 }
 
 

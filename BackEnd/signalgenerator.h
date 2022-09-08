@@ -7,8 +7,18 @@ class SignalGenerator : public QObject
 {
     Q_OBJECT
 public:
-    explicit SignalGenerator(QObject *parent = nullptr);
+    explicit SignalGenerator(QByteArray *ptrToData, QObject *parent = nullptr);
 
+private:
+    int m_strobeSize;
+    QByteArray *m_ptrToData;
+    quint16 m_value;
+
+
+public:
+    void prepareData();
+    void setValue(const int &value);
+    void setStrobeSize(const unsigned char &info);
 signals:
 
 };

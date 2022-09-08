@@ -30,8 +30,6 @@ SignalsUI::SignalsUI(QWidget *parent)
     w_durationSignalNum->setMaximum(1000);
     w_durationSignalNum->setEnabled(false);
 
-    w_setSignalSettings = new QPushButton(QString("Set"));
-
     w_checkModulation = new QCheckBox(QString("Modulation"));
     w_checkModulation->setCheckable(true);
 
@@ -57,6 +55,14 @@ SignalsUI::SignalsUI(QWidget *parent)
     w_durationSignalNumModul->setMaximum(1000);
     w_durationSignalNumModul->setEnabled(false);
 
+    w_levelSignalSlider = new QSlider(Qt :: Orientation :: Horizontal);
+    w_levelSignalSlider->setMaximum(100);
+    w_levelSignalLabel = new QLabel(QString("0"));
+    w_startSlider = new QPushButton(QString("Start"));
+    w_stopSlider = new QPushButton(QString("Stop"));
+    w_stopSlider->setEnabled(false);
+    w_timer = new QTimer(this);
+
     QGridLayout *signalLayout = new QGridLayout();
     signalLayout->setVerticalSpacing(10);
 
@@ -68,7 +74,6 @@ SignalsUI::SignalsUI(QWidget *parent)
     signalLayout->addWidget(w_frequanceBox, 1, 2, 1, 1, Qt :: AlignCenter);
     signalLayout->addWidget(w_durationSignalNum, 1, 3, 1, 1, Qt :: AlignCenter);
     signalLayout->addWidget(w_durationSignalBox, 1, 4, 1, 1, Qt :: AlignCenter);
-
 
 
     QGridLayout *modulationGrid = new QGridLayout;
@@ -87,7 +92,10 @@ SignalsUI::SignalsUI(QWidget *parent)
 
 
     signalLayout->addWidget(modulationGroup, 2, 0, 3, 5);
-    signalLayout->addWidget(w_setSignalSettings, 5, 0, 1, 5, Qt :: AlignCenter);
+    signalLayout->addWidget(w_startSlider, 5, 0, 1, 1, Qt :: AlignCenter);
+    signalLayout->addWidget(w_stopSlider, 5, 1, 1, 1, Qt :: AlignCenter);
+    signalLayout->addWidget(w_levelSignalSlider, 5, 2, 1, 2);
+    signalLayout->addWidget(w_levelSignalLabel, 5, 4, 1, 1, Qt :: AlignCenter);
 
 
     QFormLayout *mainForm = new QFormLayout;
@@ -103,7 +111,11 @@ SignalsUI::SignalsUI(QWidget *parent)
     connect(w_checkModulation, &QCheckBox :: stateChanged, this, &SignalsUI :: slot_checkedModul);
     connect(w_signalsBox, QOverload<int> :: of(&QComboBox :: currentIndexChanged), this, &SignalsUI :: slot_signalChanged);
     connect(w_signalsBoxModul, QOverload<int> :: of(&QComboBox :: currentIndexChanged), this, &SignalsUI :: slot_signalModulChanged);
-
+    connect(w_levelSignalSlider, &QSlider :: valueChanged, w_levelSignalLabel, QOverload<int> :: of (&QLabel :: setNum));
+    connect(w_startSlider, &QPushButton :: clicked, this, &SignalsUI :: slot_startMovingSlider);
+    connect(w_stopSlider, &QPushButton :: clicked, this, &SignalsUI :: slot_stopMovingSlider);
+    connect(w_timer, &QTimer :: timeout, this, &SignalsUI :: slot_timeOut);
+    connect(w_levelSignalSlider, &QSlider :: valueChanged, this, &SignalsUI :: signal_setValue);
 
 
 }
@@ -187,6 +199,36 @@ void SignalsUI :: slot_signalModulChanged(int currentIndex)
         break;
     }
     };
+}
+
+void SignalsUI::slot_startMovingSlider()
+{
+    w_levelSignalSlider->setEnabled(false);
+    w_timer->start(std :: chrono :: milliseconds(100));
+    w_startSlider->setEnabled(false);
+    w_stopSlider->setEnabled(true);
+}
+
+void SignalsUI::slot_stopMovingSlider()
+{
+    w_timer->stop();
+    w_startSlider->setEnabled(true);
+    w_levelSignalSlider->setEnabled(true);
+    w_stopSlider->setEnabled(false);
+
+
+}
+
+void SignalsUI::slot_timeOut()
+{
+    if (w_levelSignalSlider->value() != 100)
+    {
+        w_levelSignalSlider->setValue(w_levelSignalSlider->value() + 2);
+    }
+    else
+    {
+        w_levelSignalSlider->setValue(0);
+    }
 }
 
 

@@ -23,7 +23,7 @@ signals:
 
 
 private:
-    SignalsUI *m_signalUI;
+    SignalsUI *m_signalsUI;
     ControlSettingsOne *m_ctrSettings_1;
     ControlSettingsTwo *m_ctrSettings_2;
     ADCDelay *m_adc_Delay;

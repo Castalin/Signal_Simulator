@@ -7,6 +7,7 @@ SignalDataMain::SignalDataMain(QObject *parent)
     m_Message = new QByteArray(1032, 0x00);
     m_mutex = new QMutex;
     m_angleCounter = new AngleCounter;
+    m_signalGenerator = new SignalGenerator(m_Message);
 
     m_workingThreadEnable = false;
     m_sleepValue = 960;
@@ -41,6 +42,7 @@ void SignalDataMain::run()
             }
             memcpy(m_Message->data() + PACKAGE_NUM_BYTE_0, &numberOfPackage, 2);
             memcpy(m_Message->data() + ANGLE_BYTE_0, angleAddress, 2);
+            m_signalGenerator->prepareData();
             m_sendingSocket->writeDatagram(*m_Message, *m_hostAddress, m_hostPort);
 
             usleep(1);
@@ -109,6 +111,11 @@ void SignalDataMain::slot_startSourceScale(const unsigned char &info)
     m_mutex->lock();
     m_sleepValue = (1000 / (static_cast<int>(info & 0b00000011) + 2)) - 40;
     m_mutex->unlock();
+}
+
+void SignalDataMain::slot_setSignalValue(const int &value)
+{
+    m_signalGenerator->setValue(value);
 }
 
 
