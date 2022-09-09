@@ -12,7 +12,7 @@ public:
 private:
     int m_strobeSize;
     QByteArray *m_ptrToData;
-    quint16 m_value;
+    qint16 m_value;
 
 
 public:

@@ -44,11 +44,11 @@ private slots:
     void slot_checkedModul(int state);
     void slot_signalChanged(int currentIndex);
     void slot_signalModulChanged(int currentIndex);
-
     void slot_startMovingSlider();
-    void slot_stopMovingSlider();
     void slot_timeOut();
 
+public slots:
+    void slot_stopMovingSlider();
 
 
 

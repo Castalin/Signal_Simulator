@@ -19,6 +19,7 @@ ControlAngle::ControlAngle(QWidget *parent)
     w_angleSpeedBox = new QDoubleSpinBox;
     w_angleSpeedBox->setMinimum(-360.0);
     w_angleSpeedBox->setMaximum(360.0);
+    w_angleSpeedBox->setValue(60.0);
 
     QGridLayout *ctrAngleGrid = new QGridLayout;
     QGroupBox *angleBox = new QGroupBox(QString("Angle Control"));

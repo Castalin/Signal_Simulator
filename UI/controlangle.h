@@ -30,10 +30,10 @@ private:
 private slots:
     void slot_angleChanged(int position);
     void slot_startBtn();
-    void slot_stopBtn();
 
 public slots:
     void slot_angleChanged(const double &value);
+    void slot_stopBtn();
 
 };
 

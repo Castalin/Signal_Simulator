@@ -106,6 +106,11 @@ void SignalDataMain::slot_RxEnableValueChanged(const unsigned char &sentData)
 
 }
 
+void SignalDataMain::slot_StrobeSizeValueChanged(const unsigned char &sentData)
+{
+    m_signalGenerator->setStrobeSize(sentData);
+}
+
 void SignalDataMain::slot_startSourceScale(const unsigned char &info)
 {
     m_mutex->lock();

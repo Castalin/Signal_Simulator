@@ -57,6 +57,7 @@ SignalsUI::SignalsUI(QWidget *parent)
 
     w_levelSignalSlider = new QSlider(Qt :: Orientation :: Horizontal);
     w_levelSignalSlider->setMaximum(100);
+    w_levelSignalSlider->setMinimum(-100);
     w_levelSignalLabel = new QLabel(QString("0"));
     w_startSlider = new QPushButton(QString("Start"));
     w_stopSlider = new QPushButton(QString("Stop"));
@@ -221,13 +222,13 @@ void SignalsUI::slot_stopMovingSlider()
 
 void SignalsUI::slot_timeOut()
 {
-    if (w_levelSignalSlider->value() != 100)
+    if (w_levelSignalSlider->value() != w_levelSignalSlider->maximum())
     {
-        w_levelSignalSlider->setValue(w_levelSignalSlider->value() + 2);
+        w_levelSignalSlider->setValue(w_levelSignalSlider->value() + 1);
     }
     else
     {
-        w_levelSignalSlider->setValue(0);
+        w_levelSignalSlider->setValue(w_levelSignalSlider->minimum());
     }
 }
 

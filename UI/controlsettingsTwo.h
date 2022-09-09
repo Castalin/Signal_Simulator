@@ -45,7 +45,6 @@ private:
     StrobeSize m_strobeSize;
 
 signals:
-    void signal_startSourceScale(const unsigned char &sentData);
 
 public slots:
     void slot_proccessingIncomingDataControl(const unsigned char &info);

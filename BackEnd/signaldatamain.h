@@ -49,6 +49,7 @@ public slots:
     void slot_angleChanged(const double &value);
     void slot_angleSpeedChanged(const double &value);
     void slot_RxEnableValueChanged(const unsigned char &sentData);
+    void slot_StrobeSizeValueChanged(const unsigned char &sentData);
     void slot_startSourceScale(const unsigned char &info);
     void slot_setSignalValue(const int &value);
 
