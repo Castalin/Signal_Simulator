@@ -16,7 +16,8 @@ private:
 
 
 public:
-    void prepareData();
+    void setSignal();
+    void deleteSignal();
     void setValue(const int &value);
     void setStrobeSize(const unsigned char &info);
 signals:

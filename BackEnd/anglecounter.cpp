@@ -9,7 +9,7 @@ AngleCounter::AngleCounter(QObject *parent)
     m_angle16 = 0x00;
 
     connect(m_timer, &QTimer :: timeout, this, &AngleCounter :: timerOut);
-    m_timer->start(5);
+    m_timer->start(std :: chrono :: milliseconds(5));
 }
 
 void AngleCounter::timerOut()

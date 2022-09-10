@@ -39,16 +39,17 @@ void SignalDataMain::run()
             else
             {
                 memcpy(m_Message->data() + HEADER_BYTE_0, &messageHeader[1], 2);
+                m_signalGenerator->deleteSignal();
             }
             memcpy(m_Message->data() + PACKAGE_NUM_BYTE_0, &numberOfPackage, 2);
             memcpy(m_Message->data() + ANGLE_BYTE_0, angleAddress, 2);
-            m_signalGenerator->prepareData();
             m_sendingSocket->writeDatagram(*m_Message, *m_hostAddress, m_hostPort);
 
             usleep(1);
         }
 
         usleep(m_sleepValue);
+        m_signalGenerator->setSignal();
     }
     m_mutex->lock();
     m_workingThreadEnable = false;

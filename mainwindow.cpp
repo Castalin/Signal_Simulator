@@ -46,16 +46,16 @@ MainWindow::MainWindow(QWidget *parent)
     connect(m_ctrDataMain, &ControlDataMain :: signal_ADC_B_DELAY_0, m_adc_Delay, &ADCDelay :: slot_proccessingADC_B_DELAY_0);
     connect(m_ctrDataMain, &ControlDataMain :: signal_ADC_B_DELAY_1, m_adc_Delay, &ADCDelay :: slot_proccessingADC_B_DELAY_1);
 
-    connect(m_ctrSettings_1, &ControlSettingsOne :: signal_RxDisabled, m_ctrAngle, &ControlAngle :: slot_stopBtn);
-    connect(m_ctrSettings_1, &ControlSettingsOne :: signal_RxDisabled, m_signalsUI, &SignalsUI :: slot_stopMovingSlider);
+    connect(m_ctrSettings_1, &ControlSettingsOne :: signal_RxDisabled, m_ctrAngle, &ControlAngle :: slot_stopBtn);                                          // stops timers
+    connect(m_ctrSettings_1, &ControlSettingsOne :: signal_RxDisabled, m_signalsUI, &SignalsUI :: slot_stopMovingSlider);                                   // stops timers
 
     m_signalDataMain = new SignalDataMain;
 
-    connect(m_ctrAddresses, &ControlAddresses :: signal_setSignalSettings, m_signalDataMain, &SignalDataMain :: slot_setAddressSettings);
+    connect(m_ctrAddresses, &ControlAddresses :: signal_setSignalSettings, m_signalDataMain, &SignalDataMain :: slot_setAddressSettings);                   // binds address
     connect(m_ctrAngle, &ControlAngle :: signal_angleValueChanged, m_signalDataMain, &SignalDataMain :: slot_angleChanged);
     connect(m_ctrAngle, &ControlAngle :: signal_angleSpeedValueChanged, m_signalDataMain, &SignalDataMain :: slot_angleSpeedChanged);
-    connect(m_ctrDataMain, &ControlDataMain :: signal_controlSettingsOne, m_signalDataMain, &SignalDataMain :: slot_RxEnableValueChanged);  // signal_controlSettingsOne has got info about rxEnable
-    connect(m_ctrDataMain, &ControlDataMain :: signal_controlSettingsTwo, m_signalDataMain, &SignalDataMain :: slot_startSourceScale);      //signal_controlSettingsTwo has got info about sourceScale
+    connect(m_ctrDataMain, &ControlDataMain :: signal_controlSettingsOne, m_signalDataMain, &SignalDataMain :: slot_RxEnableValueChanged);                  // signal_controlSettingsOne has got info about rxEnable
+    connect(m_ctrDataMain, &ControlDataMain :: signal_controlSettingsTwo, m_signalDataMain, &SignalDataMain :: slot_startSourceScale);                      //signal_controlSettingsTwo has got info about sourceScale
 
     connect(m_signalDataMain, &SignalDataMain :: signal_angleValueChanged, m_ctrAngle, QOverload<const double&> :: of(&ControlAngle :: slot_angleChanged));
 

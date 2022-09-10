@@ -8,12 +8,21 @@ SignalGenerator::SignalGenerator(QByteArray *ptrToData, QObject *parent)
     m_value = 0x00;
 }
 
-void SignalGenerator::prepareData()
+void SignalGenerator::setSignal()
 {
 
     for (int i{8}; i < m_strobeSize * 4 + 8; i += 2)      // 8 - first signal address
     {
         memcpy(m_ptrToData->data() + i, &m_value, 2);
+    }
+}
+
+void SignalGenerator::deleteSignal()
+{
+    qint64 value{0};
+    for (int i{8}; i < m_strobeSize * 4 + 8; i += 8)      // 8 - first signal address
+    {
+        memcpy(m_ptrToData->data() + i, &value, 8);
     }
 }
 
