@@ -26,34 +26,41 @@ void SignalDataMain::run()
     const quint16 messageHeader[] = {0x55AA, 0x0000};
     qint16 numberOfPackage{0};
     void* angleAddress = m_angleCounter->getAngleint16();
-
-    while (m_workingThreadEnable == true)
+    forever
     {
-        for (int i{0}; i < 8; ++i, ++numberOfPackage)
+        while (m_workingThreadEnable == true)
         {
-            // (i == 0) ? memcpy(&m_ptrToData + PACKAGE_NUM_BYTE_0, &messageHeader[0], 2) : memcpy(&m_ptrToData + PACKAGE_NUM_BYTE_0, &messageHeader[1], 2);
-            if (i == 0)
+            for (int i{0}; i < 8; ++i, ++numberOfPackage)
             {
-                memcpy(m_Message->data() + HEADER_BYTE_0, &messageHeader[0], 2);
-            }
-            else
-            {
-                memcpy(m_Message->data() + HEADER_BYTE_0, &messageHeader[1], 2);
-                m_signalGenerator->deleteSignal();
-            }
-            memcpy(m_Message->data() + PACKAGE_NUM_BYTE_0, &numberOfPackage, 2);
-            memcpy(m_Message->data() + ANGLE_BYTE_0, angleAddress, 2);
-            m_sendingSocket->writeDatagram(*m_Message, *m_hostAddress, m_hostPort);
+                // (i == 0) ? memcpy(&m_ptrToData + PACKAGE_NUM_BYTE_0, &messageHeader[0], 2) : memcpy(&m_ptrToData + PACKAGE_NUM_BYTE_0, &messageHeader[1], 2);
+                if (i == 0)
+                {
+                    memcpy(m_Message->data() + HEADER_BYTE_0, &messageHeader[0], 2);
+                }
+                else
+                {
+                    memcpy(m_Message->data() + HEADER_BYTE_0, &messageHeader[1], 2);
+                }
+                memcpy(m_Message->data() + PACKAGE_NUM_BYTE_0, &numberOfPackage, 2);
+                memcpy(m_Message->data() + ANGLE_BYTE_0, angleAddress, 2);
+                m_sendingSocket->writeDatagram(*m_Message, *m_hostAddress, m_hostPort);
 
-            usleep(1);
+                usleep(1);
+            }
+
+            usleep(m_sleepValue);
+            m_signalGenerator->setSignal();
         }
+        m_mutex->lock();
+        m_workingThreadEnable = false;
+        m_mutex->unlock();
 
-        usleep(m_sleepValue);
-        m_signalGenerator->setSignal();
+        msleep(200);
+        if (m_workingThreadEnable == false)
+        {
+            break;
+        }
     }
-    m_mutex->lock();
-    m_workingThreadEnable = false;
-    m_mutex->unlock();
     delete m_sendingSocket;
 }
 

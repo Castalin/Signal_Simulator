@@ -11,7 +11,7 @@ SignalGenerator::SignalGenerator(QByteArray *ptrToData, QObject *parent)
 void SignalGenerator::setSignal()
 {
 
-    for (int i{8}; i < m_strobeSize * 4 + 8; i += 2)      // 8 - first signal address
+    for (int i{8}; i < 1024 + 8; i += 2)      // 8 - first signal address
     {
         memcpy(m_ptrToData->data() + i, &m_value, 2);
     }
@@ -30,11 +30,11 @@ void SignalGenerator::setValue(const int &value)
 {
     if (value == 100)
     {
-        m_value = value / 100.0 * 32767;
+        m_value = value / 100.0 * 11900;
     }
     else
     {
-        m_value = value / 100.0 * 32768;
+        m_value = value / 100.0 * 11900;
     }
 }
 
@@ -47,9 +47,4 @@ void SignalGenerator::setStrobeSize(const unsigned char &info)
     }
     m_strobeSize = strobeSize;
 
-    quint64 zero = 0x00;
-    for (int i{strobeSize * 4 + 8}; i < 1032; i += 8)
-    {
-        memcpy(m_ptrToData->data() + i, &zero, 8);
-    }
 }
