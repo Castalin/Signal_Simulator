@@ -68,7 +68,8 @@ private:
 
 
 signals:
-    void signal_RxDisabled();
+    void signal_RxValueChanged(const unsigned char &info);
+    void signal_DecimationChanged(const unsigned char &info);
 
 public slots:
     void slot_processingIncomingDataControl(const unsigned char &info);

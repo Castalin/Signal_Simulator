@@ -13,6 +13,7 @@ private:
     int m_strobeSize;
     QByteArray *m_ptrToData;
     qint16 m_value;
+    int m_decimation;
 
 
 public:
@@ -20,6 +21,7 @@ public:
     void deleteSignal();
     void setValue(const int &value);
     void setStrobeSize(const unsigned char &info);
+    void setDecimation(const unsigned char &info);
 signals:
 
 };

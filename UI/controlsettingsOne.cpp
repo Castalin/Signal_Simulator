@@ -72,12 +72,7 @@ void ControlSettingsOne::slot_processingIncomingDataControl(const unsigned char 
     {
         m_rxEnable = static_cast<RxEnable>(info & 0b00000001);
         w_ADCRxBox->setCurrentIndex(static_cast<quint8>(m_rxEnable));
-
-        if ((info & 0x01) == false)
-        {
-            emit signal_RxDisabled();
-        }
-
+        emit signal_RxValueChanged(info);
     }
 
     if (((info & 0b00000010) >> 1) != static_cast<quint8>(m_clockSignalSource))
@@ -90,6 +85,7 @@ void ControlSettingsOne::slot_processingIncomingDataControl(const unsigned char 
     {
         m_decimation = static_cast<SignalDecimation>((info & 0b00111000) >> 3);
         w_sampleFrequencyBox->setCurrentIndex(static_cast<quint8>(m_decimation));
+        emit signal_DecimationChanged(info);
     }
 
     if (((info & 0b01000000) >> 6) != static_cast<quint8>(m_frequencyScale))

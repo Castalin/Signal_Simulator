@@ -55,7 +55,7 @@ void SignalDataMain::run()
         m_workingThreadEnable = false;
         m_mutex->unlock();
 
-        msleep(200);
+        msleep(20);
         if (m_workingThreadEnable == false)
         {
             break;
@@ -124,6 +124,11 @@ void SignalDataMain::slot_startSourceScale(const unsigned char &info)
     m_mutex->lock();
     m_sleepValue = (1000 / (static_cast<int>(info & 0b00000011) + 2)) - 40;
     m_mutex->unlock();
+}
+
+void SignalDataMain::slot_DecimationChanged(const unsigned char &sentData)
+{
+    m_signalGenerator->setDecimation(sentData);
 }
 
 void SignalDataMain::slot_setSignalValue(const int &value)

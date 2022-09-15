@@ -51,6 +51,7 @@ public slots:
     void slot_RxEnableValueChanged(const unsigned char &sentData);
     void slot_StrobeSizeValueChanged(const unsigned char &sentData);
     void slot_startSourceScale(const unsigned char &info);
+    void slot_DecimationChanged(const unsigned char &info);
     void slot_setSignalValue(const int &value);
 
 private:
