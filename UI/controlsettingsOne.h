@@ -21,6 +21,7 @@ private:
     QComboBox *w_trigFrequencyBox;
     QComboBox *w_trigSrcBox;
     QCheckBox *w_testLED;
+    void processDecimation(const unsigned char &info);
 
     enum struct RxEnable
     {
@@ -69,7 +70,7 @@ private:
 
 signals:
     void signal_RxValueChanged(const unsigned char &info);
-    void signal_DecimationChanged(const unsigned char &info);
+    void signal_DecimationChanged(const int &info);
 
 public slots:
     void slot_processingIncomingDataControl(const unsigned char &info);

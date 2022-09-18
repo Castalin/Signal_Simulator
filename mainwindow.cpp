@@ -56,6 +56,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(m_ctrSettings_1, &ControlSettingsOne :: signal_RxValueChanged, m_signalDataMain, &SignalDataMain :: slot_RxEnableValueChanged);                 // signal_RxValueChanged has got info about rxEnable
     connect(m_ctrDataMain, &ControlDataMain :: signal_controlSettingsTwo, m_signalDataMain, &SignalDataMain :: slot_startSourceScale);                      //signal_controlSettingsTwo has got info about sourceScale
     connect(m_ctrSettings_1, &ControlSettingsOne :: signal_DecimationChanged, m_signalDataMain, &SignalDataMain :: slot_DecimationChanged);
+    connect(m_ctrSettings_1, &ControlSettingsOne :: signal_DecimationChanged, m_signalsUI, &SignalsUI :: slot_setDecimationFrequence);
     connect(m_ctrDataMain, &ControlDataMain :: signal_controlSettingsTwo, m_signalDataMain, &SignalDataMain :: slot_StrobeSizeValueChanged);
 
     connect(m_signalDataMain, &SignalDataMain :: finished, m_ctrAngle, &ControlAngle :: slot_stopBtn);                                                       // stops timers

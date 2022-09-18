@@ -126,7 +126,7 @@ void SignalDataMain::slot_startSourceScale(const unsigned char &info)
     m_mutex->unlock();
 }
 
-void SignalDataMain::slot_DecimationChanged(const unsigned char &sentData)
+void SignalDataMain::slot_DecimationChanged(const int &sentData)
 {
     m_signalGenerator->setDecimation(sentData);
 }

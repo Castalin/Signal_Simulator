@@ -21,7 +21,7 @@ public:
     void deleteSignal();
     void setValue(const int &value);
     void setStrobeSize(const unsigned char &info);
-    void setDecimation(const unsigned char &info);
+    void setDecimation(const int &value);
 signals:
 
 };

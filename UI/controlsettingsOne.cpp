@@ -66,6 +66,22 @@ ControlSettingsOne::ControlSettingsOne(QWidget *parent)
 
 }
 
+void ControlSettingsOne::processDecimation(const unsigned char &info)
+{
+    switch((info & 0b00111000) >> 3)
+    {
+        case 0: emit signal_DecimationChanged(80e6); return;
+        case 1: emit signal_DecimationChanged(40e6); return;
+        case 2: emit signal_DecimationChanged(20e6); return;
+        case 3: emit signal_DecimationChanged(10e6); return;
+        case 4: emit signal_DecimationChanged(5e6); return;
+        case 5: emit signal_DecimationChanged(2500e3); return;
+        case 6: emit signal_DecimationChanged(1125e3); return;
+        case 7: emit signal_DecimationChanged(562.5e3); return;
+    }
+
+}
+
 void ControlSettingsOne::slot_processingIncomingDataControl(const unsigned char &info)
 {
     if ((info & 0b00000001) != static_cast<quint8>(m_rxEnable))
@@ -85,7 +101,7 @@ void ControlSettingsOne::slot_processingIncomingDataControl(const unsigned char 
     {
         m_decimation = static_cast<SignalDecimation>((info & 0b00111000) >> 3);
         w_sampleFrequencyBox->setCurrentIndex(static_cast<quint8>(m_decimation));
-        emit signal_DecimationChanged(info);
+        processDecimation(info);
     }
 
     if (((info & 0b01000000) >> 6) != static_cast<quint8>(m_frequencyScale))
