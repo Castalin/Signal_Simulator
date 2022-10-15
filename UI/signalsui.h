@@ -15,7 +15,10 @@ public:
     explicit SignalsUI(QWidget *parent = nullptr);
 
 signals:
-    void signal_setValue(const int &num);
+    void signal_signalValue(const double &value);
+    void signal_signalType(const int &signalType);
+    void signal_signalFrequency(const double &frequency);
+    void signal_signalDuration(const double &duration);
 
 private:
     QComboBox *w_signalsBox;
@@ -41,7 +44,7 @@ private:
     double m_frequency;
     int m_sampleFrequency;
 
-    enum FREQUENCE
+    enum FREQUENCY
     {
         kHz                 = 0,
         MHz                 = 1,

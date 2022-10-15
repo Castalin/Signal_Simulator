@@ -9,17 +9,10 @@ AngleCounter::AngleCounter(QObject *parent)
     m_angle16 = 0x00;
 
     connect(m_timer, &QTimer :: timeout, this, &AngleCounter :: timerOut);
-    m_timer->start(std :: chrono :: milliseconds(1));
 }
 
 void AngleCounter::timerOut()
 {
-    if (m_angleSpeedValue == 0.0)
-    {
-        return;
-    }
-    else
-    {
         m_angleValue += m_timer->interval()*m_angleSpeedValue / 1000;
         if (m_angleValue < 0.0)
         {
@@ -31,7 +24,6 @@ void AngleCounter::timerOut()
         }
         emit signal_angleValueChanged(m_angleValue);
         m_angle16 = m_angleValue / 360 * 32768.0;
-    }
 }
 
 void AngleCounter::angleChanged(const double &value)
@@ -43,6 +35,7 @@ void AngleCounter::angleChanged(const double &value)
 void AngleCounter::angleSpeedChanged(const double &value)
 {
     m_angleSpeedValue = value;
+    m_angleSpeedValue == 0 ? m_timer->stop() : m_timer->start(std :: chrono :: milliseconds(1));
 }
 
 void *AngleCounter::getAngleint16()

@@ -49,7 +49,7 @@ void SignalDataMain::run()
             }
 
             usleep(m_sleepValue);
-            m_signalGenerator->setSignal();
+            m_signalGenerator->countSignal();
         }
         m_mutex->lock();
         m_workingThreadEnable = false;
@@ -133,9 +133,23 @@ void SignalDataMain::slot_DecimationChanged(const int &sentData)
 
 void SignalDataMain::slot_setSignalValue(const int &value)
 {
-    m_signalGenerator->setValue(value);
+    m_signalGenerator->setSignalValue(value);
 }
 
+void SignalDataMain::slot_setSignalFrequency(const double &frequency)
+{
+    m_signalGenerator->setSignalFrequency(frequency);
+}
+
+void SignalDataMain::slot_setSignalDuration(const double &duration)
+{
+    m_signalGenerator->setSignalDuration(duration);
+}
+
+void SignalDataMain::slot_setSignalType(const int &signalType)
+{
+    m_signalGenerator->setSignalType(signalType);
+}
 
 
 
