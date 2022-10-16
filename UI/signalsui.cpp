@@ -42,7 +42,7 @@ SignalsUI::SignalsUI(QWidget *parent)
     w_signalsBoxModul->setEnabled(false);
 
     w_frequencyBoxModul = new QComboBox;
-    w_frequencyBoxModul->addItems(QStringList{"Hz", "kHz", "MHz"});
+    w_frequencyBoxModul->addItems(QStringList{"kHz", "MHz"});
     w_frequencyBoxModul->setEnabled(false);
 
     w_frequencyNumModul = new QDoubleSpinBox;

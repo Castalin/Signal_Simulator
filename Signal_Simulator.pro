@@ -16,6 +16,12 @@ SOURCES += \
     BackEnd/settingssender.cpp \
     BackEnd/signaldatamain.cpp \
     BackEnd/signalgenerator.cpp \
+    Signal/a_signal.cpp \
+    Signal/a_signalmod.cpp \
+    Signal/nosignal.cpp \
+    Signal/rectangle.cpp \
+    Signal/sine.cpp \
+    Signal/sinemodsine.cpp \
     UI/adc_delay.cpp \
     UI/controladdresses.cpp \
     UI/controlangle.cpp \
@@ -32,6 +38,13 @@ HEADERS += \
     BackEnd/settingssender.h \
     BackEnd/signaldatamain.h \
     BackEnd/signalgenerator.h \
+    Signal/a_signal.h \
+    Signal/a_signalmod.h \
+    Signal/nosignal.h \
+    Signal/rectangle.h \
+    Signal/signals_defenition.h \
+    Signal/sine.h \
+    Signal/sinemodsine.h \
     UI/adc_delay.h \
     UI/controladdresses.h \
     UI/controlangle.h \

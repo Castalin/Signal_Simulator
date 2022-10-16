@@ -2,6 +2,7 @@
 #define SIGNALGENERATOR_H
 
 #include <QObject>
+#include "Signal/signals_defenition.h"
 
 class SignalGenerator : public QObject
 {
@@ -12,27 +13,22 @@ public:
 private:
     int m_strobeSize;
     QByteArray *m_ptrToData;
-    double m_value;
-    int m_decimation;
-    double m_frequency;
-    double m_duration;
 
-    double (SignalGenerator :: *m_ptrSignal)(int);
+    Sine m_sine;
+    NoSignal m_noSignal;
+    Rectangle m_rectangle;
+    SineModSine m_sineModSine;
 
-    double no_signal(int i);
-    double sine(int i);
-    double rect(int i);
-
-
+    A_signal *m_ptrToSignal;
 
 public:
     void countSignal();
 
     void deleteSignal();
     void setStrobeSize(const unsigned char &info);
-    void setDecimation(const int &value);
+    void setDecimation(const int &decimation);
 
-    void setSignalValue(const int &value);
+    void setSignalAmplitude(const int &amplitude);
     void setSignalFrequency(const double &frequency);
     void setSignalDuration(const double &duration);
     void setSignalType(const int &signalType);

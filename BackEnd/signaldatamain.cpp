@@ -126,14 +126,14 @@ void SignalDataMain::slot_startSourceScale(const unsigned char &info)
     m_mutex->unlock();
 }
 
-void SignalDataMain::slot_DecimationChanged(const int &sentData)
+void SignalDataMain::slot_DecimationChanged(const int &decimation)
 {
-    m_signalGenerator->setDecimation(sentData);
+    m_signalGenerator->setDecimation(decimation);
 }
 
-void SignalDataMain::slot_setSignalValue(const int &value)
+void SignalDataMain::slot_setSignalValue(const int &amplitude)
 {
-    m_signalGenerator->setSignalValue(value);
+    m_signalGenerator->setSignalAmplitude(amplitude);
 }
 
 void SignalDataMain::slot_setSignalFrequency(const double &frequency)
