@@ -14,6 +14,11 @@ SignalGenerator::SignalGenerator(QByteArray *ptrToData, QObject *parent)
     A_signalMod :: setFrequencyMod(0);
     A_signalMod :: setDurationMod(0);
 
+    m_mapSignal[QPair<int, int>(0, 0)] = &m_noSignal;
+    m_mapSignal[QPair<int, int>(1, 0)] = &m_sine;
+    m_mapSignal[QPair<int, int>(2, 0)] = &m_rectangle;
+    m_mapSignal[QPair<int, int>(1, 1)] = &m_sineModSine;
+    m_mapSignal[QPair<int, int>(0, 0)] = &m_noSignal;
     m_ptrToSignal = &m_noSignal;
 }
 
@@ -55,14 +60,9 @@ void SignalGenerator::setSignalDuration(const double &duration)
     A_signal :: setDuration(duration);
 }
 
-void SignalGenerator::setSignalType(const int &signalType)
+void SignalGenerator::setSignalType(const QPair<int, int> &signalType)
 {
-    switch(signalType)
-    {
-    case 0 : {m_ptrToSignal =  &m_noSignal; break;}
-    case 1 : {m_ptrToSignal =  &m_sine; break;}
-    case 2 : {m_ptrToSignal = &m_rectangle; break;}
-    }
+    m_ptrToSignal = m_mapSignal.at(signalType);
 }
 
 void SignalGenerator::setStrobeSize(const unsigned char &info)

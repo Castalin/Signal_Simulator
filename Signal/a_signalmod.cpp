@@ -5,6 +5,11 @@ A_signalMod::A_signalMod()
 
 }
 
+A_signalMod::~A_signalMod()
+{
+
+}
+
 double A_signalMod :: s_amplitudeMod;
 double A_signalMod :: s_frequencyMod;
 double A_signalMod :: s_durationMod;

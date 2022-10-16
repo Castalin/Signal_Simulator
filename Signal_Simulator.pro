@@ -27,6 +27,7 @@ SOURCES += \
     UI/controlangle.cpp \
     UI/controlsettingsOne.cpp \
     UI/controlsettingsTwo.cpp \
+    UI/modulationui.cpp \
     UI/signalsui.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -50,6 +51,7 @@ HEADERS += \
     UI/controlangle.h \
     UI/controlsettingsOne.h \
     UI/controlsettingsTwo.h \
+    UI/modulationui.h \
     UI/signalsui.h \
     mainwindow.h \
 

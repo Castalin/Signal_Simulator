@@ -14,12 +14,13 @@ private:
     int m_strobeSize;
     QByteArray *m_ptrToData;
 
-    Sine m_sine;
     NoSignal m_noSignal;
+    Sine m_sine;
     Rectangle m_rectangle;
     SineModSine m_sineModSine;
 
     A_signal *m_ptrToSignal;
+    std :: map<QPair<int, int>, A_signal*> m_mapSignal;
 
 public:
     void countSignal();
@@ -31,7 +32,7 @@ public:
     void setSignalAmplitude(const int &amplitude);
     void setSignalFrequency(const double &frequency);
     void setSignalDuration(const double &duration);
-    void setSignalType(const int &signalType);
+    void setSignalType(const QPair<int, int> &signalType);
 
 
 

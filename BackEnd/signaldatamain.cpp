@@ -146,7 +146,7 @@ void SignalDataMain::slot_setSignalDuration(const double &duration)
     m_signalGenerator->setSignalDuration(duration);
 }
 
-void SignalDataMain::slot_setSignalType(const int &signalType)
+void SignalDataMain::slot_setSignalType(const QPair<int, int> &signalType)
 {
     m_signalGenerator->setSignalType(signalType);
 }

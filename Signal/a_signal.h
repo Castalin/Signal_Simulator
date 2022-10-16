@@ -6,6 +6,7 @@ class A_signal
 {
 public:
     A_signal();
+    virtual ~A_signal();
     virtual double getSignal(int &i) = 0;
     static void setDecimation(const int &decimation);
 

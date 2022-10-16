@@ -15,14 +15,14 @@ MainWindow::MainWindow(QWidget *parent)
     QGroupBox *mainWidget = new QGroupBox(QString("  Signal Simulator"));
     QGridLayout *mainLayout = new QGridLayout;
 
-    mainLayout->setVerticalSpacing(6);
+    mainLayout->setVerticalSpacing(2);
     mainLayout->setMargin(2);
-    mainLayout->addWidget(m_signalsUI, 0, 0, 5, 6, Qt :: AlignTop);
+    mainLayout->addWidget(m_signalsUI, 0, 0, 6, 6, Qt :: AlignTop);
     mainLayout->addWidget(m_ctrSettings_1, 0, 6, 2, 2);
     mainLayout->addWidget(m_ctrSettings_2, 2, 6, 2, 2, Qt :: AlignTop);
     mainLayout->addWidget(m_adc_Delay, 4, 6, 2, 2, Qt :: AlignTop);
-    mainLayout->addWidget(m_ctrAngle, 3, 0, 2, 6, Qt :: AlignBottom);
-    mainLayout->addWidget(m_ctrAddresses, 5, 0, 2, 6, Qt :: AlignTop);
+    mainLayout->addWidget(m_ctrAngle, 5, 0, 2, 6, Qt :: AlignBottom);
+    mainLayout->addWidget(m_ctrAddresses, 7, 0, 2, 6, Qt :: AlignTop);
 
     mainWidget->setLayout(mainLayout);
     this->setCentralWidget(mainWidget);

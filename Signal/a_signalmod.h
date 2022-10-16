@@ -6,6 +6,7 @@ class A_signalMod : public A_signal
 {
 public:
     A_signalMod();
+    virtual ~A_signalMod();
 
 protected:
     static double s_amplitudeMod;

@@ -57,7 +57,7 @@ public slots:
     void slot_setSignalValue(const int &amplitude);
     void slot_setSignalFrequency(const double &frequency);
     void slot_setSignalDuration(const double &duration);
-    void slot_setSignalType(const int &signalType);
+    void slot_setSignalType(const QPair<int, int> &signalType);
 
 
 private:

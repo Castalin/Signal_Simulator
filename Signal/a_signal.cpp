@@ -5,6 +5,11 @@ A_signal::A_signal()
 
 }
 
+A_signal::~A_signal()
+{
+
+}
+
 int A_signal :: s_decimation;
 double A_signal :: s_amplitude;
 double A_signal :: s_frequency;

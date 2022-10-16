@@ -16,7 +16,7 @@ public:
 
 signals:
     void signal_signalValue(const double &value);
-    void signal_signalType(const int &signalType);
+    void signal_signalType(const QPair<int, int> &signalType);
     void signal_signalFrequency(const double &frequency);
     void signal_signalDuration(const double &duration);
 
@@ -27,22 +27,17 @@ private:
     QComboBox *w_durationSignalBox;
     QDoubleSpinBox *w_durationSignalNum;
 
-    QCheckBox *w_checkModulation;
-    QComboBox *w_signalsBoxModul;
-    QComboBox *w_frequencyBoxModul;
-    QDoubleSpinBox *w_frequencyNumModul;
-    QComboBox *w_durationSignalBoxModul;
-    QDoubleSpinBox *w_durationSignalNumModul;
-
     QSlider *w_levelSignalSlider;
     QLabel *w_levelSignalLabel;
     QPushButton *w_startSlider;
     QPushButton *w_stopSlider;
     QTimer *w_timer;
 
+
     double m_duration;
     double m_frequency;
     int m_sampleFrequency;
+    QPair<int, int> m_signalType;
 
     enum FREQUENCY
     {
@@ -60,9 +55,7 @@ private:
 
 
 private slots:
-    void slot_checkedModul(int state);
     void slot_signalChanged(int currentIndex);
-    void slot_signalModulChanged(int currentIndex);
     void slot_startMovingSlider();
     void slot_timeOut();
     void slot_checkRangeFrequency(const int &index);
