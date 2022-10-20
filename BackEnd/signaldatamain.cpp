@@ -131,7 +131,7 @@ void SignalDataMain::slot_DecimationChanged(const int &decimation)
     m_signalGenerator->setDecimation(decimation);
 }
 
-void SignalDataMain::slot_setSignalValue(const int &amplitude)
+void SignalDataMain::slot_setSignalAmplitude(const int &amplitude)
 {
     m_signalGenerator->setSignalAmplitude(amplitude);
 }
@@ -149,6 +149,21 @@ void SignalDataMain::slot_setSignalDuration(const double &duration)
 void SignalDataMain::slot_setSignalType(const QPair<int, int> &signalType)
 {
     m_signalGenerator->setSignalType(signalType);
+}
+
+void SignalDataMain::slot_setSignalAmplitudeMod(const int &amplitudeMod)
+{
+    m_signalGenerator->setSignalAmplitudeMod(amplitudeMod);
+}
+
+void SignalDataMain::slot_setSignalFrequencyMod(const double &frequencyMod)
+{
+    m_signalGenerator->setSignalFrequencyMod(frequencyMod);
+}
+
+void SignalDataMain::slot_setSignalDurationMod(const double &durationMod)
+{
+    m_signalGenerator->setSignalDurationMod(durationMod);
 }
 
 

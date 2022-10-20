@@ -17,7 +17,13 @@ private:
     NoSignal m_noSignal;
     Sine m_sine;
     Rectangle m_rectangle;
+    ModSine m_modSine;
+    ModRect m_modRect;
     SineModSine m_sineModSine;
+    SineModRect m_sineModRect;
+    RectModSine m_rectModSine;
+    RectModRect m_rectModRect;
+
 
     A_signal *m_ptrToSignal;
     std :: map<QPair<int, int>, A_signal*> m_mapSignal;
@@ -33,6 +39,10 @@ public:
     void setSignalFrequency(const double &frequency);
     void setSignalDuration(const double &duration);
     void setSignalType(const QPair<int, int> &signalType);
+
+    void setSignalAmplitudeMod(const int &amplitudeMod);
+    void setSignalFrequencyMod(const double &frequencyMod);
+    void setSignalDurationMod(const double &durationMod);
 
 
 

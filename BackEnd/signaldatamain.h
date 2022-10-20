@@ -54,10 +54,13 @@ public slots:
     void slot_DecimationChanged(const int &decimation);
 
 
-    void slot_setSignalValue(const int &amplitude);
+    void slot_setSignalAmplitude(const int &amplitude);
     void slot_setSignalFrequency(const double &frequency);
     void slot_setSignalDuration(const double &duration);
     void slot_setSignalType(const QPair<int, int> &signalType);
+    void slot_setSignalAmplitudeMod(const int &amplitudeMod);
+    void slot_setSignalFrequencyMod(const double &frequencyMod);
+    void slot_setSignalDurationMod(const double &durationMod);
 
 
 private:

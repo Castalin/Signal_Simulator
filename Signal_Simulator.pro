@@ -18,9 +18,14 @@ SOURCES += \
     BackEnd/signalgenerator.cpp \
     Signal/a_signal.cpp \
     Signal/a_signalmod.cpp \
+    Signal/modrect.cpp \
+    Signal/modsine.cpp \
     Signal/nosignal.cpp \
     Signal/rectangle.cpp \
+    Signal/rectmodrect.cpp \
+    Signal/rectmodsine.cpp \
     Signal/sine.cpp \
+    Signal/sinemodrect.cpp \
     Signal/sinemodsine.cpp \
     UI/adc_delay.cpp \
     UI/controladdresses.cpp \
@@ -41,10 +46,15 @@ HEADERS += \
     BackEnd/signalgenerator.h \
     Signal/a_signal.h \
     Signal/a_signalmod.h \
+    Signal/modrect.h \
+    Signal/modsine.h \
     Signal/nosignal.h \
     Signal/rectangle.h \
+    Signal/rectmodrect.h \
+    Signal/rectmodsine.h \
     Signal/signals_defenition.h \
     Signal/sine.h \
+    Signal/sinemodrect.h \
     Signal/sinemodsine.h \
     UI/adc_delay.h \
     UI/controladdresses.h \

@@ -61,11 +61,15 @@ MainWindow::MainWindow(QWidget *parent)
 
 
     connect(m_signalDataMain, &SignalDataMain :: finished, m_ctrAngle, &ControlAngle :: slot_stopBtn);                                                       // stops timers
-    connect(m_signalDataMain, &SignalDataMain :: finished, m_signalsUI, &SignalsUI :: slot_stopMovingSlider);                                                // stops timers
-    connect(m_signalsUI, &SignalsUI :: signal_signalValue, m_signalDataMain, &SignalDataMain :: slot_setSignalValue);
+    connect(m_signalDataMain, &SignalDataMain :: finished, m_signalsUI, &SignalsUI :: slot_stopMovingSliderOut);                                                // stops timers
+    connect(m_signalsUI, &SignalsUI :: signal_signalAmplitude, m_signalDataMain, &SignalDataMain :: slot_setSignalAmplitude);
     connect(m_signalsUI, &SignalsUI :: signal_signalDuration, m_signalDataMain, &SignalDataMain :: slot_setSignalDuration);
     connect(m_signalsUI, &SignalsUI :: signal_signalFrequency, m_signalDataMain, &SignalDataMain :: slot_setSignalFrequency);
     connect(m_signalsUI, &SignalsUI :: signal_signalType, m_signalDataMain, &SignalDataMain :: slot_setSignalType);
+
+    connect(m_signalsUI, &SignalsUI :: signal_signalAmplitudeMod, m_signalDataMain, &SignalDataMain :: slot_setSignalAmplitudeMod);
+    connect(m_signalsUI, &SignalsUI :: signal_signalDurationMod, m_signalDataMain, &SignalDataMain :: slot_setSignalDurationMod);
+    connect(m_signalsUI, &SignalsUI :: signal_signalFrequencyMod, m_signalDataMain, &SignalDataMain :: slot_setSignalFrequencyMod);
 
 
 }

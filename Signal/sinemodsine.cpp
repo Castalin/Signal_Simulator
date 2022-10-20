@@ -9,5 +9,5 @@ SineModSine::SineModSine()
 
 double SineModSine :: getSignal(int &i)
 {
-    return (s_amplitude + s_amplitudeMod * qSin(2 * M_PI * i * s_frequencyMod / s_decimation)) * qSin(2 * M_PI * i * s_frequency / s_decimation);
+    return (s_amplitude + modSine.getSignal(i)) * qSin(2 * M_PI * i * s_frequency / s_decimation);
 }

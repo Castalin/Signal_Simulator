@@ -15,7 +15,7 @@ double Rectangle::getSignal(int &i)
         }
         else if (i <= s_duration * s_decimation)
         {
-            return s_amplitude * 1.0;
+            return s_amplitude;
         }
         else
         {
@@ -31,7 +31,7 @@ double Rectangle::getSignal(int &i)
         }
         else if (i % (static_cast<int>(s_decimation / s_frequency)- 1) <= static_cast<int>(s_duration * s_decimation))
         {
-            return s_amplitude * 1.0;
+            return s_amplitude;
         }
         else
         {

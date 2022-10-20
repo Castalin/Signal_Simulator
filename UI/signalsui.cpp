@@ -1,5 +1,4 @@
 #include "UI/signalsui.h"
-#include "modulationui.h"
 #include <QGridLayout>
 #include <QLabel>
 #include <QGroupBox>
@@ -12,7 +11,7 @@ SignalsUI::SignalsUI(QWidget *parent)
 {
     m_duration = 0.0;
     m_frequency = 0.0;
-    m_sampleFrequency = 80e6;
+    m_decimation = 80e6;
     w_signalsBox = new QComboBox;
     w_signalsBox->addItems(QStringList{"None", "Sine", "Rect"});
 
@@ -68,7 +67,7 @@ SignalsUI::SignalsUI(QWidget *parent)
     signalLayout->addWidget(w_levelSignalSlider, 3, 2, 1, 2);
     signalLayout->addWidget(w_levelSignalLabel, 3, 4, 1, 1, Qt :: AlignCenter);
 
-    ModulationUI *m_modulationUI = new ModulationUI;
+    m_modulationUI= new ModulationUI;
     signalLayout->addWidget(m_modulationUI, 4, 0, 3, 5);
 
 
@@ -92,7 +91,7 @@ SignalsUI::SignalsUI(QWidget *parent)
     connect(w_startSlider, &QPushButton :: clicked, this, &SignalsUI :: slot_startMovingSlider);
     connect(w_stopSlider, &QPushButton :: clicked, this, &SignalsUI :: slot_stopMovingSlider);
     connect(w_timer, &QTimer :: timeout, this, &SignalsUI :: slot_timeOut);
-    connect(w_levelSignalSlider, &QSlider :: valueChanged, this, &SignalsUI :: signal_signalValue);
+    connect(w_levelSignalSlider, &QSlider :: valueChanged, this, &SignalsUI :: signal_signalAmplitude);
     connect(w_levelSignalSlider, &QSlider :: valueChanged, w_levelSignalLabel, QOverload<int> :: of (&QLabel :: setNum));
 
     connect(w_frequencyBox, QOverload<int> :: of(&QComboBox :: currentIndexChanged), this, &SignalsUI :: slot_checkRangeFrequency);
@@ -101,20 +100,25 @@ SignalsUI::SignalsUI(QWidget *parent)
     connect(w_frequencyNum, QOverload<double> :: of(&QDoubleSpinBox :: valueChanged), this, &SignalsUI :: slot_setFrequency);
 
     connect(m_modulationUI, &ModulationUI :: signal_signalType, this, [this](const int &ModType)->void{m_signalType.second = ModType; emit signal_signalType(m_signalType);});
+    connect(m_modulationUI, &ModulationUI :: signal_signalAmplitudeMod, this, [this](const double &ampMod)->void{emit signal_signalAmplitudeMod(ampMod);});
+    connect(m_modulationUI, &ModulationUI :: signal_signalDurationMod, this, [this](const double &durationMod)->void{emit signal_signalDurationMod(durationMod);});
+    connect(m_modulationUI, &ModulationUI :: signal_signalFrequencyMod, this, [this](const double &frequencyMod)->void{emit signal_signalFrequencyMod(frequencyMod);});
+
 
 }
 
 
 
 
-void SignalsUI :: slot_signalChanged(int currentIndex)
+void SignalsUI :: slot_signalChanged(const int &currentIndex)
 {
     m_signalType.first = currentIndex;
     emit signal_signalType(m_signalType);
+    m_modulationUI->setMainSignalType(currentIndex);
 
-    switch (currentIndex)
+    switch (static_cast<SIGNALS>(currentIndex))
     {
-    case 0:
+    case NO_SIGNAL:
     {
         w_frequencyBox->setEnabled(false);
         w_frequencyNum->setEnabled(false);
@@ -122,28 +126,24 @@ void SignalsUI :: slot_signalChanged(int currentIndex)
         w_durationSignalNum->setEnabled(false);
         break;
     }
-    case 1:
+    case SINE:
     {
         w_frequencyBox->setEnabled(true);
         w_frequencyNum->setEnabled(true);
         w_durationSignalBox->setEnabled(false);
         w_durationSignalNum->setEnabled(false);
-
-        slot_checkRangeFrequency(w_frequencyBox->currentIndex());
-
         break;
     }
-    case 2:
+    case RECTANGLE:
     {
         w_frequencyBox->setEnabled(true);
         w_frequencyNum->setEnabled(true);
         w_durationSignalBox->setEnabled(true);
         w_durationSignalNum->setEnabled(true);
-
-        slot_checkRangeFrequency(w_frequencyBox->currentIndex());
         break;
     }
     };
+    slot_checkRangeFrequency(w_frequencyBox->currentIndex());
 }
 
 
@@ -165,11 +165,18 @@ void SignalsUI::slot_stopMovingSlider()
 
 }
 
-void SignalsUI::slot_setDecimationFrequence(const int &value)
+void SignalsUI::slot_stopMovingSliderOut()
 {
-    m_sampleFrequency = value;
+    slot_stopMovingSlider();
+    m_modulationUI->slot_stopMovingSlider();
+}
+
+void SignalsUI::slot_setDecimationFrequence(const int &decimation)
+{
+    m_decimation = decimation;
     slot_checkRangeFrequency(w_frequencyBox->currentIndex());
     slot_checkRangeDuration(w_durationSignalBox->currentIndex());
+    m_modulationUI->setDecimationFrequence(decimation);
 }
 
 void SignalsUI::slot_timeOut()
@@ -190,12 +197,12 @@ void SignalsUI::slot_checkRangeFrequency(const int &index)
     {
         if (index == FREQUENCY :: kHz)
         {
-            w_frequencyNum->setMaximum(static_cast<double>(m_sampleFrequency / 2e3));
+            w_frequencyNum->setMaximum(static_cast<double>(m_decimation / 2e3));
             w_frequencyNum->setValue(m_frequency / 1e3);
         }
         else
         {
-            w_frequencyNum->setMaximum(static_cast<double>(m_sampleFrequency / 2e6));
+            w_frequencyNum->setMaximum(static_cast<double>(m_decimation / 2e6));
             w_frequencyNum->setValue(m_frequency / 1e6);
 
         }
@@ -204,12 +211,12 @@ void SignalsUI::slot_checkRangeFrequency(const int &index)
     {
         if (index == FREQUENCY :: kHz)
         {
-            w_frequencyNum->setMaximum(m_sampleFrequency / (m_duration * m_sampleFrequency + 2) / 1e3);
+            w_frequencyNum->setMaximum(m_decimation / (m_duration * m_decimation + 2) / 1e3);
             w_frequencyNum->setValue(m_frequency / 1e3);
         }
         else
         {
-            w_frequencyNum->setMaximum(m_sampleFrequency / (m_duration * m_sampleFrequency + 2) / 1e6);
+            w_frequencyNum->setMaximum(m_decimation / (m_duration * m_decimation + 2) / 1e6);
             w_frequencyNum->setValue(m_frequency / 1e6);
         }
     }
@@ -222,19 +229,19 @@ void SignalsUI::slot_checkRangeDuration(const int &index)
     {
         case DURATION :: ms:
         {
-            w_durationSignalNum->setMaximum(1e3 * 511 / static_cast<double>(m_sampleFrequency));
+            w_durationSignalNum->setMaximum(1e3 * 511 / static_cast<double>(m_decimation));
             w_durationSignalNum->setValue(m_duration * 1e3);
             return;
         }
         case DURATION :: us:
         {
-            w_durationSignalNum->setMaximum(1e6 * 511 / static_cast<double>(m_sampleFrequency));
+            w_durationSignalNum->setMaximum(1e6 * 511 / static_cast<double>(m_decimation));
             w_durationSignalNum->setValue(m_duration * 1e6);
             return;
         }
         case DURATION :: ns:
         {
-            w_durationSignalNum->setMaximum(1e9 * 511 / static_cast<double>(m_sampleFrequency));
+            w_durationSignalNum->setMaximum(1e9 * 511 / static_cast<double>(m_decimation));
             w_durationSignalNum->setValue(m_duration * 1e9);
             return;
         }
@@ -265,6 +272,7 @@ void SignalsUI::slot_setFrequency(const double &value)
         m_frequency = value * 1e6;
     }
     emit signal_signalFrequency(m_frequency);
+    m_modulationUI->setFrequencyMainSignal(m_frequency);
 }
 
 
