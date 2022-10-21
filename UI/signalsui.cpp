@@ -242,7 +242,7 @@ void SignalsUI::slot_checkRangeDuration(const int &index)
         {
             w_durationSignalNum->setMaximum(1e9 * 255 / static_cast<double>(m_decimation));
             w_durationSignalNum->setValue(m_duration * 1e9);
-            return;
+                return;
         }
     }
 }
