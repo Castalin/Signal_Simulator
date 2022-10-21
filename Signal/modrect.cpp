@@ -5,11 +5,11 @@ ModRect::ModRect()
 
 }
 
-double ModRect::getSignal(int &i)
+double ModRect::getSignal(const int &i)
 {
     if (s_frequencyMod == 0)
     {
-        if (i == 0 || i == 511)
+        if (i == 0 || i == 255)
         {
             return 0.0;
         }

@@ -32,9 +32,9 @@ SignalGenerator::SignalGenerator(QByteArray *ptrToData, QObject *parent)
 void SignalGenerator::countSignal()
 {
     quint16 value;
-    for (int i{0}; i < 512; i++)      // 8 - first signal address
+    for (int i{0}; i < 512; i += 2)      // 8 - first signal address
     {
-        value = 11900 * m_ptrToSignal->getSignal(i);
+        value = 11900 * m_ptrToSignal->getSignal(i / 2);
         memcpy(m_ptrToData->data() + 2 * i + 8, &value, 2);
         memcpy(m_ptrToData->data() + 2 * (i + 1) + 8, &value, 2);
     }
@@ -72,7 +72,7 @@ void SignalGenerator::setSignalType(const QPair<int, int> &signalType)
 
 void SignalGenerator::setSignalAmplitudeMod(const int &amplitudeMod)
 {
-    A_signalMod :: setAmplitudeMod(amplitudeMod / 100);
+    A_signalMod :: setAmplitudeMod(amplitudeMod / 100.0);
 }
 
 void SignalGenerator::setSignalFrequencyMod(const double &frequencyMod)

@@ -16,11 +16,11 @@ public:
     explicit SignalsUI(QWidget *parent = nullptr);
 
 signals:
-    void signal_signalAmplitude(const double &value);
+    void signal_signalAmplitude(const int &amplitude);
     void signal_signalType(const QPair<int, int> &signalType);
     void signal_signalFrequency(const double &frequency);
     void signal_signalDuration(const double &duration);
-    void signal_signalAmplitudeMod(const double &value);
+    void signal_signalAmplitudeMod(const int &value);
     void signal_signalFrequencyMod(const double &frequency);
     void signal_signalDurationMod(const double &duration);
 

@@ -16,7 +16,7 @@ public:
     explicit ModulationUI(QWidget *parent = nullptr);
 
 signals:
-    void signal_signalAmplitudeMod(const double &value);
+    void signal_signalAmplitudeMod(const int &amplitude);
     void signal_signalType(const int &signalType);
     void signal_signalFrequencyMod(const double &frequency);
     void signal_signalDurationMod(const double &duration);
@@ -60,7 +60,7 @@ private:
         RECTANGLE           = 2,
     };
 
-    SIGNALS mainSignalType;
+    SIGNALS m_mainSignalType;
     double m_frequencyMainsignal;
 
 private slots:

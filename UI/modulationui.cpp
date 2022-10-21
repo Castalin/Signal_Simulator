@@ -6,6 +6,10 @@
 ModulationUI::ModulationUI(QWidget *parent)
     : QWidget{parent}
 {
+    m_duration = 0.0;
+    m_frequency = 0.0;
+    m_frequencyMainsignal = 0.0;
+    m_decimation = 80e6;
     w_checkModulation = new QCheckBox(QString("Modulation"));
     w_checkModulation->setCheckable(true);
 
@@ -197,33 +201,121 @@ void ModulationUI::slot_setDurationMod(const double &durationMod)
 
 void ModulationUI::slot_checkRangeFrequencyMod(const int &index)
 {
-    if (w_durationSignalBoxMod->isEnabled() == 0 || m_duration == 0)
+    switch(m_mainSignalType)
     {
-        if (index == FREQUENCY :: kHz)
+        case NO_SIGNAL:
         {
-            //w_frequencyNum->setMaximum(static_cast<double>(m_sampleFrequency / 2e3));
-            w_frequencyNumMod->setValue(m_frequency / 1e3);
+            switch(w_signalsBoxMod->currentIndex())
+            {
+            case NO_SIGNAL : {return;};
+            case SINE :
+                {
+                    if (index == FREQUENCY :: kHz)
+                    {
+                        w_frequencyNumMod->setMaximum(static_cast<double>(m_decimation / 2e3));
+                        w_frequencyNumMod->setValue(m_frequency / 1e3);
+                        return;
+                    }
+                    else
+                    {
+                        w_frequencyNumMod->setMaximum(static_cast<double>(m_decimation / 2e6));
+                        w_frequencyNumMod->setValue(m_frequency / 1e6);
+                        return;
+                    }
+                }
+            case RECTANGLE :
+                {
+                    if (index == FREQUENCY :: kHz)
+                    {
+                        w_frequencyNumMod->setMaximum(m_decimation / (m_duration * m_decimation + 2) / 1e3);
+                        w_frequencyNumMod->setValue(m_frequency / 1e3);
+                        return;
+                    }
+                    else
+                    {
+                        w_frequencyNumMod->setMaximum(m_decimation / (m_duration * m_decimation + 2) / 1e6);
+                        w_frequencyNumMod->setValue(m_frequency / 1e6);
+                        return;
+                    }
+                }
+            }
         }
-        else
+        case SINE:
         {
-            //w_frequencyNum->setMaximum(static_cast<double>(m_sampleFrequency / 2e6));
-            w_frequencyNumMod->setValue(m_frequency / 1e6);
+            switch(w_signalsBoxMod->currentIndex())
+            {
+                case NO_SIGNAL : {return;};
+                case SINE :
+                {
+                    if (index == FREQUENCY :: kHz)
+                    {
+                        w_frequencyNumMod->setMaximum(static_cast<double>(((m_decimation / 2) - m_frequencyMainsignal) / 1e3));
+                        w_frequencyNumMod->setValue(m_frequency / 1e3);
+                        return;
+                    }
+                    else
+                    {
+                        w_frequencyNumMod->setMaximum(static_cast<double>(((m_decimation / 2) - m_frequencyMainsignal) / 1e6));
+                        w_frequencyNumMod->setValue(m_frequency / 1e6);
+                        return;
+                    }
+                }
+            case RECTANGLE :
+                {
+                    if (index == FREQUENCY :: kHz)
+                    {
+                        w_frequencyNumMod->setMaximum(m_decimation / (m_duration * m_decimation + 2) / 1e3);
+                        w_frequencyNumMod->setValue(m_frequency / 1e3);
+                        return;
+                    }
+                    else
+                    {
+                        w_frequencyNumMod->setMaximum(m_decimation / (m_duration * m_decimation + 2) / 1e6);
+                        w_frequencyNumMod->setValue(m_frequency / 1e6);
+                        return;
+                    }
+                }
+            }
+        }
+        case RECTANGLE:
+        {
+            switch(w_signalsBoxMod->currentIndex())
+            {
+                case NO_SIGNAL : {return;};
+                case SINE :
+                {
+                    if (index == FREQUENCY :: kHz)
+                    {
+                        w_frequencyNumMod->setMaximum(static_cast<double>(((m_decimation / 2) - 2 / m_duration) / 1e3));
+                        w_frequencyNumMod->setValue(m_frequency / 1e3);
+                        return;
+                    }
+                    else
+                    {
+                       w_frequencyNumMod->setMaximum(static_cast<double>(((m_decimation / 2) - 2 / m_duration) / 1e6));
+                       w_frequencyNumMod->setValue(m_frequency / 1e6);
+                       return;
+                    }
+                }
+                case RECTANGLE :
+                {
+                    if (index == FREQUENCY :: kHz)
+                    {
+                        w_frequencyNumMod->setMaximum(m_decimation / (m_duration * m_decimation + 2) / 1e3);
+                        w_frequencyNumMod->setValue(m_frequency / 1e3);
+                        return;
+                    }
+                    else
+                    {
+                        w_frequencyNumMod->setMaximum(m_decimation / (m_duration * m_decimation + 2) / 1e6);
+                        w_frequencyNumMod->setValue(m_frequency / 1e6);
+                        return;
+                    }
+                }
+            }
+        }
+    }
 
-        }
-    }
-    else
-    {
-        if (index == FREQUENCY :: kHz)
-        {
-            //w_frequencyNum->setMaximum(m_sampleFrequency / (m_duration * m_sampleFrequency + 2) / 1e3);
-            w_frequencyNumMod->setValue(m_frequency / 1e3);
-        }
-        else
-        {
-            //->setMaximum(m_sampleFrequency / (m_duration * m_sampleFrequency + 2) / 1e6);
-            w_frequencyNumMod->setValue(m_frequency / 1e6);
-        }
-    }
 }
 
 void ModulationUI::slot_checkRangeDurationMod(const int &index)
@@ -232,19 +324,19 @@ void ModulationUI::slot_checkRangeDurationMod(const int &index)
     {
         case DURATION :: ms:
         {
-            w_durationSignalNumMod->setMaximum(1e3 * 511 / static_cast<double>(m_decimation));
+            w_durationSignalNumMod->setMaximum(1e3 * 255 / static_cast<double>(m_decimation));
             w_durationSignalNumMod->setValue(m_duration * 1e3);
             return;
         }
         case DURATION :: us:
         {
-            w_durationSignalNumMod->setMaximum(1e6 * 511 / static_cast<double>(m_decimation));
+            w_durationSignalNumMod->setMaximum(1e6 * 255 / static_cast<double>(m_decimation));
             w_durationSignalNumMod->setValue(m_duration * 1e6);
             return;
         }
         case DURATION :: ns:
         {
-            w_durationSignalNumMod->setMaximum(1e9 * 511 / static_cast<double>(m_decimation));
+            w_durationSignalNumMod->setMaximum(1e9 * 255 / static_cast<double>(m_decimation));
             w_durationSignalNumMod->setValue(m_duration * 1e9);
             return;
         }
@@ -277,7 +369,7 @@ void ModulationUI::setFrequencyMainSignal(const double &frequency)
 
 void ModulationUI::setMainSignalType(const int &index)
 {
-    mainSignalType = static_cast<SIGNALS>(index);
+    m_mainSignalType = static_cast<SIGNALS>(index);
     slot_checkRangeFrequencyMod(w_frequencyBoxMod->currentIndex());
     slot_checkRangeDurationMod(w_durationSignalBoxMod->currentIndex());
 }

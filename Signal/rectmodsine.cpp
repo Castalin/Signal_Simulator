@@ -5,7 +5,7 @@ RectModSine::RectModSine()
 
 }
 
-double RectModSine::getSignal(int &i)
+double RectModSine::getSignal(const int &i)
 {
     return rect.getSignal(i) * modSine.getSignal(i);
 }

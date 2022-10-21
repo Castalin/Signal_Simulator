@@ -8,7 +8,7 @@ class SineModRect : public A_signalMod
 {
 public:
     SineModRect();
-    virtual double getSignal(int &i) override;
+    virtual double getSignal(const int &i) override;
 
 private:
     ModRect modRect;

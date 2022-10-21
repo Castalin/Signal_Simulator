@@ -5,11 +5,11 @@ Rectangle::Rectangle()
 
 }
 
-double Rectangle::getSignal(int &i)
+double Rectangle::getSignal(const int &i)
 {
     if (s_frequency == 0)
     {
-        if (i == 0 || i == 511)
+        if (i == 0 || i == 255)
         {
             return 0.0;
         }

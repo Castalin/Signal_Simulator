@@ -8,7 +8,7 @@ class RectModSine : public A_signalMod
 {
 public:
     RectModSine();
-    virtual double getSignal(int &i) override;
+    virtual double getSignal(const int &i) override;
 
 private :
     Rectangle rect;

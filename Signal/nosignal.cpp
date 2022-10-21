@@ -5,7 +5,7 @@ NoSignal::NoSignal()
 
 }
 
-double NoSignal::getSignal(int &i)
+double NoSignal::getSignal(const int &i)
 {
     return s_amplitude;
 }

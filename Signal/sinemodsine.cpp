@@ -7,7 +7,7 @@ SineModSine::SineModSine()
 }
 
 
-double SineModSine :: getSignal(int &i)
+double SineModSine :: getSignal(const int &i)
 {
     return (s_amplitude + modSine.getSignal(i)) * qSin(2 * M_PI * i * s_frequency / s_decimation);
 }

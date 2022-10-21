@@ -6,7 +6,7 @@ class Rectangle : public A_signal
 {
 public:
     Rectangle();
-    virtual double getSignal(int &i) override;
+    virtual double getSignal(const int &i) override;
 };
 
 #endif // RECTANGLE_H

@@ -6,7 +6,7 @@ class NoSignal : public A_signal
 {
 public:
     NoSignal();
-    virtual double getSignal(int &i) override;
+    virtual double getSignal(const int &i) override;
 };
 
 #endif // NOSIGNAL_H

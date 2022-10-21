@@ -104,7 +104,6 @@ SignalsUI::SignalsUI(QWidget *parent)
     connect(m_modulationUI, &ModulationUI :: signal_signalDurationMod, this, [this](const double &durationMod)->void{emit signal_signalDurationMod(durationMod);});
     connect(m_modulationUI, &ModulationUI :: signal_signalFrequencyMod, this, [this](const double &frequencyMod)->void{emit signal_signalFrequencyMod(frequencyMod);});
 
-
 }
 
 
@@ -229,19 +228,19 @@ void SignalsUI::slot_checkRangeDuration(const int &index)
     {
         case DURATION :: ms:
         {
-            w_durationSignalNum->setMaximum(1e3 * 511 / static_cast<double>(m_decimation));
+            w_durationSignalNum->setMaximum(1e3 * 255 / static_cast<double>(m_decimation));
             w_durationSignalNum->setValue(m_duration * 1e3);
             return;
         }
         case DURATION :: us:
         {
-            w_durationSignalNum->setMaximum(1e6 * 511 / static_cast<double>(m_decimation));
+            w_durationSignalNum->setMaximum(1e6 * 255 / static_cast<double>(m_decimation));
             w_durationSignalNum->setValue(m_duration * 1e6);
             return;
         }
         case DURATION :: ns:
         {
-            w_durationSignalNum->setMaximum(1e9 * 511 / static_cast<double>(m_decimation));
+            w_durationSignalNum->setMaximum(1e9 * 255 / static_cast<double>(m_decimation));
             w_durationSignalNum->setValue(m_duration * 1e9);
             return;
         }

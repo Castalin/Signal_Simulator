@@ -7,7 +7,7 @@ class Sine : public A_signal
 {
 public:
     Sine();
-    virtual double getSignal(int &i) override;
+    virtual double getSignal(const int &i) override;
 };
 
 #endif // SINE_H

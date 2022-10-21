@@ -7,7 +7,7 @@ class A_signal
 public:
     A_signal();
     virtual ~A_signal();
-    virtual double getSignal(int &i) = 0;
+    virtual double getSignal(const int &i) = 0;
     static void setDecimation(const int &decimation);
 
     static void setDuration(const double &duration);

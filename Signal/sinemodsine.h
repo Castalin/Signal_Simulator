@@ -7,7 +7,7 @@ class SineModSine : public A_signalMod
 {
 public:
     SineModSine();
-    virtual double getSignal(int &i) override;
+    virtual double getSignal(const int &i) override;
 private:
     ModSine modSine;
 };

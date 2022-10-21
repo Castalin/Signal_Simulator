@@ -6,7 +6,7 @@ class ModRect : public A_signalMod
 {
 public:
     ModRect();
-    virtual double getSignal(int &i) override;
+    virtual double getSignal(const int &i) override;
 };
 
 #endif // MODRECT_H

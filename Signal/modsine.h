@@ -6,7 +6,7 @@ class ModSine : public A_signalMod
 {
 public:
     ModSine();
-    virtual double getSignal(int &i) override;
+    virtual double getSignal(const int &i) override;
 };
 
 #endif // MODSINE_H

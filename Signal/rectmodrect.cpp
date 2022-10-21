@@ -5,7 +5,7 @@ RectModRect::RectModRect()
 
 }
 
-double RectModRect::getSignal(int &i)
+double RectModRect::getSignal(const int &i)
 {
     return rect.getSignal(i) * modRect.getSignal(i);
 }
