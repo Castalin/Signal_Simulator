@@ -6,7 +6,7 @@
 
 class AngleCounter : public QObject
 {
-    Q_OBJECT
+      Q_OBJECT
 public:
     explicit AngleCounter(QObject *parent = nullptr);
 
