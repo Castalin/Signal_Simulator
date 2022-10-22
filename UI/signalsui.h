@@ -26,8 +26,8 @@ signals:
 
 private:
     QComboBox *w_signalsBox;
-    QComboBox *w_frequencyBox;
-    QDoubleSpinBox *w_frequencyNum;
+    QComboBox *w_frequencySignalBox;
+    QDoubleSpinBox *w_frequencySignalNum;
     QComboBox *w_durationSignalBox;
     QDoubleSpinBox *w_durationSignalNum;
 

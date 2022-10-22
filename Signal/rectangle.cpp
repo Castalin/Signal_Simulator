@@ -29,7 +29,7 @@ double Rectangle::getSignal(const int &i)
         {
             return 0.0;
         }
-        else if (i % (static_cast<int>(s_decimation / s_frequency)- 1) <= static_cast<int>(s_duration * s_decimation))
+        else if (i % (static_cast<int>(s_decimation / s_frequency) - 1) <= static_cast<int>(s_duration * s_decimation))
         {
             return s_amplitude;
         }

@@ -25,8 +25,8 @@ private:
 
     QCheckBox *w_checkModulation;
     QComboBox *w_signalsBoxMod;
-    QComboBox *w_frequencyBoxMod;
-    QDoubleSpinBox *w_frequencyNumMod;
+    QComboBox *w_frequencySignalBoxMod;
+    QDoubleSpinBox *w_frequencySignalNumMod;
     QComboBox *w_durationSignalBoxMod;
     QDoubleSpinBox *w_durationSignalNumMod;
 
@@ -61,7 +61,8 @@ private:
     };
 
     SIGNALS m_mainSignalType;
-    double m_frequencyMainsignal;
+    double m_frequencyMainSignal;
+    double m_durationMainSignal;
 
 private slots:
         void slot_checkedModul(const int &state);
@@ -81,6 +82,7 @@ public slots:
 public:
         void setDecimationFrequence(const int &decimation);
         void setFrequencyMainSignal(const double &frequency);
+        void setDurationMainSignal(const double &duration);
         void setMainSignalType(const int &index);
 
 };
