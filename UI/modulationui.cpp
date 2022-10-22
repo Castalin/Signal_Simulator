@@ -2,6 +2,7 @@
 #include <QGridLayout>
 #include <QGroupBox>
 #include <QFormLayout>
+#include <cmath>
 
 ModulationUI::ModulationUI(QWidget *parent)
     : QWidget{parent}
@@ -225,7 +226,7 @@ void ModulationUI::slot_checkRangeFrequencyMod(const int &index)
                     else
                     {
                         w_frequencySignalNumMod->setValue(m_frequency / 1e6);
-                        w_frequencySignalNumMod->setMaximum(static_cast<double>(m_decimation / 2e6));
+                        w_frequencySignalNumMod->setMaximum(static_cast<double>(floor(m_decimation / 2e3)) / 1e3);
                         w_frequencySignalNumMod->setSingleStep(0.5);
                         return;
                     }
@@ -242,7 +243,7 @@ void ModulationUI::slot_checkRangeFrequencyMod(const int &index)
                     else
                     {
                         w_frequencySignalNumMod->setValue(m_frequency / 1e6);
-                        w_frequencySignalNumMod->setMaximum(m_decimation / (m_duration * m_decimation + 2) / 1e6);
+                        w_frequencySignalNumMod->setMaximum(floor(((m_decimation / (m_duration * m_decimation + 2)) / 1e3)) / 1e3);
                         w_frequencySignalNumMod->setSingleStep(0.5);
                         return;
                     }
@@ -267,7 +268,7 @@ void ModulationUI::slot_checkRangeFrequencyMod(const int &index)
                     else
                     {
                         w_frequencySignalNumMod->setValue(m_frequency / 1e6);
-                        w_frequencySignalNumMod->setMaximum(static_cast<double>(((m_decimation / 2) - m_frequencyMainSignal) / 1e6));
+                        w_frequencySignalNumMod->setMaximum(static_cast<double>(floor(((m_decimation / 2) - m_frequencyMainSignal) / 1e3) / 1e3));
                         w_frequencySignalNumMod->setSingleStep(0.5);
                         return;
                     }
@@ -284,7 +285,7 @@ void ModulationUI::slot_checkRangeFrequencyMod(const int &index)
                     else
                     {
                         w_frequencySignalNumMod->setValue(m_frequency / 1e6);
-                        w_frequencySignalNumMod->setMaximum(m_decimation / (m_duration * m_decimation + 2) / 1e6);
+                        w_frequencySignalNumMod->setMaximum(floor(m_decimation / (m_duration * m_decimation + 2) / 1e3) / 1e3);
                         w_frequencySignalNumMod->setSingleStep(0.5);
                         return;
                     }
@@ -299,12 +300,13 @@ void ModulationUI::slot_checkRangeFrequencyMod(const int &index)
                 case SIGNALS :: NO_SIGNAL : {return;};
                 case SIGNALS :: SINE :
                 {
-                    if (m_durationMainSignal == 0.0)
+                    if (m_durationMainSignal == 0.0 || ((m_decimation / 2) - 2 / m_durationMainSignal) / 1e3 < 0)
                     {
+                        w_frequencySignalNumMod->setMaximum(0.0);
                         return;
                     }
                     if (index == FREQUENCY :: kHz)
-                    {     
+                    {
                         w_frequencySignalNumMod->setMaximum(static_cast<double>(((m_decimation / 2) - 2 / m_durationMainSignal) / 1e3));
                         w_frequencySignalNumMod->setValue(m_frequency / 1e3);
                         w_frequencySignalNumMod->setSingleStep(5.0);
@@ -313,7 +315,7 @@ void ModulationUI::slot_checkRangeFrequencyMod(const int &index)
                     else
                     {
                        w_frequencySignalNumMod->setValue(m_frequency / 1e6);
-                       w_frequencySignalNumMod->setMaximum(static_cast<double>(((m_decimation / 2) - 2 / m_durationMainSignal) / 1e6));
+                       w_frequencySignalNumMod->setMaximum(static_cast<double>(floor(((m_decimation / 2) - 2 / m_durationMainSignal) / 1e3)) / 1e3);
                        w_frequencySignalNumMod->setSingleStep(0.5);
                        return;
                     }
@@ -330,7 +332,7 @@ void ModulationUI::slot_checkRangeFrequencyMod(const int &index)
                     else
                     {
                         w_frequencySignalNumMod->setValue(m_frequency / 1e6);
-                        w_frequencySignalNumMod->setMaximum(m_decimation / (m_duration * m_decimation + 2) / 1e6);
+                        w_frequencySignalNumMod->setMaximum(floor(m_decimation / (m_duration * m_decimation + 2) / 1e3) / 1e3);
                         w_frequencySignalNumMod->setSingleStep(0.5);
                         return;
                     }
@@ -404,6 +406,7 @@ void ModulationUI::setFrequencyMainSignal(const double &frequency)
 void ModulationUI::setDurationMainSignal(const double &duration)
 {
     m_durationMainSignal = duration;
+    slot_checkRangeFrequencyMod(w_frequencySignalBoxMod->currentIndex());
 }
 
 void ModulationUI::setMainSignalType(const int &index)

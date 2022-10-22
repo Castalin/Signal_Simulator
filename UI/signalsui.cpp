@@ -4,6 +4,7 @@
 #include <QGroupBox>
 #include <QFormLayout>
 #include <QTimer>
+#include <cmath>
 
 
 SignalsUI::SignalsUI(QWidget *parent)
@@ -205,7 +206,7 @@ void SignalsUI::slot_checkRangeFrequency(const int &index)
             else
             {
                 w_frequencySignalNum->setValue(m_frequency / 1e6);
-                w_frequencySignalNum->setMaximum(static_cast<double>(m_decimation / 2e6));
+                w_frequencySignalNum->setMaximum(static_cast<double>(floor(m_decimation / 2e3)) / 1e3);
                 w_frequencySignalNum->setSingleStep(0.5);
                 return;
             }
@@ -222,7 +223,7 @@ void SignalsUI::slot_checkRangeFrequency(const int &index)
             else
             {
                 w_frequencySignalNum->setValue(m_frequency / 1e6);
-                w_frequencySignalNum->setMaximum(m_decimation / (m_duration * m_decimation + 2) / 1e6);
+                w_frequencySignalNum->setMaximum(floor((m_decimation / (m_duration * m_decimation + 2)) / 1e3) / 1e3);
                 w_frequencySignalNum->setSingleStep(0.5);
                 return;
             }
