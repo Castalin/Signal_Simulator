@@ -6,7 +6,6 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
-    m_signalsUI = new SignalsUI;
     m_ctrSettings_1 = new ControlSettingsOne;
     m_ctrSettings_2 = new ControlSettingsTwo;
     m_adc_Delay = new ADCDelay;
@@ -14,6 +13,8 @@ MainWindow::MainWindow(QWidget *parent)
     m_ctrAddresses = new ControlAddresses;
     QGroupBox *mainWidget = new QGroupBox(QString("  Signal Simulator"));
     QGridLayout *mainLayout = new QGridLayout;
+    m_all_Data = All_Data();
+    m_signalsUI = new SignalsUI(m_all_Data.getMainSignalVar(), m_all_Data.getModSignalVar());
 
     mainLayout->setVerticalSpacing(2);
     mainLayout->setMargin(2);
@@ -46,7 +47,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(m_ctrDataMain, &ControlDataMain :: signal_ADC_B_DELAY_0, m_adc_Delay, &ADCDelay :: slot_proccessingADC_B_DELAY_0);
     connect(m_ctrDataMain, &ControlDataMain :: signal_ADC_B_DELAY_1, m_adc_Delay, &ADCDelay :: slot_proccessingADC_B_DELAY_1);
 
-    m_signalDataMain = new SignalDataMain;
+    m_signalDataMain = new SignalDataMain(m_all_Data.getMainSignalVar(), m_all_Data.getModSignalVar());
 
     connect(m_ctrAddresses, &ControlAddresses :: signal_setSignalSettings, m_signalDataMain, &SignalDataMain :: slot_setAddressSettings);                   // binds address
     connect(m_ctrAngle, &ControlAngle :: signal_angleValueChanged, m_signalDataMain, &SignalDataMain :: slot_angleChanged);
@@ -56,21 +57,12 @@ MainWindow::MainWindow(QWidget *parent)
     connect(m_ctrSettings_1, &ControlSettingsOne :: signal_RxValueChanged, m_signalDataMain, &SignalDataMain :: slot_RxEnableValueChanged);                 // signal_RxValueChanged has got info about rxEnable
     connect(m_ctrDataMain, &ControlDataMain :: signal_controlSettingsTwo, m_signalDataMain, &SignalDataMain :: slot_startSourceScale);                      //signal_controlSettingsTwo has got info about sourceScale
     connect(m_ctrDataMain, &ControlDataMain :: signal_controlSettingsTwo, m_signalDataMain, &SignalDataMain :: slot_StrobeSizeValueChanged);
-    connect(m_ctrSettings_1, &ControlSettingsOne :: signal_DecimationChanged, m_signalDataMain, &SignalDataMain :: slot_DecimationChanged);
-    connect(m_ctrSettings_1, &ControlSettingsOne :: signal_DecimationChanged, m_signalsUI, &SignalsUI :: slot_setDecimationFrequence);
-
+    connect(m_ctrSettings_1, QOverload<const int&>  :: of(&ControlSettingsOne :: signal_DecimationChanged), this, [this](const int &decimation)->void{m_all_Data.setDecimationFrequence(decimation);});
+    connect(m_ctrSettings_1, QOverload<> :: of(&ControlSettingsOne :: signal_DecimationChanged), m_signalsUI, &SignalsUI :: slot_decimationFrequenceChanged);
 
     connect(m_signalDataMain, &SignalDataMain :: finished, m_ctrAngle, &ControlAngle :: slot_stopBtn);                                                       // stops timers
     connect(m_signalDataMain, &SignalDataMain :: finished, m_signalsUI, &SignalsUI :: slot_stopMovingSliderOut);                                                // stops timers
-    connect(m_signalsUI, &SignalsUI :: signal_signalAmplitude, m_signalDataMain, &SignalDataMain :: slot_setSignalAmplitude);
-    connect(m_signalsUI, &SignalsUI :: signal_signalDuration, m_signalDataMain, &SignalDataMain :: slot_setSignalDuration);
-    connect(m_signalsUI, &SignalsUI :: signal_signalFrequency, m_signalDataMain, &SignalDataMain :: slot_setSignalFrequency);
     connect(m_signalsUI, &SignalsUI :: signal_signalType, m_signalDataMain, &SignalDataMain :: slot_setSignalType);
-
-    connect(m_signalsUI, &SignalsUI :: signal_signalAmplitudeMod, m_signalDataMain, &SignalDataMain :: slot_setSignalAmplitudeMod);
-    connect(m_signalsUI, &SignalsUI :: signal_signalDurationMod, m_signalDataMain, &SignalDataMain :: slot_setSignalDurationMod);
-    connect(m_signalsUI, &SignalsUI :: signal_signalFrequencyMod, m_signalDataMain, &SignalDataMain :: slot_setSignalFrequencyMod);
-
 
 }
 

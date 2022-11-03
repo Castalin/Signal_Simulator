@@ -1,21 +1,22 @@
 #include "modrect.h"
 
-ModRect::ModRect()
+ModRect::ModRect(ModSignalVariables * const modSignalVariable)
+    : A_signalMod(modSignalVariable)
 {
 
 }
 
 double ModRect::getSignal(const int &i)
 {
-    if (s_frequencyMod == 0)
+    if (m_modSignalVariables->m_frequencyMod == 0)
     {
         if (i == 0 || i == 255)
         {
             return 0.0;
         }
-        else if (i <= s_durationMod * s_decimation)
+        else if (i <= m_modSignalVariables->m_durationMod * m_modSignalVariables->m_decimation)
         {
-            return s_amplitudeMod;
+            return m_modSignalVariables->m_amplitudeMod;
         }
         else
         {
@@ -25,13 +26,13 @@ double ModRect::getSignal(const int &i)
 
     else
     {
-        if (i % (static_cast<int>(s_decimation / s_frequencyMod) - 1) == 0) // 13
+        if (i % (static_cast<int>(m_modSignalVariables->m_decimation / m_modSignalVariables->m_frequencyMod) - 1) == 0) // 13
         {
             return 0.0;
         }
-        else if (i % (static_cast<int>(s_decimation / s_frequencyMod)- 1) <= static_cast<int>(s_durationMod * s_decimation))
+        else if (i % (static_cast<int>(m_modSignalVariables->m_decimation / m_modSignalVariables->m_frequencyMod) - 1) <= static_cast<int>(m_modSignalVariables->m_durationMod * m_modSignalVariables->m_decimation))
         {
-            return s_amplitudeMod;
+            return m_modSignalVariables->m_amplitudeMod;
         }
         else
         {

@@ -1,15 +1,16 @@
 #ifndef SINEMODSINE_H
 #define SINEMODSINE_H
-#include "a_signalmod.h"
+#include "AbstractANDInterfaces/a_signal.h"
 #include "modsine.h"
+#include "AbstractANDInterfaces/i_getsignal.h"
 
-class SineModSine : public A_signalMod
+class SineModSine : protected A_signal, public I_getSignal
 {
 public:
-    SineModSine();
+    SineModSine(SignalVariables *const signalVariables, ModSine *const modSine); //
     virtual double getSignal(const int &i) override;
 private:
-    ModSine modSine;
+    ModSine *m_modSine;
 };
 
 #endif // SINEMODSINE_H

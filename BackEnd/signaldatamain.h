@@ -11,7 +11,7 @@ class SignalDataMain : public QThread, public SettingsSender
 {
     Q_OBJECT
 public:
-    explicit SignalDataMain(QObject *parent = nullptr);
+    explicit SignalDataMain(SignalVariables *const signalVariables, ModSignalVariables *const modSignalVariables, QObject *parent = nullptr);
 
 signals:
     void signal_angleValueChanged(const double &value);
@@ -51,16 +51,9 @@ public slots:
     void slot_RxEnableValueChanged(const unsigned char &sentData);
     void slot_StrobeSizeValueChanged(const unsigned char &sentData);
     void slot_startSourceScale(const unsigned char &info);
-    void slot_DecimationChanged(const int &decimation);
 
-
-    void slot_setSignalAmplitude(const int &amplitude);
-    void slot_setSignalFrequency(const double &frequency);
-    void slot_setSignalDuration(const double &duration);
     void slot_setSignalType(const QPair<int, int> &signalType);
-    void slot_setSignalAmplitudeMod(const int &amplitudeMod);
-    void slot_setSignalFrequencyMod(const double &frequencyMod);
-    void slot_setSignalDurationMod(const double &durationMod);
+
 
 
 private:

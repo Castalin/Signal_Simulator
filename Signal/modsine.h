@@ -1,11 +1,12 @@
 #ifndef MODSINE_H
 #define MODSINE_H
-#include "a_signalmod.h"
+#include "AbstractANDInterfaces/a_signalmod.h"
+#include "AbstractANDInterfaces/i_getsignal.h"
 
-class ModSine : public A_signalMod
+class ModSine : protected A_signalMod, public I_getSignal
 {
 public:
-    ModSine();
+    ModSine(ModSignalVariables *const modSignalVariable);
     virtual double getSignal(const int &i) override;
 };
 

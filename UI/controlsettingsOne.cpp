@@ -70,15 +70,16 @@ void ControlSettingsOne::processDecimation(const unsigned char &info)
 {
     switch((info & 0b00111000) >> 3)
     {
-        case 0: emit signal_DecimationChanged(80e6); return;
-        case 1: emit signal_DecimationChanged(40e6); return;
-        case 2: emit signal_DecimationChanged(20e6); return;
-        case 3: emit signal_DecimationChanged(10e6); return;
-        case 4: emit signal_DecimationChanged(5e6); return;
-        case 5: emit signal_DecimationChanged(2500e3); return;
-        case 6: emit signal_DecimationChanged(1125e3); return;
-        case 7: emit signal_DecimationChanged(562.5e3); return;
+        case 0: emit signal_DecimationChanged(80e6); break;
+        case 1: emit signal_DecimationChanged(40e6); break;
+        case 2: emit signal_DecimationChanged(20e6); break;
+        case 3: emit signal_DecimationChanged(10e6); break;
+        case 4: emit signal_DecimationChanged(5e6); break;
+        case 5: emit signal_DecimationChanged(2500e3); break;
+        case 6: emit signal_DecimationChanged(1125e3); break;
+        case 7: emit signal_DecimationChanged(562.5e3); break;
     }
+    emit signal_DecimationChanged();
 
 }
 

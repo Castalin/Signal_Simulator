@@ -3,26 +3,20 @@
 
 #include <QWidget>
 #include <QComboBox>
-#include <QPushButton>
 #include <QSpinBox>
-#include <QCheckBox>
-#include <QLabel>
 #include "modulationui.h"
+#include "amplitidemainsignalui.h"
+#include "SettersVarANDRangeCheck/settermainsignal.h"
+#include "SettersVarANDRangeCheck/SetRangeFrequencyMain/freqrangesmainsignal.h"
+#include "SettersVarANDRangeCheck/SetRangeDurationMain/durationrangesmainsignal.h"
 
 class SignalsUI : public QWidget
 {
     Q_OBJECT
 public:
-    explicit SignalsUI(QWidget *parent = nullptr);
-
+    explicit SignalsUI(SignalVariables *const signalVariables, ModSignalVariables *const modSignalVariables, QWidget *parent = nullptr);
 signals:
-    void signal_signalAmplitude(const int &amplitude);
     void signal_signalType(const QPair<int, int> &signalType);
-    void signal_signalFrequency(const double &frequency);
-    void signal_signalDuration(const double &duration);
-    void signal_signalAmplitudeMod(const int &value);
-    void signal_signalFrequencyMod(const double &frequency);
-    void signal_signalDurationMod(const double &duration);
 
 private:
     QComboBox *w_signalsBox;
@@ -30,32 +24,15 @@ private:
     QDoubleSpinBox *w_frequencySignalNum;
     QComboBox *w_durationSignalBox;
     QDoubleSpinBox *w_durationSignalNum;
+    AmplitideMainSignalUI *m_amplitudeMainSignalUI;
 
-    QSlider *w_levelSignalSlider;
-    QLabel *w_levelSignalLabel;
-    QPushButton *w_startSlider;
-    QPushButton *w_stopSlider;
-    QTimer *w_timer;
-
+    SetterMainSignal m_setterMainSignal;
+    FreqRangesMainSignal m_freqRangesMainSignal;
+    DurationRangesMainSignal m_durationRangesMainSignal;
     ModulationUI *m_modulationUI;
 
-    double m_duration;
-    double m_frequency;
-    int m_decimation;
     QPair<int, int> m_signalType;
 
-    enum FREQUENCY
-    {
-        kHz                 = 0,
-        MHz                 = 1,
-    };
-
-    enum DURATION
-    {
-        ms                  = 0,
-        us                  = 1,
-        ns                  = 2,
-    };
 
     enum SIGNALS
     {
@@ -67,17 +44,12 @@ private:
 
 private slots:
     void slot_signalChanged(const int &currentIndex);
-    void slot_startMovingSlider();
-    void slot_timeOut();
-    void slot_checkRangeFrequency(const int &index);
-    void slot_checkRangeDuration(const int &index);
-    void slot_setDuration(const double &value);
-    void slot_setFrequency(const double &value);
-    void slot_stopMovingSlider();
+    void slot_setDuration(const double &duration);
+    void slot_setFrequency(const double &frequency);
 
 public slots:
     void slot_stopMovingSliderOut();
-    void slot_setDecimationFrequence(const int &decimation);
+    void slot_decimationFrequenceChanged();
 
 
 

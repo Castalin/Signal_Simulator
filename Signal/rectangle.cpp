@@ -1,21 +1,22 @@
 #include "rectangle.h"
 
-Rectangle::Rectangle()
+Rectangle::Rectangle(SignalVariables * const signalVariables)
+    : A_signal(signalVariables)
 {
 
 }
 
 double Rectangle::getSignal(const int &i)
 {
-    if (s_frequency == 0)
+    if (m_signalVariables->m_frequency == 0)
     {
         if (i == 0 || i == 255)
         {
             return 0.0;
         }
-        else if (i <= s_duration * s_decimation)
+        else if (i <= m_signalVariables->m_duration * m_signalVariables->m_decimation)
         {
-            return s_amplitude;
+            return m_signalVariables->m_amplitude;
         }
         else
         {
@@ -25,13 +26,13 @@ double Rectangle::getSignal(const int &i)
 
     else
     {
-        if (i % (static_cast<int>(s_decimation / s_frequency) - 1) == 0) // 13
+        if (i % (static_cast<int>(m_signalVariables->m_decimation / m_signalVariables->m_frequency) - 1) == 0) // 13
         {
             return 0.0;
         }
-        else if (i % (static_cast<int>(s_decimation / s_frequency) - 1) <= static_cast<int>(s_duration * s_decimation))
+        else if (i % (static_cast<int>(m_signalVariables->m_decimation / m_signalVariables->m_frequency) - 1) <= static_cast<int>(m_signalVariables->m_duration * m_signalVariables->m_decimation))
         {
-            return s_amplitude;
+            return m_signalVariables->m_amplitude;
         }
         else
         {

@@ -1,7 +1,6 @@
 #ifndef SIGNALS_DEFENITION_H
 #define SIGNALS_DEFENITION_H
 
-#include "a_signalmod.h"
 #include "nosignal.h"
 #include "sine.h"
 #include "rectangle.h"

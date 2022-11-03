@@ -1,17 +1,18 @@
 #ifndef SINEMODRECT_H
 #define SINEMODRECT_H
-#include "a_signalmod.h"
+#include "AbstractANDInterfaces/a_signal.h"
 #include "modrect.h"
+#include "AbstractANDInterfaces/i_getsignal.h"
 
 
-class SineModRect : public A_signalMod
+class SineModRect : protected A_signal, public I_getSignal
 {
 public:
-    SineModRect();
+    SineModRect(SignalVariables *const signalVariables, ModRect *const modRect);
     virtual double getSignal(const int &i) override;
 
 private:
-    ModRect modRect;
+    ModRect *m_modRect;
 
 };
 

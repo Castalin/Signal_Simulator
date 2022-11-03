@@ -10,6 +10,7 @@
 #include "UI/controladdresses.h"
 #include "BackEnd/controldatamain.h"
 #include "BackEnd/signaldatamain.h"
+#include "Structes/all_data.h"
 
 class MainWindow : public QMainWindow
 {
@@ -32,5 +33,6 @@ private:
     ControlDataMain *m_ctrDataMain;
     SignalDataMain *m_signalDataMain;
 
+    All_Data m_all_Data;
 };
 #endif // MAINWINDOW_H

@@ -1,18 +1,12 @@
 #include "UI/signalsui.h"
 #include <QGridLayout>
-#include <QLabel>
 #include <QGroupBox>
 #include <QFormLayout>
-#include <QTimer>
-#include <cmath>
 
 
-SignalsUI::SignalsUI(QWidget *parent)
-    : QWidget{parent}
+SignalsUI::SignalsUI(SignalVariables *const signalVariables, ModSignalVariables *const modSignalVariables, QWidget *parent)
+    : QWidget{parent}, m_setterMainSignal(signalVariables), m_freqRangesMainSignal{signalVariables}, m_durationRangesMainSignal{signalVariables}
 {
-    m_duration = 0.0;
-    m_frequency = 0.0;
-    m_decimation = 80e6;
     w_signalsBox = new QComboBox;
     w_signalsBox->addItems(QStringList{"None", "Sine", "Rect"});
 
@@ -36,16 +30,6 @@ SignalsUI::SignalsUI(QWidget *parent)
     w_durationSignalNum->setDecimals(3);
     w_durationSignalNum->setEnabled(false);
 
-
-    w_levelSignalSlider = new QSlider(Qt :: Orientation :: Horizontal);
-    w_levelSignalSlider->setMaximum(100);
-    w_levelSignalSlider->setMinimum(-100);
-    w_levelSignalLabel = new QLabel(QString("0"));
-    w_startSlider = new QPushButton(QString("Start"));
-    w_stopSlider = new QPushButton(QString("Stop"));
-    w_stopSlider->setEnabled(false);
-    w_timer = new QTimer(this);
-
     QGridLayout *signalLayout = new QGridLayout();
     signalLayout->setVerticalSpacing(10);
 
@@ -58,54 +42,40 @@ SignalsUI::SignalsUI(QWidget *parent)
     signalLayout->addWidget(w_durationSignalNum, 1, 3, 1, 1, Qt :: AlignCenter);
     signalLayout->addWidget(w_durationSignalBox, 1, 4, 1, 1, Qt :: AlignCenter);
 
-    QFrame *frame = new QFrame;
-    frame->setFrameShape(QFrame :: Shape :: HLine);
-    frame->setFrameShadow(QFrame :: Shadow :: Sunken);
-    frame->setMidLineWidth(2);
-    signalLayout->addWidget(frame, 2, 0, 1, 5);
-    signalLayout->addWidget(w_startSlider, 3, 0, 1, 1, Qt :: AlignCenter);
-    signalLayout->addWidget(w_stopSlider, 3, 1, 1, 1, Qt :: AlignCenter);
-    signalLayout->addWidget(w_levelSignalSlider, 3, 2, 1, 2);
-    signalLayout->addWidget(w_levelSignalLabel, 3, 4, 1, 1, Qt :: AlignCenter);
 
-    m_modulationUI= new ModulationUI;
+    m_amplitudeMainSignalUI = new AmplitideMainSignalUI(&m_setterMainSignal);
+    signalLayout->addWidget(m_amplitudeMainSignalUI, 2, 0, 2, 5);
+
+    m_modulationUI= new ModulationUI(signalVariables, modSignalVariables);
     signalLayout->addWidget(m_modulationUI, 4, 0, 3, 5);
 
 
     QFormLayout *mainForm = new QFormLayout;
     QGroupBox *signalGroup = new QGroupBox(QString("Signal settings"));
 
-
     signalGroup->setLayout(signalLayout);
     mainForm->addWidget(signalGroup);
-
     this->setLayout(mainForm);
 
+    m_freqRangesMainSignal.setPtrToFreqSpinNum(w_frequencySignalNum);
+    m_durationRangesMainSignal.setPtrToDurationSpinNum(w_durationSignalNum);
 
-    slot_checkRangeFrequency(w_frequencySignalBox->currentIndex());
-    slot_checkRangeDuration(w_durationSignalBox->currentIndex());
-
+    m_freqRangesMainSignal.checkRangeFrequency(w_frequencySignalBox->currentIndex());
+    m_durationRangesMainSignal.checkRangeDuration(w_durationSignalBox->currentIndex());
 
     connect(w_signalsBox, QOverload<int> :: of(&QComboBox :: currentIndexChanged), this, &SignalsUI :: slot_signalChanged);
 
-    // all about slider block
-    connect(w_startSlider, &QPushButton :: clicked, this, &SignalsUI :: slot_startMovingSlider);
-    connect(w_stopSlider, &QPushButton :: clicked, this, &SignalsUI :: slot_stopMovingSlider);
-    connect(w_timer, &QTimer :: timeout, this, &SignalsUI :: slot_timeOut);
-    connect(w_levelSignalSlider, &QSlider :: valueChanged, this, &SignalsUI :: signal_signalAmplitude);
-    connect(w_levelSignalSlider, &QSlider :: valueChanged, w_levelSignalLabel, QOverload<int> :: of (&QLabel :: setNum));
 
     // about duration and frequency switchers
-    connect(w_frequencySignalBox, QOverload<int> :: of(&QComboBox :: currentIndexChanged), this, &SignalsUI :: slot_checkRangeFrequency);
-    connect(w_durationSignalBox, QOverload<int> :: of(&QComboBox :: currentIndexChanged), this, &SignalsUI :: slot_checkRangeDuration);
+    connect(w_frequencySignalBox, QOverload<int> :: of(&QComboBox :: currentIndexChanged),
+            this, [this](const int &index)->void{m_freqRangesMainSignal.checkRangeFrequency(index);});
+    connect(w_durationSignalBox, QOverload<int> :: of(&QComboBox :: currentIndexChanged),
+            this, [this](const int &index)->void{m_durationRangesMainSignal.checkRangeDuration(index);});
+    connect(w_frequencySignalNum, QOverload<double> :: of(&QDoubleSpinBox :: valueChanged), this,&SignalsUI :: slot_setFrequency);
     connect(w_durationSignalNum, QOverload<double> :: of(&QDoubleSpinBox :: valueChanged), this, &SignalsUI :: slot_setDuration);
-    connect(w_frequencySignalNum, QOverload<double> :: of(&QDoubleSpinBox :: valueChanged), this, &SignalsUI :: slot_setFrequency);
 
     // connects modulation info with signalData controller
     connect(m_modulationUI, &ModulationUI :: signal_signalType, this, [this](const int &ModType)->void{m_signalType.second = ModType; emit signal_signalType(m_signalType);});
-    connect(m_modulationUI, &ModulationUI :: signal_signalAmplitudeMod, this, [this](const double &ampMod)->void{emit signal_signalAmplitudeMod(ampMod);});
-    connect(m_modulationUI, &ModulationUI :: signal_signalDurationMod, this, [this](const double &durationMod)->void{emit signal_signalDurationMod(durationMod);});
-    connect(m_modulationUI, &ModulationUI :: signal_signalFrequencyMod, this, [this](const double &frequencyMod)->void{emit signal_signalFrequencyMod(frequencyMod);});
 
 }
 
@@ -142,159 +112,37 @@ void SignalsUI :: slot_signalChanged(const int &currentIndex)
         break;
     }
     };
-    slot_checkRangeFrequency(w_frequencySignalBox->currentIndex());
+    m_freqRangesMainSignal.changeSetterForRange(currentIndex);
+    m_freqRangesMainSignal.checkRangeFrequency(w_frequencySignalBox->currentIndex());
 }
 
-void SignalsUI::slot_startMovingSlider()
-{
-    w_levelSignalSlider->setEnabled(false);
-    w_timer->start(std :: chrono :: milliseconds(100));
-    w_startSlider->setEnabled(false);
-    w_stopSlider->setEnabled(true);
-}
-
-void SignalsUI::slot_stopMovingSlider()
-{
-    w_timer->stop();
-    w_startSlider->setEnabled(true);
-    w_levelSignalSlider->setEnabled(true);
-    w_stopSlider->setEnabled(false);
-
-
-}
 
 void SignalsUI::slot_stopMovingSliderOut()
 {
-    slot_stopMovingSlider();
-    m_modulationUI->slot_stopMovingSlider();
+    m_amplitudeMainSignalUI->slot_stopMovingSlider();
+    m_modulationUI->stopMovingSlider();
 }
 
-void SignalsUI::slot_setDecimationFrequence(const int &decimation)
+void SignalsUI::slot_decimationFrequenceChanged()
 {
-    m_decimation = decimation;
-    slot_checkRangeFrequency(w_frequencySignalBox->currentIndex());
-    slot_checkRangeDuration(w_durationSignalBox->currentIndex());
-    m_modulationUI->setDecimationFrequence(decimation);
+    m_freqRangesMainSignal.checkRangeFrequency(w_frequencySignalBox->currentIndex());
+    m_durationRangesMainSignal.checkRangeDuration(w_durationSignalBox->currentIndex());
+    m_modulationUI->DecimationFrequencyChanged();
 }
 
-void SignalsUI::slot_timeOut()
+
+void SignalsUI::slot_setDuration(const double &duration)
 {
-    if (w_levelSignalSlider->value() != w_levelSignalSlider->maximum())
-    {
-        w_levelSignalSlider->setValue(w_levelSignalSlider->value() + 1);
-    }
-    else
-    {
-        w_levelSignalSlider->setValue(w_levelSignalSlider->minimum());
-    }
+    m_setterMainSignal.setDuration(w_durationSignalBox->currentIndex(), duration);
+    m_freqRangesMainSignal.checkRangeFrequency(w_frequencySignalBox->currentIndex());
+    m_modulationUI->mainSignalChanged();
 }
 
-void SignalsUI::slot_checkRangeFrequency(const int &index)
+void SignalsUI::slot_setFrequency(const double &frequency)
 {
-    switch(w_signalsBox->currentIndex())
-    {
-        case SIGNALS :: NO_SIGNAL : {return;};
-        case SIGNALS :: SINE :
-        {
-            if (index == FREQUENCY :: kHz)
-            {
-                w_frequencySignalNum->setMaximum(static_cast<double>(m_decimation / 2e3));
-                w_frequencySignalNum->setValue(m_frequency / 1e3);
-                w_frequencySignalNum->setSingleStep(5.0);
-                return;
-            }
-            else
-            {
-                w_frequencySignalNum->setValue(m_frequency / 1e6);
-                w_frequencySignalNum->setMaximum(static_cast<double>(floor(m_decimation / 2e3)) / 1e3);
-                w_frequencySignalNum->setSingleStep(0.5);
-                return;
-            }
-        }
-        case SIGNALS :: RECTANGLE :
-        {
-            if (index == FREQUENCY :: kHz)
-            {
-                w_frequencySignalNum->setMaximum(m_decimation / (m_duration * m_decimation + 2) / 1e3);
-                w_frequencySignalNum->setValue(m_frequency / 1e3);
-                w_frequencySignalNum->setSingleStep(5.0);
-                return;
-            }
-            else
-            {
-                w_frequencySignalNum->setValue(m_frequency / 1e6);
-                w_frequencySignalNum->setMaximum(floor((m_decimation / (m_duration * m_decimation + 2)) / 1e3) / 1e3);
-                w_frequencySignalNum->setSingleStep(0.5);
-                return;
-            }
-        }
-    }
-
-
+    m_setterMainSignal.setFrequency(w_frequencySignalBox->currentIndex(), frequency);
+    m_modulationUI->mainSignalChanged();
 }
 
-void SignalsUI::slot_checkRangeDuration(const int &index)
-{
-    switch (index)
-    {
-        case DURATION :: ms:
-        {
-            w_durationSignalNum->setValue(m_duration * 1e3);
-            w_durationSignalNum->setMaximum(1e3 * 255 / static_cast<double>(m_decimation));
-            w_durationSignalNum->setSingleStep(0.001);
-            return;
-        }
-        case DURATION :: us:
-        {
-            if (w_durationSignalNum->value() > m_duration * 1e6)
-            {
-                w_durationSignalNum->setValue(m_duration * 1e6);
-                w_durationSignalNum->setMaximum(1e6 * 255 / static_cast<double>(m_decimation));
-
-            }
-            else
-            {
-                w_durationSignalNum->setMaximum(1e6 * 255 / static_cast<double>(m_decimation));
-                w_durationSignalNum->setValue(m_duration * 1e6);
-            }
-            w_durationSignalNum->setSingleStep(0.1);
-            return;
-        }
-        case DURATION :: ns:
-        {
-            w_durationSignalNum->setMaximum(1e9 * 255 / static_cast<double>(m_decimation));
-            w_durationSignalNum->setValue(m_duration * 1e9);
-            w_durationSignalNum->setSingleStep(10.0);
-            return;
-        }
-    }
-}
-
-void SignalsUI::slot_setDuration(const double &value)
-{
-    switch (w_durationSignalBox->currentIndex())
-    {
-        case DURATION :: ms: {m_duration = value / 1e3; break;}
-        case DURATION :: us: {m_duration = value / 1e6; break;}
-        case DURATION :: ns: {m_duration = value / 1e9; break;}
-    }
-    slot_checkRangeFrequency(w_frequencySignalBox->currentIndex());
-    m_modulationUI->setDurationMainSignal(m_duration);
-    emit signal_signalDuration(m_duration);
-}
-
-void SignalsUI::slot_setFrequency(const double &value)
-{
-    if (w_frequencySignalBox->currentIndex() == FREQUENCY :: kHz)
-    {
-        m_frequency = value * 1e3;
-    }
-    else
-    {
-        m_frequency = value * 1e6;
-    }
-    emit signal_signalFrequency(m_frequency);
-    m_modulationUI->setFrequencyMainSignal(m_frequency);
-}
 
 

@@ -1,18 +1,18 @@
 #ifndef RECTMODSINE_H
 #define RECTMODSINE_H
-#include "a_signalmod.h"
 #include "rectangle.h"
 #include "modsine.h"
+#include "AbstractANDInterfaces/i_getsignal.h"
 
-class RectModSine : public A_signalMod
+class RectModSine : public I_getSignal
 {
 public:
-    RectModSine();
+    RectModSine(Rectangle *const rect, ModSine *const modSine);
     virtual double getSignal(const int &i) override;
 
 private :
-    Rectangle rect;
-    ModSine modSine;
+    Rectangle *m_rect;
+    ModSine *m_modSine;
 };
 
 #endif // RECTMODSINE_H

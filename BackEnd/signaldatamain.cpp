@@ -1,13 +1,13 @@
 #include "BackEnd/signaldatamain.h"
 
 
-SignalDataMain::SignalDataMain(QObject *parent)
+SignalDataMain::SignalDataMain(SignalVariables *const signalVariables, ModSignalVariables *const  modSignalVariables, QObject *parent)
     : QThread{parent}
 {
     m_Message = new QByteArray(1032, 0x00);
     m_mutex = new QMutex;
     m_angleCounter = new AngleCounter;
-    m_signalGenerator = new SignalGenerator(m_Message);
+    m_signalGenerator = new SignalGenerator(signalVariables, modSignalVariables, m_Message);
 
     m_workingThreadEnable = false;
     m_sleepValue = 960;
@@ -126,48 +126,10 @@ void SignalDataMain::slot_startSourceScale(const unsigned char &info)
     m_mutex->unlock();
 }
 
-void SignalDataMain::slot_DecimationChanged(const int &decimation)
-{
-    m_signalGenerator->setDecimation(decimation);
-}
-
-void SignalDataMain::slot_setSignalAmplitude(const int &amplitude)
-{
-    m_signalGenerator->setSignalAmplitude(amplitude);
-}
-
-void SignalDataMain::slot_setSignalFrequency(const double &frequency)
-{
-    m_signalGenerator->setSignalFrequency(frequency);
-}
-
-void SignalDataMain::slot_setSignalDuration(const double &duration)
-{
-    m_signalGenerator->setSignalDuration(duration);
-}
-
 void SignalDataMain::slot_setSignalType(const QPair<int, int> &signalType)
 {
     m_signalGenerator->setSignalType(signalType);
 }
-
-void SignalDataMain::slot_setSignalAmplitudeMod(const int &amplitudeMod)
-{
-    m_signalGenerator->setSignalAmplitudeMod(amplitudeMod);
-}
-
-void SignalDataMain::slot_setSignalFrequencyMod(const double &frequencyMod)
-{
-    m_signalGenerator->setSignalFrequencyMod(frequencyMod);
-}
-
-void SignalDataMain::slot_setSignalDurationMod(const double &durationMod)
-{
-    m_signalGenerator->setSignalDurationMod(durationMod);
-}
-
-
-
 
 
 

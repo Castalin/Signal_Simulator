@@ -1,11 +1,12 @@
 #include "nosignal.h"
 
-NoSignal::NoSignal()
+NoSignal::NoSignal(SignalVariables * const signalVariables)
+    : A_signal(signalVariables)
 {
 
 }
 
 double NoSignal::getSignal(const int &i)
 {
-    return s_amplitude;
+    return m_signalVariables->m_amplitude;
 }

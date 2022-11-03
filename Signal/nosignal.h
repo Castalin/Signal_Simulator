@@ -1,11 +1,12 @@
 #ifndef NOSIGNAL_H
 #define NOSIGNAL_H
-#include "a_signal.h"
+#include "AbstractANDInterfaces/a_signal.h"
+#include "AbstractANDInterfaces/i_getsignal.h"
 
-class NoSignal : public A_signal
+class NoSignal : protected A_signal, public I_getSignal
 {
 public:
-    NoSignal();
+    NoSignal(SignalVariables * const signalVariables);
     virtual double getSignal(const int &i) override;
 };
 

@@ -1,18 +1,18 @@
 #ifndef RECTMODRECT_H
 #define RECTMODRECT_H
-#include "a_signalmod.h"
 #include "rectangle.h"
 #include "modrect.h"
+#include "AbstractANDInterfaces/i_getsignal.h"
 
-class RectModRect : public A_signalMod
+class RectModRect : public I_getSignal
 {
 public:
-    RectModRect();
+    RectModRect(Rectangle *const rectangle, ModRect *const modRect);
     virtual double getSignal(const int &i) override;
 
 private:
-    Rectangle rect;
-    ModRect modRect;
+    Rectangle *m_rect;
+    ModRect *m_modRect;
 };
 
 #endif // RECTMODRECT_H

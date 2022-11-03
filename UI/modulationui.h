@@ -3,23 +3,22 @@
 
 #include <QWidget>
 #include <QComboBox>
-#include <QPushButton>
 #include <QSpinBox>
 #include <QCheckBox>
-#include <QLabel>
-#include <QTimer>
+#include "amplitudemodsignalui.h"
+#include "SettersVarANDRangeCheck/settermodsignal.h"
+#include "SettersVarANDRangeCheck/SetRangeFrequencyMod/freqrangesmodsignal.h"
+#include "SettersVarANDRangeCheck/SetRangeDurationMod/durationrangesmodsignal.h"
 
 class ModulationUI : public QWidget
 {
     Q_OBJECT
 public:
-    explicit ModulationUI(QWidget *parent = nullptr);
+    explicit ModulationUI(SignalVariables *const signalVariables, ModSignalVariables *const modSignalVariables, QWidget *parent = nullptr);
 
 signals:
-    void signal_signalAmplitudeMod(const int &amplitude);
     void signal_signalType(const int &signalType);
-    void signal_signalFrequencyMod(const double &frequency);
-    void signal_signalDurationMod(const double &duration);
+
 
 private:
 
@@ -29,29 +28,11 @@ private:
     QDoubleSpinBox *w_frequencySignalNumMod;
     QComboBox *w_durationSignalBoxMod;
     QDoubleSpinBox *w_durationSignalNumMod;
+    AmplitudemodsignalUI *m_amplitudeModSignalUI;
 
-    QSlider *w_levelSignalSliderMod;
-    QLabel *w_levelSignalLabelMod;
-    QPushButton *w_startSliderMod;
-    QPushButton *w_stopSliderMod;
-    QTimer *w_timerMod;
-
-    double m_duration;
-    double m_frequency;
-    int m_decimation;
-
-    enum FREQUENCY
-    {
-        kHz                 = 0,
-        MHz                 = 1,
-    };
-
-    enum DURATION
-    {
-        ms                  = 0,
-        us                  = 1,
-        ns                  = 2,
-    };
+    SetterModSignal m_setterModSignal;
+    FreqRangesModSignal m_freqRangesModSignal;
+    DurationRangesModSignal m_durationModSignal;
 
     enum SIGNALS
     {
@@ -61,29 +42,19 @@ private:
     };
 
     SIGNALS m_mainSignalType;
-    double m_frequencyMainSignal;
-    double m_durationMainSignal;
 
 private slots:
         void slot_checkedModul(const int &state);
-        void slot_signalModulChanged(const int &currentIndex);
-        void slot_startMovingSlider();
-        void slot_timeOut();
-        void slot_setFrequencyMod(const double &frequencyMod);
+        void slot_signalModChanged(const int &currentIndex);
         void slot_setDurationMod(const double &durationMod);
-        void slot_checkRangeFrequencyMod(const int &index);
-        void slot_checkRangeDurationMod(const int &index);
 
-
-public slots:
-        void slot_stopMovingSlider();
 
 
 public:
-        void setDecimationFrequence(const int &decimation);
-        void setFrequencyMainSignal(const double &frequency);
-        void setDurationMainSignal(const double &duration);
         void setMainSignalType(const int &index);
+        void DecimationFrequencyChanged();
+        void mainSignalChanged();
+        void stopMovingSlider();
 
 };
 
