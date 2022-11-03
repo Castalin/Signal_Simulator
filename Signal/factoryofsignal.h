@@ -19,13 +19,14 @@ private:
     SineModRect m_sineModRect;
     RectModSine m_rectModSine;
     RectModRect m_rectModRect;
+    int i = 0;
 
     I_getSignal *m_ptrToSignal;
     std :: map<QPair<int, int>, I_getSignal*> m_mapSignal;
 
 public:
     void setSignalType(const QPair<int, int> &signalType);
-    double getSignal(const int &i);
+    double getSignal();
 
 };
 

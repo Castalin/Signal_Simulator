@@ -17,7 +17,7 @@ void SignalGenerator::countSignal()
     quint16 value;
     for (int i{0}; i < 512; i += 2)      // 8 - first signal address
     {
-        value = 11900 * m_factoryOfSignal.getSignal(i / 2);
+        value = 11900 * m_factoryOfSignal.getSignal();
         memcpy(m_ptrToData->data() + 2 * i + 8, &value, 2);
         memcpy(m_ptrToData->data() + 2 * (i + 1) + 8, &value, 2);
     }

@@ -48,8 +48,6 @@ private slots:
         void slot_signalModChanged(const int &currentIndex);
         void slot_setDurationMod(const double &durationMod);
 
-
-
 public:
         void setMainSignalType(const int &index);
         void DecimationFrequencyChanged();

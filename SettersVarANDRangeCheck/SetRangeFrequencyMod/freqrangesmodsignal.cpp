@@ -4,7 +4,7 @@
 FreqRangesModSignal::FreqRangesModSignal(SignalVariables * const signalVariables, ModSignalVariables * const modSignalVariables)
     :A_signalMod{modSignalVariables}, m_setRangeFreqNoSignalNoSignal{modSignalVariables}, m_setRangeFreqNoSignalSine{modSignalVariables},
       m_setRangeFreqNoSignalRect{modSignalVariables}, m_setRangeFreqSineNoSignal{modSignalVariables}, m_setRangeFreqSineSine{signalVariables},
-      m_setRangeFreqSineRect{modSignalVariables}, m_setRangeFreqRectNoSignal{modSignalVariables}, m_setRangeFreqRectSine{signalVariables},
+      m_setRangeFreqSineRect{signalVariables, modSignalVariables}, m_setRangeFreqRectNoSignal{modSignalVariables}, m_setRangeFreqRectSine{signalVariables},
       m_setRangeFreqRectRect{modSignalVariables}
 {
     m_mapFreqRanges[QPair(NO_SIGNAL, NO_SIGNAL)] = &m_setRangeFreqNoSignalNoSignal;

@@ -8,5 +8,5 @@ SetRangeDurationRectMod::SetRangeDurationRectMod(ModSignalVariables * const modS
 
 double SetRangeDurationRectMod::setRangeDuration()
 {
-    return 255.0 / m_modSignalVariables->m_decimation;
+    return 2047.0 / m_modSignalVariables->m_decimation;
 }

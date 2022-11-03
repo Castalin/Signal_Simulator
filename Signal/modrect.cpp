@@ -10,7 +10,7 @@ double ModRect::getSignal(const int &i)
 {
     if (m_modSignalVariables->m_frequencyMod == 0)
     {
-        if (i == 0 || i == 255)
+        if (i == 0 || i == 2047)
         {
             return 0.0;
         }

@@ -2,7 +2,7 @@
 
 FactoryOfSignal::FactoryOfSignal(SignalVariables *const signalVariables, ModSignalVariables *const modSignalVariables)
     : m_noSignal{signalVariables}, m_sine{signalVariables}, m_rectangle{signalVariables}, m_modSine{modSignalVariables},
-      m_modRect{modSignalVariables}, m_sineModSine{signalVariables, &m_modSine}, m_sineModRect{signalVariables, &m_modRect},
+      m_modRect{modSignalVariables}, m_sineModSine{signalVariables, &m_modSine}, m_sineModRect{&m_sine, &m_modRect},
       m_rectModSine{&m_rectangle, &m_modSine}, m_rectModRect{&m_rectangle, &m_modRect}
 {
 
@@ -17,6 +17,7 @@ FactoryOfSignal::FactoryOfSignal(SignalVariables *const signalVariables, ModSign
     m_mapSignal[QPair<int, int>(2, 2)] = &m_rectModRect;
 
     m_ptrToSignal = &m_noSignal;
+    i = 0;
 }
 
 void FactoryOfSignal::setSignalType(const QPair<int, int> &signalType)
@@ -24,8 +25,13 @@ void FactoryOfSignal::setSignalType(const QPair<int, int> &signalType)
     m_ptrToSignal = m_mapSignal.at(signalType);
 }
 
-double FactoryOfSignal::getSignal(const int &i)
+double FactoryOfSignal::getSignal()
 {
-    return m_ptrToSignal->getSignal(i);
+    if (i == 2048)
+    {
+        i = 0;
+    }
+    return m_ptrToSignal->getSignal(i++);
+
 }
 

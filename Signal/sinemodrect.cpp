@@ -1,13 +1,13 @@
 #include "sinemodrect.h"
 #include <QtMath>
 
-SineModRect::SineModRect(SignalVariables * const signalVariables, ModRect * const modRect)
-    :A_signal{signalVariables}, m_modRect{modRect}
+SineModRect::SineModRect(Sine * const sine, ModRect * const modRect)
+    :m_sine{sine}, m_modRect{modRect}
 {
 
 }
 
 double SineModRect::getSignal(const int &i)
 {
-    return (m_signalVariables->m_amplitude + m_modRect->getSignal(i)) * qSin(2 * M_PI * m_signalVariables->m_frequency / m_signalVariables->m_decimation * i);
+    return m_modRect->getSignal(i) * m_sine->getSignal(i);
 }

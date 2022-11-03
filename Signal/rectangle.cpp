@@ -1,4 +1,5 @@
 #include "rectangle.h"
+#include <cmath>
 
 Rectangle::Rectangle(SignalVariables * const signalVariables)
     : A_signal(signalVariables)
@@ -10,7 +11,7 @@ double Rectangle::getSignal(const int &i)
 {
     if (m_signalVariables->m_frequency == 0)
     {
-        if (i == 0 || i == 255)
+        if (i == 0 || i == 2047)
         {
             return 0.0;
         }

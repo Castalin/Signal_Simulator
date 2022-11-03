@@ -43,13 +43,12 @@ void SignalDataMain::run()
                 }
                 memcpy(m_Message->data() + PACKAGE_NUM_BYTE_0, &numberOfPackage, 2);
                 memcpy(m_Message->data() + ANGLE_BYTE_0, angleAddress, 2);
+                m_signalGenerator->countSignal();
                 m_sendingSocket->writeDatagram(*m_Message, *m_hostAddress, m_hostPort);
 
                 usleep(1);
             }
-
             usleep(m_sleepValue);
-            m_signalGenerator->countSignal();
         }
         m_mutex->lock();
         m_workingThreadEnable = false;
