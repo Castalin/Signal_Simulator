@@ -24,6 +24,7 @@ private:
     QPushButton *w_stopSliderMod;
     QTimer *w_timerMod;
     SetterModSignal *m_ptrToSetterModSignal;
+    int m_step;
 
 private slots:
     void slot_startMovingSlider();

@@ -10,3 +10,8 @@ double RectModSine::getSignal(const int &i)
 {
     return m_rect->getSignal(i) * m_modSine->getSignal(i);
 }
+
+double RectModSine::getSignalIm(const int &i)
+{
+    return m_rect->getSignal(i) * m_modSine->getSignalIm(i);
+}

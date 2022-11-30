@@ -42,3 +42,8 @@ double Rectangle::getSignal(const int &i)
     }
 }
 
+double Rectangle::getSignalIm(const int &i)
+{
+    return getSignal(i);
+}
+

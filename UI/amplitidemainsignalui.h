@@ -21,6 +21,7 @@ private:
     QPushButton *w_stopSlider;
     QTimer *w_timer;
     SetterMainSignal *m_setterMainSignal;
+    int m_step;
 
 
 private slots:

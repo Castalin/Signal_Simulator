@@ -13,6 +13,7 @@ SOURCES += \
     AbstractANDInterfaces/a_signal.cpp \
     AbstractANDInterfaces/a_signalmod.cpp \
     AbstractANDInterfaces/i_getsignal.cpp \
+    AbstractANDInterfaces/i_getsignalim.cpp \
     AbstractANDInterfaces/i_setrangeduration.cpp \
     AbstractANDInterfaces/i_setrangefrequency.cpp \
     BackEnd/anglecounter.cpp \
@@ -68,6 +69,7 @@ HEADERS += \
     AbstractANDInterfaces/a_signal.h \
     AbstractANDInterfaces/a_signalmod.h \
     AbstractANDInterfaces/i_getsignal.h \
+    AbstractANDInterfaces/i_getsignalim.h \
     AbstractANDInterfaces/i_setrangeduration.h \
     AbstractANDInterfaces/i_setrangefrequency.h \
     BackEnd/anglecounter.h \

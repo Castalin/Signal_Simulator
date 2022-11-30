@@ -11,3 +11,8 @@ double SineModRect::getSignal(const int &i)
 {
     return m_modRect->getSignal(i) * m_sine->getSignal(i);
 }
+
+double SineModRect::getSignalIm(const int &i)
+{
+    return m_modRect->getSignal(i) * m_sine->getSignalIm(i);
+}

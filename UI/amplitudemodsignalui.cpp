@@ -15,6 +15,8 @@ AmplitudemodsignalUI::AmplitudemodsignalUI(SetterModSignal * const ptrToSetterMo
     w_stopSliderMod->setEnabled(false);
     w_timerMod = new QTimer(this);
 
+    m_step = 1;
+
     QFrame *frame = new QFrame;
     frame->setFrameShape(QFrame :: Shape :: HLine);
     frame->setFrameShadow(QFrame :: Shadow :: Sunken);
@@ -63,14 +65,16 @@ void AmplitudemodsignalUI::slot_startMovingSlider()
 
 void AmplitudemodsignalUI::slot_timeOut()
 {
-    if (w_levelSignalSliderMod->value() != w_levelSignalSliderMod->maximum())
+    if (w_levelSignalSliderMod->value() == w_levelSignalSliderMod->maximum())
     {
-        w_levelSignalSliderMod->setValue(w_levelSignalSliderMod->value() + 1);
+        m_step = -1;
     }
-    else
+    else if (w_levelSignalSliderMod->value() == w_levelSignalSliderMod->minimum())
     {
-        w_levelSignalSliderMod->setValue(w_levelSignalSliderMod->minimum());
+        m_step = 1;
     }
+
+    w_levelSignalSliderMod->setValue(w_levelSignalSliderMod->value() + m_step);
 }
 
 void AmplitudemodsignalUI::slot_stopMovingSlider()

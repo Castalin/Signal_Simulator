@@ -6,32 +6,40 @@ FactoryOfSignal::FactoryOfSignal(SignalVariables *const signalVariables, ModSign
       m_rectModSine{&m_rectangle, &m_modSine}, m_rectModRect{&m_rectangle, &m_modRect}
 {
 
-    m_mapSignal[QPair<int, int>(0, 0)] = &m_noSignal;
-    m_mapSignal[QPair<int, int>(1, 0)] = &m_sine;
-    m_mapSignal[QPair<int, int>(2, 0)] = &m_rectangle;
-    m_mapSignal[QPair<int, int>(0, 1)] = &m_modSine;
-    m_mapSignal[QPair<int, int>(0, 2)] = &m_modRect;
-    m_mapSignal[QPair<int, int>(1, 1)] = &m_sineModSine;
-    m_mapSignal[QPair<int, int>(1, 2)] = &m_sineModRect;
-    m_mapSignal[QPair<int, int>(2, 1)] = &m_rectModSine;
-    m_mapSignal[QPair<int, int>(2, 2)] = &m_rectModRect;
+    m_mapSignal[QPair<int, int>(0, 0)] = QPair<I_getSignal*, I_getSignalIm*>(&m_noSignal, &m_noSignal);
+    m_mapSignal[QPair<int, int>(1, 0)] = QPair<I_getSignal*, I_getSignalIm*>(&m_sine, &m_sine);
+    m_mapSignal[QPair<int, int>(2, 0)] = QPair<I_getSignal*, I_getSignalIm*>(&m_rectangle, &m_rectangle);
+    m_mapSignal[QPair<int, int>(0, 1)] = QPair<I_getSignal*, I_getSignalIm*>(&m_modSine, &m_modSine);
+    m_mapSignal[QPair<int, int>(0, 2)] = QPair<I_getSignal*, I_getSignalIm*>(&m_modRect, &m_modRect);
+    m_mapSignal[QPair<int, int>(1, 1)] = QPair<I_getSignal*, I_getSignalIm*>(&m_sineModSine, &m_sineModSine);
+    m_mapSignal[QPair<int, int>(1, 2)] = QPair<I_getSignal*, I_getSignalIm*>(&m_sineModRect, &m_sineModRect);
+    m_mapSignal[QPair<int, int>(2, 1)] = QPair<I_getSignal*, I_getSignalIm*>(&m_rectModSine, &m_rectModSine);
+    m_mapSignal[QPair<int, int>(2, 2)] = QPair<I_getSignal*, I_getSignalIm*>(&m_rectModRect, &m_rectModRect);
 
-    m_ptrToSignal = &m_noSignal;
+    m_ptrToSignalRe = &m_noSignal;
+    m_ptrToSignalIm = &m_noSignal;
     i = 0;
 }
 
 void FactoryOfSignal::setSignalType(const QPair<int, int> &signalType)
 {
-    m_ptrToSignal = m_mapSignal.at(signalType);
+    QPair<I_getSignal*, I_getSignalIm*> pair = m_mapSignal.at(signalType);
+    m_ptrToSignalRe = pair.first;
+    m_ptrToSignalIm = pair.second;
 }
 
-double FactoryOfSignal::getSignal()
+double FactoryOfSignal::getSignalRe()
 {
-    if (i == 2048)
-    {
-        i = 0;
-    }
-    return m_ptrToSignal->getSignal(i++);
+    return m_ptrToSignalRe->getSignal(i);
+}
 
+double FactoryOfSignal::getSignalIm()
+{
+    return m_ptrToSignalIm->getSignalIm(i++);
+}
+
+void FactoryOfSignal::resetI()
+{
+    i = 0;
 }
 

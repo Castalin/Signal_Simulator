@@ -12,15 +12,17 @@ SignalGenerator::SignalGenerator(SignalVariables * const signalVariables, ModSig
 
 
 
-void SignalGenerator::countSignal()
+void SignalGenerator::countSignal(const int &numberOfPackage)
 {
-    quint16 value;
-    for (int i{0}; i < 512; i += 2)      // 8 - first signal address
+    (numberOfPackage == 0) ? countChannelA() : countChannelB();
+    if (numberOfPackage == 7)
     {
-        value = 11900 * m_factoryOfSignal.getSignal();
-        memcpy(m_ptrToData->data() + 2 * i + 8, &value, 2);
-        memcpy(m_ptrToData->data() + 2 * (i + 1) + 8, &value, 2);
+        m_factoryOfSignal.resetI();
+        qint16 value{0};
+        memcpy(m_ptrToData->data() + 8 + 1020, &value, 2);
+        memcpy(m_ptrToData->data() + 8 + 1022, &value, 2);
     }
+
 }
 
 void SignalGenerator::deleteSignal()
@@ -41,6 +43,43 @@ void SignalGenerator::setStrobeSize(const unsigned char &info)
 void SignalGenerator::setSignalType(const QPair<int, int> &signalType)
 {
     m_factoryOfSignal.setSignalType(signalType);
+}
+
+void SignalGenerator::countChannelA()
+{
+    qint16 value;
+    for (int i{0}; i < m_strobeSize - 1; ++i)      // 8 - first signal address
+    {
+        value = 11900 * m_factoryOfSignal.getSignalRe();
+        memcpy(m_ptrToData->data() + 8 + 4 * i, &value, 2);
+        value = 11900 * m_factoryOfSignal.getSignalIm();
+        memcpy(m_ptrToData->data() + 8 + 4 * i + 2, &value, 2);
+    }
+    value = 0;
+    memcpy(m_ptrToData->data() + 8 + 4 * m_strobeSize - 4, &value, 2);
+    memcpy(m_ptrToData->data() + 8 + 4 * m_strobeSize - 2, &value, 2);
+
+    m_factoryOfSignal.resetI();
+
+    for (int i{m_strobeSize}; i < 256; ++i)      // 8 - first signal address
+    {
+        value = 11900 * m_factoryOfSignal.getSignalRe();
+        memcpy(m_ptrToData->data() + 8 + 4 * i, &value, 2);
+        value = 11900 * m_factoryOfSignal.getSignalIm();
+        memcpy(m_ptrToData->data() + 8 + 4 * i + 2, &value, 2);
+    }
+}
+
+void SignalGenerator::countChannelB()
+{
+    qint16 value;
+    for (int i{0}; i < 256; ++i)      // 8 - first signal address
+    {
+        value = 11900 * m_factoryOfSignal.getSignalRe();
+        memcpy(m_ptrToData->data() + 8 + 4 * i, &value, 2);
+        value = 11900 * m_factoryOfSignal.getSignalIm();
+        memcpy(m_ptrToData->data() + 8 + 4 * i + 2, &value, 2);
+    }
 }
 
 

@@ -40,3 +40,8 @@ double ModRect::getSignal(const int &i)
         }
     }
 }
+
+double ModRect::getSignalIm(const int &i)
+{
+    return getSignal(i);
+}

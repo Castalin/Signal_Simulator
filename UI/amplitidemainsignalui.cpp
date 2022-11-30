@@ -12,7 +12,7 @@ AmplitideMainSignalUI::AmplitideMainSignalUI(SetterMainSignal *const ptrToSetter
     w_stopSlider = new QPushButton(QString("Stop"));
     w_stopSlider->setEnabled(false);
     w_timer = new QTimer(this);
-
+    m_step = 1;
 
     QGridLayout *AmplitudeMainSignalLayout = new QGridLayout();
     AmplitudeMainSignalLayout->setVerticalSpacing(10);
@@ -57,12 +57,15 @@ void AmplitideMainSignalUI::slot_stopMovingSlider()
 
 void AmplitideMainSignalUI::slot_timeOut()
 {
-    if (w_levelSignalSlider->value() != w_levelSignalSlider->maximum())
+    if (w_levelSignalSlider->value() == w_levelSignalSlider->maximum())
     {
-        w_levelSignalSlider->setValue(w_levelSignalSlider->value() + 1);
+        m_step = -1;
     }
-    else
+    else if (w_levelSignalSlider->value() == w_levelSignalSlider->minimum())
     {
-        w_levelSignalSlider->setValue(w_levelSignalSlider->minimum());
+        m_step = 1;
     }
+
+    w_levelSignalSlider->setValue(w_levelSignalSlider->value() + m_step);
+
 }

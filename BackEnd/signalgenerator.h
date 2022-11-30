@@ -17,13 +17,15 @@ private:
 
 
 public:
-    void countSignal();
+    void countSignal(const int &numberOfPackage);
 
     void deleteSignal();
     void setStrobeSize(const unsigned char &info);
     void setSignalType(const QPair<int, int> &signalType);
 
-
+private:
+    void countChannelA();
+    void countChannelB();
 
 signals:
 
