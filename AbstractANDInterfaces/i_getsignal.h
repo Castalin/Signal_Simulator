@@ -7,7 +7,7 @@ class I_getSignal
 public:
     I_getSignal();
     virtual ~I_getSignal();
-    virtual double getSignal(const int &i) = 0;
+    virtual double getSignal(const int &i) const = 0;
 };
 
 #endif // I_GETSIGNAL_H

@@ -6,7 +6,7 @@ SetRangeFreqSineRect::SetRangeFreqSineRect(SignalVariables * const signalVariabl
 
 }
 
-double SetRangeFreqSineRect::setRangeFrequency()
+double SetRangeFreqSineRect::setRangeFrequency() const
 {
     if (m_modSignalVariables->m_durationMod == 0) // ((m_decimation / 2) - 2 / m_durationMainSignal) < 0
     {

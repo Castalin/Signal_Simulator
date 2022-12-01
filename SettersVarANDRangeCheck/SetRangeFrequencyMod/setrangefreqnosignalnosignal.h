@@ -7,7 +7,7 @@ class SetRangeFreqNoSignalNoSignal : public I_setRangeFrequency, private A_signa
 {
 public:
     SetRangeFreqNoSignalNoSignal(ModSignalVariables *const modSignalVariables);
-    virtual double setRangeFrequency() override;
+    virtual double setRangeFrequency() const override;
 };
 
 #endif // SETRANGEFREQNOSIGNALNOSIGNAL_H

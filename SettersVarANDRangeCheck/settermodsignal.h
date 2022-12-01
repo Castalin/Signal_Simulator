@@ -6,9 +6,9 @@ class SetterModSignal : private A_signalMod
 {
 public:
     SetterModSignal(ModSignalVariables *const modSignalVariables);
-    void setModAmplitude(const int &modAmplitude);
-    void setModFrequency(const int &index, const double &modFrequency);
-    void setModDuration(const int &index, const double &modDuration);
+    void setModAmplitude(const int &modAmplitude) const;
+    void setModFrequency(const int &index, const double &modFrequency) const;
+    void setModDuration(const int &index, const double &modDuration) const;
 
 
 private:

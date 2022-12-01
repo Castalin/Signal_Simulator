@@ -7,7 +7,7 @@ Rectangle::Rectangle(SignalVariables * const signalVariables)
 
 }
 
-double Rectangle::getSignal(const int &i)
+double Rectangle::getSignal(const int &i) const
 {
     if (m_signalVariables->m_frequency == 0)
     {
@@ -42,7 +42,7 @@ double Rectangle::getSignal(const int &i)
     }
 }
 
-double Rectangle::getSignalIm(const int &i)
+double Rectangle::getSignalIm(const int &i) const
 {
     return getSignal(i);
 }

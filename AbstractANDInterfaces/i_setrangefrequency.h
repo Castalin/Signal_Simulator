@@ -7,7 +7,7 @@ class I_setRangeFrequency
 public:
     I_setRangeFrequency();
     virtual ~I_setRangeFrequency();
-    virtual double setRangeFrequency() = 0;
+    virtual double setRangeFrequency() const = 0;
 };
 
 #endif // I_SETRANGEFREQUENCY_H

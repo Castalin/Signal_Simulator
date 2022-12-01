@@ -6,12 +6,12 @@ SetterMainSignal::SetterMainSignal(SignalVariables * const signalVariables)
 
 }
 
-void SetterMainSignal::setAmplitude(const int &amplitude)
+void SetterMainSignal::setAmplitude(const int &amplitude) const
 {
     m_signalVariables->m_amplitude = static_cast<double>(amplitude) / 100.0;
 }
 
-void SetterMainSignal::setFrequency(const int &index, const double &frequency)
+void SetterMainSignal::setFrequency(const int &index, const double &frequency) const
 {
     if (index == FREQUENCY :: kHz)
     {
@@ -23,7 +23,7 @@ void SetterMainSignal::setFrequency(const int &index, const double &frequency)
     }
 }
 
-void SetterMainSignal::setDuration(const int &index, const double duration)
+void SetterMainSignal::setDuration(const int &index, const double duration) const
 {
     switch (index)
     {

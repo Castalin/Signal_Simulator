@@ -6,7 +6,7 @@ SetRangeFreqNoSignalSine::SetRangeFreqNoSignalSine(ModSignalVariables * const mo
 
 }
 
-double SetRangeFreqNoSignalSine::setRangeFrequency()
+double SetRangeFreqNoSignalSine::setRangeFrequency() const
 {
     return m_modSignalVariables->m_decimation / 2.0;
 }

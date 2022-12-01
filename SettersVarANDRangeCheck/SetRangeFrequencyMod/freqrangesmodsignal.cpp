@@ -2,20 +2,22 @@
 #include <cmath>
 
 FreqRangesModSignal::FreqRangesModSignal(SignalVariables * const signalVariables, ModSignalVariables * const modSignalVariables)
-    :A_signalMod{modSignalVariables}, m_setRangeFreqNoSignalNoSignal{modSignalVariables}, m_setRangeFreqNoSignalSine{modSignalVariables},
+    : A_signalMod{modSignalVariables}, m_setRangeFreqNoSignalNoSignal{modSignalVariables}, m_setRangeFreqNoSignalSine{modSignalVariables},
       m_setRangeFreqNoSignalRect{modSignalVariables}, m_setRangeFreqSineNoSignal{modSignalVariables}, m_setRangeFreqSineSine{signalVariables},
       m_setRangeFreqSineRect{signalVariables, modSignalVariables}, m_setRangeFreqRectNoSignal{modSignalVariables}, m_setRangeFreqRectSine{signalVariables},
-      m_setRangeFreqRectRect{modSignalVariables}
+      m_setRangeFreqRectRect{modSignalVariables}, m_setRangeFreqSineHFM{signalVariables}, m_setRangeFreqSineHPM{signalVariables}
 {
-    m_mapFreqRanges[QPair(NO_SIGNAL, NO_SIGNAL)] = &m_setRangeFreqNoSignalNoSignal;
-    m_mapFreqRanges[QPair(NO_SIGNAL, SINE)] =   &m_setRangeFreqNoSignalSine;
-    m_mapFreqRanges[QPair(NO_SIGNAL, RECTANGLE)] = &m_setRangeFreqNoSignalRect;
-    m_mapFreqRanges[QPair(SINE, NO_SIGNAL)] = &m_setRangeFreqSineNoSignal;
-    m_mapFreqRanges[QPair(SINE, SINE)] = &m_setRangeFreqSineSine;
-    m_mapFreqRanges[QPair(SINE, RECTANGLE)] = &m_setRangeFreqSineRect;
-    m_mapFreqRanges[QPair(RECTANGLE, NO_SIGNAL)] = &m_setRangeFreqRectNoSignal;
-    m_mapFreqRanges[QPair(RECTANGLE, SINE)] = &m_setRangeFreqRectSine;
-    m_mapFreqRanges[QPair(RECTANGLE, RECTANGLE)] = &m_setRangeFreqRectRect;
+    m_mapFreqRanges[QPair(SIGNALS_MAIN :: NO_SIGNAL, SIGNALS_MOD :: NO_SIGNAL)] = &m_setRangeFreqNoSignalNoSignal;
+    m_mapFreqRanges[QPair(SIGNALS_MAIN :: NO_SIGNAL, SIGNALS_MOD :: SINE_HAM)]  = &m_setRangeFreqNoSignalSine;
+    m_mapFreqRanges[QPair(SIGNALS_MAIN :: NO_SIGNAL, SIGNALS_MOD :: RECTANGLE)] = &m_setRangeFreqNoSignalRect;
+    m_mapFreqRanges[QPair(SIGNALS_MAIN :: SINE,      SIGNALS_MOD :: NO_SIGNAL)] = &m_setRangeFreqSineNoSignal;
+    m_mapFreqRanges[QPair(SIGNALS_MAIN :: SINE,      SIGNALS_MOD :: SINE_HAM)]  = &m_setRangeFreqSineSine;
+    m_mapFreqRanges[QPair(SIGNALS_MAIN :: SINE,      SIGNALS_MOD :: RECTANGLE)] = &m_setRangeFreqSineRect;
+    m_mapFreqRanges[QPair(SIGNALS_MAIN :: RECTANGLE, SIGNALS_MOD :: NO_SIGNAL)] = &m_setRangeFreqRectNoSignal;
+    m_mapFreqRanges[QPair(SIGNALS_MAIN :: RECTANGLE, SIGNALS_MOD :: SINE_HAM)]  = &m_setRangeFreqRectSine;
+    m_mapFreqRanges[QPair(SIGNALS_MAIN :: RECTANGLE, SIGNALS_MOD :: RECTANGLE)] = &m_setRangeFreqRectRect;
+    m_mapFreqRanges[QPair(SIGNALS_MAIN :: SINE,      SIGNALS_MOD :: HFM)]       = &m_setRangeFreqSineHFM;
+    m_mapFreqRanges[QPair(SIGNALS_MAIN :: SINE,      SIGNALS_MOD :: HPM)]       = &m_setRangeFreqSineHPM;
 
     i_SetRangeFreq = &m_setRangeFreqNoSignalNoSignal;
 
@@ -28,7 +30,7 @@ void FreqRangesModSignal::setPtrToFreqSpinNum(QDoubleSpinBox * const ptrToFreqSp
 
 void FreqRangesModSignal::changeSetterForRange(const QPair<int, int> &pairSignals)
 {
-    i_SetRangeFreq = m_mapFreqRanges[pairSignals];
+    i_SetRangeFreq = m_mapFreqRanges.at(pairSignals);
 }
 
 void FreqRangesModSignal::checkRangeFrequencyMod(const int &index)

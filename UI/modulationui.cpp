@@ -8,11 +8,21 @@
 ModulationUI::ModulationUI(SignalVariables *const signalVariables, ModSignalVariables * const modSignalVariables, QWidget *parent)
     : QWidget{parent}, m_setterModSignal{modSignalVariables}, m_freqRangesModSignal{signalVariables, modSignalVariables}, m_durationModSignal{modSignalVariables}
 {
+    mapOfSignals[SIGNALS_MOD :: NO_SIGNAL] = QString("None");
+    mapOfSignals[SIGNALS_MOD :: SINE_HAM] = QString("HAM");
+    mapOfSignals[SIGNALS_MOD :: RECTANGLE] = QString("Rect");
+    mapOfSignals[SIGNALS_MOD :: HFM] = QString("HFM");
+    mapOfSignals[SIGNALS_MOD :: HPM] = QString("HPM");
+
     w_checkModulation = new QCheckBox(QString("Modulation"));
     w_checkModulation->setCheckable(true);
 
     w_signalsBoxMod = new QComboBox;
-    w_signalsBoxMod->addItems(QStringList{"None", "Sine", "Rect"});
+    w_signalsBoxMod->setInsertPolicy(QComboBox :: InsertPolicy :: InsertAtBottom);
+    w_signalsBoxMod->addItems(QStringList{"None", "HAM", "Rect"});
+    w_signalsBoxMod->setItemData(SIGNALS_MOD :: SINE_HAM, QString{"Harmonic amplitude modulation"}, Qt :: ToolTipRole);
+    w_signalsBoxMod->setItemData(SIGNALS_MOD :: RECTANGLE, QString{"Rectangle"}, Qt :: ToolTipRole);
+
     w_signalsBoxMod->setEnabled(false);
 
     w_frequencySignalBoxMod = new QComboBox;
@@ -60,7 +70,7 @@ ModulationUI::ModulationUI(SignalVariables *const signalVariables, ModSignalVari
     this->setLayout(mainForm);
     m_freqRangesModSignal.setPtrToFreqSpinNum(w_frequencySignalNumMod);
     m_durationModSignal.setPtrToDurationSpinNum(w_durationSignalNumMod);
-    m_mainSignalType = NO_SIGNAL;
+    m_mainSignalType = SIGNALS_MAIN :: NO_SIGNAL;
 
     connect(w_checkModulation, &QCheckBox :: stateChanged, this, &ModulationUI :: slot_checkedModul);
     connect(w_signalsBoxMod, QOverload<int> :: of(&QComboBox :: currentIndexChanged), this, &ModulationUI :: slot_signalModChanged);
@@ -96,7 +106,7 @@ void ModulationUI :: slot_checkedModul(const int &state)
         w_durationSignalBoxMod->setEnabled(false);
         w_durationSignalNumMod->setEnabled(false);
         m_amplitudeModSignalUI->disable();
-        emit signal_signalType(SIGNALS :: NO_SIGNAL);
+        emit signal_signalType(SIGNALS_MOD :: NO_SIGNAL);
     }
 }
 
@@ -106,7 +116,7 @@ void ModulationUI :: slot_signalModChanged(const int &currentIndex)
     emit signal_signalType(currentIndex);
     switch (currentIndex)
     {
-        case SIGNALS :: NO_SIGNAL:
+        case SIGNALS_MOD :: NO_SIGNAL:
         {
             w_frequencySignalBoxMod->setEnabled(false);
             w_frequencySignalNumMod->setEnabled(false);
@@ -114,7 +124,9 @@ void ModulationUI :: slot_signalModChanged(const int &currentIndex)
             w_durationSignalNumMod->setEnabled(false);
             break;
         }
-        case SIGNALS :: SINE:
+        case SIGNALS_MOD :: SINE_HAM:
+        case SIGNALS_MOD :: HFM:
+        case SIGNALS_MOD :: HPM:
         {
             w_frequencySignalBoxMod->setEnabled(true);
             w_frequencySignalNumMod->setEnabled(true);
@@ -122,7 +134,7 @@ void ModulationUI :: slot_signalModChanged(const int &currentIndex)
             w_durationSignalNumMod->setEnabled(false);
             break;
         }
-        case SIGNALS :: RECTANGLE:
+        case SIGNALS_MOD :: RECTANGLE:
         {
             w_frequencySignalBoxMod->setEnabled(true);
             w_frequencySignalNumMod->setEnabled(true);
@@ -152,9 +164,29 @@ void ModulationUI::stopMovingSlider()
 
 void ModulationUI::setMainSignalType(const int &index)
 {
-    m_mainSignalType = static_cast<SIGNALS>(index);
+    m_mainSignalType = static_cast<SIGNALS_MAIN :: SIGNALS_MAIN>(index);
+    switch(m_mainSignalType)
+    {
+        case SIGNALS_MAIN :: SINE:
+        {
+        w_signalsBoxMod->addItem(mapOfSignals[SIGNALS_MOD :: HFM]);
+        w_signalsBoxMod->addItem(mapOfSignals[SIGNALS_MOD :: HPM]);
+        w_signalsBoxMod->setItemData(w_signalsBoxMod->findText(mapOfSignals[SIGNALS_MOD :: HFM]), QString{"Harmonic frequency modulation"}, Qt :: ToolTipRole);
+        w_signalsBoxMod->setItemData(w_signalsBoxMod->findText(mapOfSignals[SIGNALS_MOD :: HPM]), QString{"Harmonic frequency modulation"}, Qt :: ToolTipRole);
+        break;
+        }
+        default:
+        {
+            disconnect(w_signalsBoxMod, QOverload<int> :: of(&QComboBox :: currentIndexChanged), this, &ModulationUI :: slot_signalModChanged);
+            w_signalsBoxMod->removeItem(w_signalsBoxMod->findText(mapOfSignals[SIGNALS_MOD :: HFM]));
+            w_signalsBoxMod->removeItem(w_signalsBoxMod->findText(mapOfSignals[SIGNALS_MOD :: HPM]));
+            connect(w_signalsBoxMod, QOverload<int> :: of(&QComboBox :: currentIndexChanged), this, &ModulationUI :: slot_signalModChanged);
+        }
+    }
+
     m_freqRangesModSignal.changeSetterForRange(QPair(index, w_signalsBoxMod->currentIndex()));
     m_freqRangesModSignal.checkRangeFrequencyMod(w_frequencySignalBoxMod->currentIndex());
+    emit signal_signalType(w_signalsBoxMod->currentIndex());
 }
 
 void ModulationUI::DecimationFrequencyChanged()

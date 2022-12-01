@@ -9,6 +9,7 @@ SignalsUI::SignalsUI(SignalVariables *const signalVariables, ModSignalVariables 
 {
     w_signalsBox = new QComboBox;
     w_signalsBox->addItems(QStringList{"None", "Sine", "Rect"});
+    w_signalsBox->setItemData(SIGNALS :: RECTANGLE, QString("Rectangle"), Qt :: ToolTipRole);
 
     w_frequencySignalBox = new QComboBox;
     w_frequencySignalBox->addItems(QStringList{"kHz", "MHz"});
@@ -82,7 +83,7 @@ SignalsUI::SignalsUI(SignalVariables *const signalVariables, ModSignalVariables 
 void SignalsUI :: slot_signalChanged(const int &currentIndex)
 {
     m_signalType.first = currentIndex;
-    emit signal_signalType(m_signalType);
+    //emit signal_signalType(m_signalType);
     m_modulationUI->setMainSignalType(currentIndex);
 
     switch (currentIndex)

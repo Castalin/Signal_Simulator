@@ -2,6 +2,7 @@
 #define FREQRANGESMODSIGNAL_H
 #include <QDoubleSpinBox>
 #include "ModFreqRanges_definitions.h"
+#include "Structes/enumSignals.h"
 
 class FreqRangesModSignal : private A_signalMod
 {
@@ -26,13 +27,8 @@ private:
     SetRangeFreqRectNoSignal m_setRangeFreqRectNoSignal;
     SetRangeFreqRectSine m_setRangeFreqRectSine;
     SetRangeFreqRectRect m_setRangeFreqRectRect;
-
-    enum SIGNALS
-    {
-        NO_SIGNAL           = 0,
-        SINE                = 1,
-        RECTANGLE           = 2,
-    };
+    SetRangeFreqSineHFM m_setRangeFreqSineHFM;
+    SetRangeFreqSineHPM m_setRangeFreqSineHPM;
 
     enum FREQUENCY
     {

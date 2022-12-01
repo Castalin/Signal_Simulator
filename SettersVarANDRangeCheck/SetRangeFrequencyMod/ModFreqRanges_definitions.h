@@ -10,5 +10,7 @@
 #include "setrangefreqrectnosignal.h"
 #include "setrangefreqrectsine.h"
 #include "setrangefreqrectrect.h"
+#include "setrangefreqsinehfm.h"
+#include "setrangefreqsinehpm.h"
 
 #endif // MODFREQRANGES_DEFINITIONS_H

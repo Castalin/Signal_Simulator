@@ -9,6 +9,7 @@ AmplitudemodsignalUI::AmplitudemodsignalUI(SetterModSignal * const ptrToSetterMo
     w_levelSignalSliderMod->setMinimum(-100);
     w_levelSignalSliderMod->setEnabled(false);
     w_levelSignalLabelMod = new QLabel(QString("0"));
+    w_levelSignalLabelMod->setToolTip(QString("Amplitude"));
     w_startSliderMod = new QPushButton(QString("Start"));
     w_startSliderMod->setEnabled(false);
     w_stopSliderMod = new QPushButton(QString("Stop"));

@@ -8,7 +8,7 @@ class SetRangeFreqSineSine : public I_setRangeFrequency, private A_signal
 {
 public:
     SetRangeFreqSineSine(SignalVariables *const signalVariables);
-    virtual double setRangeFrequency() override;
+    virtual double setRangeFrequency() const override;
 
 };
 

@@ -6,12 +6,12 @@ SetterModSignal::SetterModSignal(ModSignalVariables * const modSignalVariables)
 
 }
 
-void SetterModSignal::setModAmplitude(const int &modAmplitude)
+void SetterModSignal::setModAmplitude(const int &modAmplitude) const
 {
     m_modSignalVariables->m_amplitudeMod = static_cast<double>(modAmplitude) / 100.0;
 }
 
-void SetterModSignal::setModFrequency(const int &index, const double &modFrequency)
+void SetterModSignal::setModFrequency(const int &index, const double &modFrequency) const
 {
     if (index == FREQUENCY :: kHz)
     {
@@ -23,7 +23,7 @@ void SetterModSignal::setModFrequency(const int &index, const double &modFrequen
     }
 }
 
-void SetterModSignal::setModDuration(const int &index, const double &modDuration)
+void SetterModSignal::setModDuration(const int &index, const double &modDuration) const
 {
     switch (index)
     {

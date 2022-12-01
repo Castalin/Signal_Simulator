@@ -8,7 +8,7 @@ class SetRangeDurationRectMod : public I_setRangeDuration, private A_signalMod
 {
 public:
     SetRangeDurationRectMod(ModSignalVariables *const modSignalVariables);
-    virtual double setRangeDuration() override;
+    virtual double setRangeDuration() const override;
 };
 
 #endif // SETRANGEDURATIONRECTMOD_H

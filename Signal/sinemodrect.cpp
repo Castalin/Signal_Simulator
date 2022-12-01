@@ -7,12 +7,12 @@ SineModRect::SineModRect(Sine * const sine, ModRect * const modRect)
 
 }
 
-double SineModRect::getSignal(const int &i)
+double SineModRect::getSignal(const int &i) const
 {
     return m_modRect->getSignal(i) * m_sine->getSignal(i);
 }
 
-double SineModRect::getSignalIm(const int &i)
+double SineModRect::getSignalIm(const int &i) const
 {
     return m_modRect->getSignal(i) * m_sine->getSignalIm(i);
 }

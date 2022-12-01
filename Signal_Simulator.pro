@@ -37,6 +37,8 @@ SOURCES += \
     SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqrectnosignal.cpp \
     SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqrectrect.cpp \
     SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqrectsine.cpp \
+    SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqsinehfm.cpp \
+    SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqsinehpm.cpp \
     SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqsinenosignal.cpp \
     SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqsinerect.cpp \
     SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqsinesine.cpp \
@@ -50,6 +52,8 @@ SOURCES += \
     Signal/rectmodrect.cpp \
     Signal/rectmodsine.cpp \
     Signal/sine.cpp \
+    Signal/sine_hfm.cpp \
+    Signal/sine_hpm.cpp \
     Signal/sinemodrect.cpp \
     Signal/sinemodsine.cpp \
     Structes/all_data.cpp \
@@ -94,6 +98,8 @@ HEADERS += \
     SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqrectnosignal.h \
     SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqrectrect.h \
     SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqrectsine.h \
+    SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqsinehfm.h \
+    SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqsinehpm.h \
     SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqsinenosignal.h \
     SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqsinerect.h \
     SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqsinesine.h \
@@ -108,11 +114,14 @@ HEADERS += \
     Signal/rectmodsine.h \
     Signal/signals_defenition.h \
     Signal/sine.h \
+    Signal/sine_hfm.h \
+    Signal/sine_hpm.h \
     Signal/sinemodrect.h \
     Signal/sinemodsine.h \
     Structes/ModSignalVariables.h \
     Structes/SignalVariables.h \
     Structes/all_data.h \
+    Structes/enumSignals.h \
     UI/adc_delay.h \
     UI/amplitidemainsignalui.h \
     UI/amplitudemodsignalui.h \

@@ -8,12 +8,12 @@ SineModSine::SineModSine(SignalVariables * const signalVariables, ModSine * cons
 
 }
 
-double SineModSine :: getSignal(const int &i)
+double SineModSine :: getSignal(const int &i) const
 {
     return (m_signalVariables->m_amplitude + m_modSine->getSignal(i)) * qSin(2 * M_PI * i * m_signalVariables->m_frequency / m_signalVariables->m_decimation);
 }
 
-double SineModSine::getSignalIm(const int &i)
+double SineModSine::getSignalIm(const int &i) const
 {
     return (m_signalVariables->m_amplitude + m_modSine->getSignalIm(i)) * qSin(2 * M_PI * i * m_signalVariables->m_frequency / m_signalVariables->m_decimation);
 }

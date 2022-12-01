@@ -9,12 +9,12 @@ class RectModRect : public I_getSignal, public I_getSignalIm
 {
 public:
     RectModRect(Rectangle *const rectangle, ModRect *const modRect);
-    virtual double getSignal(const int &i) override;
-    virtual double getSignalIm(const int &i) override;
+    virtual double getSignal(const int &i) const override;
+    virtual double getSignalIm(const int &i) const override;
 
 private:
-    Rectangle *m_rect;
-    ModRect *m_modRect;
+    Rectangle *const m_rect;
+    ModRect  *const m_modRect;
 };
 
 #endif // RECTMODRECT_H

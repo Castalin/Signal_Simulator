@@ -5,10 +5,12 @@
 #include <QComboBox>
 #include <QSpinBox>
 #include <QCheckBox>
+#include <map>
 #include "amplitudemodsignalui.h"
 #include "SettersVarANDRangeCheck/settermodsignal.h"
 #include "SettersVarANDRangeCheck/SetRangeFrequencyMod/freqrangesmodsignal.h"
 #include "SettersVarANDRangeCheck/SetRangeDurationMod/durationrangesmodsignal.h"
+#include "Structes/enumSignals.h"
 
 class ModulationUI : public QWidget
 {
@@ -34,14 +36,9 @@ private:
     FreqRangesModSignal m_freqRangesModSignal;
     DurationRangesModSignal m_durationModSignal;
 
-    enum SIGNALS
-    {
-        NO_SIGNAL           = 0,
-        SINE                = 1,
-        RECTANGLE           = 2,
-    };
+    std :: map <SIGNALS_MOD, QString> mapOfSignals;
 
-    SIGNALS m_mainSignalType;
+    SIGNALS_MAIN :: SIGNALS_MAIN m_mainSignalType;
 
 private slots:
         void slot_checkedModul(const int &state);

@@ -9,12 +9,12 @@ class RectModSine : public I_getSignal, public I_getSignalIm
 {
 public:
     RectModSine(Rectangle *const rect, ModSine *const modSine);
-    virtual double getSignal(const int &i) override;
-    virtual double getSignalIm(const int &i) override;
+    virtual double getSignal(const int &i) const override;
+    virtual double getSignalIm(const int &i) const override;
 
 private :
-    Rectangle *m_rect;
-    ModSine *m_modSine;
+    Rectangle *const m_rect;
+    ModSine *const m_modSine;
 };
 
 #endif // RECTMODSINE_H

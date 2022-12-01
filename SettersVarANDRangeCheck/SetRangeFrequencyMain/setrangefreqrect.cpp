@@ -6,7 +6,7 @@ SetRangeFreqRect::SetRangeFreqRect(SignalVariables * const signalVariables)
 
 }
 
-double SetRangeFreqRect::setRangeFrequency()
+double SetRangeFreqRect::setRangeFrequency() const
 {
     return m_signalVariables->m_decimation /(m_signalVariables->m_duration * m_signalVariables->m_decimation + 2);
 }

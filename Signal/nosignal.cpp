@@ -6,12 +6,12 @@ NoSignal::NoSignal(SignalVariables * const signalVariables)
 
 }
 
-double NoSignal::getSignal(const int &i)
+double NoSignal::getSignal(const int &i) const
 {
     return m_signalVariables->m_amplitude;
 }
 
-double NoSignal::getSignalIm(const int &i)
+double NoSignal::getSignalIm(const int &i) const
 {
     return m_signalVariables->m_amplitude;
 }

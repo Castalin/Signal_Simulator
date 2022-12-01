@@ -10,5 +10,8 @@
 #include "sinemodrect.h"
 #include "rectmodsine.h"
 #include "rectmodrect.h"
+#include "sine_hfm.h"
+#include "sine_hpm.h"
+#include "Structes/enumSignals.h"
 
 #endif // SIGNALS_DEFENITION_H

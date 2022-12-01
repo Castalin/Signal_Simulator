@@ -6,7 +6,7 @@ SetRangeDurationRect::SetRangeDurationRect(SignalVariables * const signalVariabl
 
 }
 
-double SetRangeDurationRect::setRangeDuration()
+double SetRangeDurationRect::setRangeDuration() const
 {
     return 2047.0 / m_signalVariables->m_decimation;
 }

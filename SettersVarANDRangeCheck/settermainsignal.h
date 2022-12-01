@@ -6,9 +6,9 @@ class SetterMainSignal : private A_signal
 {
 public:
     SetterMainSignal(SignalVariables *const signalVariables);
-    void setAmplitude(const int &amplitude);
-    void setFrequency(const int &index, const double &frequency);
-    void setDuration(const int &index, const double duration);
+    void setAmplitude(const int &amplitude) const;
+    void setFrequency(const int &index, const double &frequency) const;
+    void setDuration(const int &index, const double duration) const;
 
 private:
     enum FREQUENCY

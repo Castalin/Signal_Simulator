@@ -7,7 +7,8 @@ AmplitideMainSignalUI::AmplitideMainSignalUI(SetterMainSignal *const ptrToSetter
     w_levelSignalSlider = new QSlider(Qt :: Orientation :: Horizontal);
     w_levelSignalSlider->setMaximum(100);
     w_levelSignalSlider->setMinimum(-100);
-    w_levelSignalLabel = new QLabel(QString("0"));
+    w_levelSignalLabel = new QLabel(QString("Ampl: 0"));
+    w_levelSignalLabel->setToolTip(QString("Amplitude"));
     w_startSlider = new QPushButton(QString("Start"));
     w_stopSlider = new QPushButton(QString("Stop"));
     w_stopSlider->setEnabled(false);
@@ -34,7 +35,7 @@ AmplitideMainSignalUI::AmplitideMainSignalUI(SetterMainSignal *const ptrToSetter
     connect(w_stopSlider, &QPushButton :: clicked, this, &AmplitideMainSignalUI :: slot_stopMovingSlider);
     connect(w_timer, &QTimer :: timeout, this, &AmplitideMainSignalUI :: slot_timeOut);
     connect(w_levelSignalSlider, &QSlider :: valueChanged, this, [this](const int &amplitude)->void{m_setterMainSignal->setAmplitude(amplitude);});
-    connect(w_levelSignalSlider, &QSlider :: valueChanged, w_levelSignalLabel, QOverload<int> :: of (&QLabel :: setNum));
+    connect(w_levelSignalSlider, &QSlider :: valueChanged, this, &AmplitideMainSignalUI :: slot_setLabel);
 }
 
 
@@ -68,4 +69,9 @@ void AmplitideMainSignalUI::slot_timeOut()
 
     w_levelSignalSlider->setValue(w_levelSignalSlider->value() + m_step);
 
+}
+
+void AmplitideMainSignalUI::slot_setLabel(const int &value)
+{
+    w_levelSignalLabel->setText(w_levelSignalLabel->text().remove(6,  w_levelSignalLabel->text().size()) + QString :: number(value));
 }

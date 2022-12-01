@@ -7,7 +7,7 @@ class SetRangeDurationRect : public I_setRangeDuration, private A_signal
 {
 public:
     SetRangeDurationRect(SignalVariables *const signalVariables);
-    virtual double setRangeDuration() override;
+    virtual double setRangeDuration() const override;
 };
 
 #endif // SETRANGEDURATIONRECT_H

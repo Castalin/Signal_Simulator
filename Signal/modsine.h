@@ -8,8 +8,8 @@ class ModSine : protected A_signalMod, public I_getSignal, public I_getSignalIm
 {
 public:
     ModSine(ModSignalVariables *const modSignalVariable);
-    virtual double getSignal(const int &i) override;
-    virtual double getSignalIm(const int &i) override;
+    virtual double getSignal(const int &i) const override;
+    virtual double getSignalIm(const int &i) const override;
 };
 
 #endif // MODSINE_H

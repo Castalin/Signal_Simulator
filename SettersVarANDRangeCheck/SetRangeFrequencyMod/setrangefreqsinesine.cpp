@@ -6,7 +6,7 @@ SetRangeFreqSineSine::SetRangeFreqSineSine(SignalVariables * const signalVariabl
 
 }
 
-double SetRangeFreqSineSine::setRangeFrequency()
+double SetRangeFreqSineSine::setRangeFrequency() const
 {
     return (m_signalVariables->m_decimation / 2) - m_signalVariables->m_frequency;
 }
