@@ -7,14 +7,19 @@
 #include <QSlider>
 #include <QPushButton>
 #include "SettersVarANDRangeCheck/settermodsignal.h"
+#include <map>
+#include "Structes/enumSignals.h"
 
-class AmplitudemodsignalUI : public QWidget
+class AmplitudeModSignalUI : public QWidget
 {
     Q_OBJECT
 public:
-    explicit AmplitudemodsignalUI(SetterModSignal *const ptrToSetterModSignal, QWidget *parent = nullptr);
+    explicit AmplitudeModSignalUI(SetterModSignal *const ptrToSetterModSignal, QWidget *parent = nullptr);
     void disable();
     void enable();
+    void setLabel(const int &index);
+    QSlider* getSliderPtr();
+
 
 
 private:
@@ -22,16 +27,19 @@ private:
     QLabel *w_levelSignalLabelMod;
     QPushButton *w_startSliderMod;
     QPushButton *w_stopSliderMod;
-    QTimer *w_timerMod;
     SetterModSignal *m_ptrToSetterModSignal;
-    int m_step;
+    QTimer *w_timerMod;
 
+    int m_step;
+    QString m_label;
+    std :: map<int, QPair<QString, QString>> stringMap;
 private slots:
     void slot_startMovingSlider();
     void slot_timeOut();
 
 public slots:
         void slot_stopMovingSlider();
+        void slot_updateLabel(const int &index);
 signals:
 
 };

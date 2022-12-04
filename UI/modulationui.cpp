@@ -6,7 +6,8 @@
 #include <cmath>
 
 ModulationUI::ModulationUI(SignalVariables *const signalVariables, ModSignalVariables * const modSignalVariables, QWidget *parent)
-    : QWidget{parent}, m_setterModSignal{modSignalVariables}, m_freqRangesModSignal{signalVariables, modSignalVariables}, m_durationModSignal{modSignalVariables}
+    : QWidget{parent}, m_setterModSignal{modSignalVariables}, m_freqRangesModSignal{signalVariables, modSignalVariables}, m_durationModSignal{modSignalVariables},
+      m_amplRangeModSignal{signalVariables, modSignalVariables}
 {
     mapOfSignals[SIGNALS_MOD :: NO_SIGNAL] = QString("None");
     mapOfSignals[SIGNALS_MOD :: SINE_HAM] = QString("HAM");
@@ -56,7 +57,7 @@ ModulationUI::ModulationUI(SignalVariables *const signalVariables, ModSignalVari
     modulationGrid->addWidget(w_durationSignalNumMod, 2, 3, 1, 1, Qt :: AlignCenter);
     modulationGrid->addWidget(w_durationSignalBoxMod, 2, 4, 1, 1, Qt :: AlignCenter);
 
-    m_amplitudeModSignalUI = new AmplitudemodsignalUI(&m_setterModSignal);
+    m_amplitudeModSignalUI = new AmplitudeModSignalUI(&m_setterModSignal);
     modulationGrid->addWidget(m_amplitudeModSignalUI, 3, 0, 2, 5);
 
     modulationGrid->setVerticalSpacing(10);
@@ -70,22 +71,29 @@ ModulationUI::ModulationUI(SignalVariables *const signalVariables, ModSignalVari
     this->setLayout(mainForm);
     m_freqRangesModSignal.setPtrToFreqSpinNum(w_frequencySignalNumMod);
     m_durationModSignal.setPtrToDurationSpinNum(w_durationSignalNumMod);
+    m_amplRangeModSignal.setPtrToAmplSlider(m_amplitudeModSignalUI->getSliderPtr());
+
     m_mainSignalType = SIGNALS_MAIN :: NO_SIGNAL;
 
     connect(w_checkModulation, &QCheckBox :: stateChanged, this, &ModulationUI :: slot_checkedModul);
     connect(w_signalsBoxMod, QOverload<int> :: of(&QComboBox :: currentIndexChanged), this, &ModulationUI :: slot_signalModChanged);
 
     connect(w_durationSignalNumMod, QOverload<double> :: of(&QDoubleSpinBox :: valueChanged), this, &ModulationUI :: slot_setDurationMod);
-    connect(w_frequencySignalNumMod, QOverload<double> :: of(&QDoubleSpinBox :: valueChanged),
-            this, [this](const double &modFrequency)->void{m_setterModSignal.setModFrequency(w_frequencySignalBoxMod->currentIndex(), modFrequency);});
+    connect(w_frequencySignalNumMod, QOverload<double> :: of(&QDoubleSpinBox :: valueChanged), this, &ModulationUI :: slot_frequencyChanged);
     connect(w_frequencySignalBoxMod, QOverload<int> :: of(&QComboBox :: currentIndexChanged),
             this, [this](const int &index)->void{m_freqRangesModSignal.checkRangeFrequencyMod(index);});
     connect(w_durationSignalBoxMod, QOverload<int> :: of(&QComboBox :: currentIndexChanged),
             this, [this](const int &index)->void{m_durationModSignal.checkRangeDuration(index);});
 
+    checkEverything();
+
+}
+
+void ModulationUI::checkEverything()
+{
     m_freqRangesModSignal.checkRangeFrequencyMod(w_frequencySignalBoxMod->currentIndex());
     m_durationModSignal.checkRangeDuration(w_durationSignalBoxMod->currentIndex());
-
+    m_amplRangeModSignal.changeSetterForRange(w_signalsBoxMod->currentIndex());
 }
 
 
@@ -145,6 +153,8 @@ void ModulationUI :: slot_signalModChanged(const int &currentIndex)
     };
     m_freqRangesModSignal.changeSetterForRange(QPair(m_mainSignalType, currentIndex));
     m_freqRangesModSignal.checkRangeFrequencyMod(w_frequencySignalBoxMod->currentIndex());
+    m_amplRangeModSignal.changeSetterForRange(currentIndex);
+    m_amplitudeModSignalUI->setLabel(currentIndex);
 }
 
 
@@ -152,6 +162,12 @@ void ModulationUI::slot_setDurationMod(const double &durationMod)
 {
     m_setterModSignal.setModDuration(w_durationSignalBoxMod->currentIndex(), durationMod);
     m_freqRangesModSignal.checkRangeFrequencyMod(w_frequencySignalBoxMod->currentIndex());
+}
+
+void ModulationUI::slot_frequencyChanged(const double &num)
+{
+    m_setterModSignal.setModFrequency(w_frequencySignalBoxMod->currentIndex(), num);
+    m_amplRangeModSignal.checkRangeAmplMod();
 }
 
 void ModulationUI::stopMovingSlider()
@@ -193,11 +209,13 @@ void ModulationUI::DecimationFrequencyChanged()
 {
     m_freqRangesModSignal.checkRangeFrequencyMod(w_frequencySignalBoxMod->currentIndex());
     m_durationModSignal.checkRangeDuration(w_durationSignalBoxMod->currentIndex());
+    m_amplRangeModSignal.checkRangeAmplMod();
 }
 
-void ModulationUI::mainSignalChanged()
+void ModulationUI::mainSignalParamChanged()
 {
     m_freqRangesModSignal.checkRangeFrequencyMod(w_frequencySignalBoxMod->currentIndex());
     m_durationModSignal.checkRangeDuration(w_durationSignalBoxMod->currentIndex());
+    m_amplRangeModSignal.checkRangeAmplMod();
 }
 

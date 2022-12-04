@@ -35,7 +35,7 @@ AmplitideMainSignalUI::AmplitideMainSignalUI(SetterMainSignal *const ptrToSetter
     connect(w_stopSlider, &QPushButton :: clicked, this, &AmplitideMainSignalUI :: slot_stopMovingSlider);
     connect(w_timer, &QTimer :: timeout, this, &AmplitideMainSignalUI :: slot_timeOut);
     connect(w_levelSignalSlider, &QSlider :: valueChanged, this, [this](const int &amplitude)->void{m_setterMainSignal->setAmplitude(amplitude);});
-    connect(w_levelSignalSlider, &QSlider :: valueChanged, this, &AmplitideMainSignalUI :: slot_setLabel);
+    connect(w_levelSignalSlider, &QSlider :: valueChanged, this, &AmplitideMainSignalUI :: slot_updateLabel);
 }
 
 
@@ -71,7 +71,7 @@ void AmplitideMainSignalUI::slot_timeOut()
 
 }
 
-void AmplitideMainSignalUI::slot_setLabel(const int &value)
+void AmplitideMainSignalUI::slot_updateLabel(const int &value)
 {
     w_levelSignalLabel->setText(w_levelSignalLabel->text().remove(6,  w_levelSignalLabel->text().size()) + QString :: number(value));
 }

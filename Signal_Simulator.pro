@@ -12,6 +12,7 @@ CONFIG += c++17
 SOURCES += \
     AbstractANDInterfaces/a_signal.cpp \
     AbstractANDInterfaces/a_signalmod.cpp \
+    AbstractANDInterfaces/i_getamplmodrange.cpp \
     AbstractANDInterfaces/i_getsignal.cpp \
     AbstractANDInterfaces/i_getsignalim.cpp \
     AbstractANDInterfaces/i_setrangeduration.cpp \
@@ -22,6 +23,12 @@ SOURCES += \
     BackEnd/settingssender.cpp \
     BackEnd/signaldatamain.cpp \
     BackEnd/signalgenerator.cpp \
+    SettersVarANDRangeCheck/SetRangeAmplitudeMod/amplrangesmodsignal.cpp \
+    SettersVarANDRangeCheck/SetRangeAmplitudeMod/setrangeamplham.cpp \
+    SettersVarANDRangeCheck/SetRangeAmplitudeMod/setrangeamplhfm.cpp \
+    SettersVarANDRangeCheck/SetRangeAmplitudeMod/setrangeamplhpm.cpp \
+    SettersVarANDRangeCheck/SetRangeAmplitudeMod/setrangeamplnosignal.cpp \
+    SettersVarANDRangeCheck/SetRangeAmplitudeMod/setrangeamplrect.cpp \
     SettersVarANDRangeCheck/SetRangeDurationMain/durationrangesmainsignal.cpp \
     SettersVarANDRangeCheck/SetRangeDurationMain/setrangedurationrect.cpp \
     SettersVarANDRangeCheck/SetRangeDurationMod/durationrangesmodsignal.cpp \
@@ -72,6 +79,7 @@ SOURCES += \
 HEADERS += \
     AbstractANDInterfaces/a_signal.h \
     AbstractANDInterfaces/a_signalmod.h \
+    AbstractANDInterfaces/i_getamplmodrange.h \
     AbstractANDInterfaces/i_getsignal.h \
     AbstractANDInterfaces/i_getsignalim.h \
     AbstractANDInterfaces/i_setrangeduration.h \
@@ -82,6 +90,13 @@ HEADERS += \
     BackEnd/settingssender.h \
     BackEnd/signaldatamain.h \
     BackEnd/signalgenerator.h \
+    SettersVarANDRangeCheck/SetRangeAmplitudeMod/ModAmplRanges_definitions.h \
+    SettersVarANDRangeCheck/SetRangeAmplitudeMod/amplrangesmodsignal.h \
+    SettersVarANDRangeCheck/SetRangeAmplitudeMod/setrangeamplham.h \
+    SettersVarANDRangeCheck/SetRangeAmplitudeMod/setrangeamplhfm.h \
+    SettersVarANDRangeCheck/SetRangeAmplitudeMod/setrangeamplhpm.h \
+    SettersVarANDRangeCheck/SetRangeAmplitudeMod/setrangeamplnosignal.h \
+    SettersVarANDRangeCheck/SetRangeAmplitudeMod/setrangeamplrect.h \
     SettersVarANDRangeCheck/SetRangeDurationMain/durationrangesmainsignal.h \
     SettersVarANDRangeCheck/SetRangeDurationMain/setrangedurationrect.h \
     SettersVarANDRangeCheck/SetRangeDurationMod/durationrangesmodsignal.h \

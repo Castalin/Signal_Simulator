@@ -27,7 +27,7 @@ private:
 private slots:
     void slot_startMovingSlider();
     void slot_timeOut();
-    void slot_setLabel(const int &value);
+    void slot_updateLabel(const int &value);
 
 public slots:
     void slot_stopMovingSlider();

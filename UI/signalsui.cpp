@@ -136,13 +136,13 @@ void SignalsUI::slot_setDuration(const double &duration)
 {
     m_setterMainSignal.setDuration(w_durationSignalBox->currentIndex(), duration);
     m_freqRangesMainSignal.checkRangeFrequency(w_frequencySignalBox->currentIndex());
-    m_modulationUI->mainSignalChanged();
+    m_modulationUI->mainSignalParamChanged();
 }
 
 void SignalsUI::slot_setFrequency(const double &frequency)
 {
     m_setterMainSignal.setFrequency(w_frequencySignalBox->currentIndex(), frequency);
-    m_modulationUI->mainSignalChanged();
+    m_modulationUI->mainSignalParamChanged();
 }
 
 

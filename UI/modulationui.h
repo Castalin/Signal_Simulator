@@ -10,6 +10,7 @@
 #include "SettersVarANDRangeCheck/settermodsignal.h"
 #include "SettersVarANDRangeCheck/SetRangeFrequencyMod/freqrangesmodsignal.h"
 #include "SettersVarANDRangeCheck/SetRangeDurationMod/durationrangesmodsignal.h"
+#include "SettersVarANDRangeCheck/SetRangeAmplitudeMod/amplrangesmodsignal.h"
 #include "Structes/enumSignals.h"
 
 class ModulationUI : public QWidget
@@ -30,25 +31,29 @@ private:
     QDoubleSpinBox *w_frequencySignalNumMod;
     QComboBox *w_durationSignalBoxMod;
     QDoubleSpinBox *w_durationSignalNumMod;
-    AmplitudemodsignalUI *m_amplitudeModSignalUI;
+    AmplitudeModSignalUI *m_amplitudeModSignalUI;
 
     SetterModSignal m_setterModSignal;
     FreqRangesModSignal m_freqRangesModSignal;
     DurationRangesModSignal m_durationModSignal;
+    AmplRangesModSignal m_amplRangeModSignal;
 
     std :: map <SIGNALS_MOD, QString> mapOfSignals;
 
     SIGNALS_MAIN :: SIGNALS_MAIN m_mainSignalType;
 
+    void checkEverything();
+
 private slots:
         void slot_checkedModul(const int &state);
         void slot_signalModChanged(const int &currentIndex);
         void slot_setDurationMod(const double &durationMod);
+        void slot_frequencyChanged(const double &num);
 
 public:
         void setMainSignalType(const int &index);
         void DecimationFrequencyChanged();
-        void mainSignalChanged();
+        void mainSignalParamChanged();
         void stopMovingSlider();
 
 };

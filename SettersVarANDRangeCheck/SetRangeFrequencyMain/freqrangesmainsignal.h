@@ -5,7 +5,7 @@
 #include "setrangefreqrect.h"
 #include "AbstractANDInterfaces/a_signal.h"
 #include <QDoubleSpinBox>
-#include <map>
+#include <vector>
 
 class FreqRangesMainSignal : private A_signal
 {
@@ -18,7 +18,7 @@ private:
     SetRangeFreqRect m_setRangeFreqRect;
     I_setRangeFrequency *i_SetRangeFreq;
     QDoubleSpinBox *m_ptrToFreqSpinNum;
-    std :: map <int, I_setRangeFrequency*> m_mapFreqRanges;
+    std :: vector<I_setRangeFrequency*> m_vectorFreqRanges;
 
     enum SIGNALS
     {

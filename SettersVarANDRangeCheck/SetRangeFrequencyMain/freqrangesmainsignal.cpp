@@ -7,9 +7,9 @@ FreqRangesMainSignal::FreqRangesMainSignal(SignalVariables * const signalVariabl
 {
     i_SetRangeFreq = &m_setRangeFreqNoSignal;
 
-    m_mapFreqRanges[NO_SIGNAL] = &m_setRangeFreqNoSignal;
-    m_mapFreqRanges[SINE] = &m_setRangeFreqSine;
-    m_mapFreqRanges[RECTANGLE] = &m_setRangeFreqRect;
+    m_vectorFreqRanges.push_back(&m_setRangeFreqNoSignal);
+    m_vectorFreqRanges.push_back(&m_setRangeFreqSine);
+    m_vectorFreqRanges.push_back(&m_setRangeFreqRect);
 
 
 }
@@ -34,7 +34,7 @@ void FreqRangesMainSignal::checkRangeFrequency(const int &index)
 
 void FreqRangesMainSignal::changeSetterForRange(const int &indexOfSignal)
 {
-    i_SetRangeFreq = m_mapFreqRanges[indexOfSignal];
+    i_SetRangeFreq = m_vectorFreqRanges.at(indexOfSignal);
 }
 
 void FreqRangesMainSignal::setPtrToFreqSpinNum(QDoubleSpinBox * const ptrToFreqSpinNum)

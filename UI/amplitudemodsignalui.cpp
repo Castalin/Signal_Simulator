@@ -1,15 +1,22 @@
 #include "amplitudemodsignalui.h"
 #include <QGridLayout>
 
-AmplitudemodsignalUI::AmplitudemodsignalUI(SetterModSignal * const ptrToSetterModSignal, QWidget *parent)
+AmplitudeModSignalUI::AmplitudeModSignalUI(SetterModSignal * const ptrToSetterModSignal, QWidget *parent)
     : QWidget{parent}, m_ptrToSetterModSignal{ptrToSetterModSignal}
 {
+
+    stringMap[NO_SIGNAL]    = QPair<QString, QString>(QString{"Ampl: "}, QString{"Amplitude"});
+    stringMap[SINE_HAM]     = QPair<QString, QString>(QString{"Ampl: "}, QString{"Amplitude"});
+    stringMap[RECTANGLE]    = QPair<QString, QString>(QString{"Ampl: "}, QString{"Amplitude"});
+    stringMap[HFM]          = QPair<QString, QString>(QString{"Fdev: "}, QString{"Frequency deviation, kHz"});
+    stringMap[HPM]          = QPair<QString, QString>(QString{"Pdev: "}, QString{"Phase deviation, 0.01Rad"});
+
     w_levelSignalSliderMod = new QSlider(Qt :: Orientation :: Horizontal);
     w_levelSignalSliderMod->setMaximum(100);
     w_levelSignalSliderMod->setMinimum(-100);
     w_levelSignalSliderMod->setEnabled(false);
-    w_levelSignalLabelMod = new QLabel(QString("0"));
-    w_levelSignalLabelMod->setToolTip(QString("Amplitude"));
+    w_levelSignalLabelMod = new QLabel(stringMap[NO_SIGNAL].first + QString("0"));
+    w_levelSignalLabelMod->setToolTip(QString(stringMap[NO_SIGNAL].second));
     w_startSliderMod = new QPushButton(QString("Start"));
     w_startSliderMod->setEnabled(false);
     w_stopSliderMod = new QPushButton(QString("Stop"));
@@ -35,14 +42,14 @@ AmplitudemodsignalUI::AmplitudemodsignalUI(SetterModSignal * const ptrToSetterMo
 
     this->setLayout(AmplitudeModSignalLayout);
 
-    connect(w_startSliderMod, &QPushButton :: clicked, this, &AmplitudemodsignalUI :: slot_startMovingSlider);
-    connect(w_stopSliderMod, &QPushButton :: clicked, this, &AmplitudemodsignalUI :: slot_stopMovingSlider);
-    connect(w_timerMod, &QTimer :: timeout, this, &AmplitudemodsignalUI :: slot_timeOut);
+    connect(w_startSliderMod, &QPushButton :: clicked, this, &AmplitudeModSignalUI :: slot_startMovingSlider);
+    connect(w_stopSliderMod, &QPushButton :: clicked, this, &AmplitudeModSignalUI :: slot_stopMovingSlider);
+    connect(w_timerMod, &QTimer :: timeout, this, &AmplitudeModSignalUI :: slot_timeOut);
     connect(w_levelSignalSliderMod, &QSlider :: valueChanged, this, [this](const int &modAmplitude)->void{m_ptrToSetterModSignal->setModAmplitude(modAmplitude);});
-    connect(w_levelSignalSliderMod, &QSlider :: valueChanged, w_levelSignalLabelMod, QOverload<int> :: of (&QLabel :: setNum));
+    connect(w_levelSignalSliderMod, &QSlider :: valueChanged, this, &AmplitudeModSignalUI :: slot_updateLabel);
 }
 
-void AmplitudemodsignalUI::disable()
+void AmplitudeModSignalUI::disable()
 {
     w_startSliderMod->setEnabled(false);
     w_levelSignalSliderMod->setEnabled(false);
@@ -50,13 +57,18 @@ void AmplitudemodsignalUI::disable()
     w_timerMod->stop();
 }
 
-void AmplitudemodsignalUI::enable()
+void AmplitudeModSignalUI::enable()
 {
     w_startSliderMod->setEnabled(true);
     w_levelSignalSliderMod->setEnabled(true);
 }
 
-void AmplitudemodsignalUI::slot_startMovingSlider()
+void AmplitudeModSignalUI::slot_updateLabel(const int &index)
+{
+    w_levelSignalLabelMod->setText(m_label + QString :: number(index));
+}
+
+void AmplitudeModSignalUI::slot_startMovingSlider()
 {
     w_levelSignalSliderMod->setEnabled(false);
     w_timerMod->start(std :: chrono :: milliseconds(100));
@@ -64,7 +76,7 @@ void AmplitudemodsignalUI::slot_startMovingSlider()
     w_stopSliderMod->setEnabled(true);
 }
 
-void AmplitudemodsignalUI::slot_timeOut()
+void AmplitudeModSignalUI::slot_timeOut()
 {
     if (w_levelSignalSliderMod->value() == w_levelSignalSliderMod->maximum())
     {
@@ -78,10 +90,23 @@ void AmplitudemodsignalUI::slot_timeOut()
     w_levelSignalSliderMod->setValue(w_levelSignalSliderMod->value() + m_step);
 }
 
-void AmplitudemodsignalUI::slot_stopMovingSlider()
+void AmplitudeModSignalUI::slot_stopMovingSlider()
 {
     w_timerMod->stop();
     w_startSliderMod->setEnabled(true);
     w_levelSignalSliderMod->setEnabled(true);
     w_stopSliderMod->setEnabled(false);
+}
+
+void AmplitudeModSignalUI::setLabel(const int &index)
+{
+    m_label = stringMap[index].first;
+    w_levelSignalLabelMod->setToolTip(stringMap[index].second);
+    slot_updateLabel(w_levelSignalSliderMod->value());
+
+}
+
+QSlider *AmplitudeModSignalUI::getSliderPtr()
+{
+    return w_levelSignalSliderMod;
 }
