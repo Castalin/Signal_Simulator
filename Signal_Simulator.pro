@@ -51,18 +51,18 @@ SOURCES += \
     SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqsinesine.cpp \
     SettersVarANDRangeCheck/settermainsignal.cpp \
     SettersVarANDRangeCheck/settermodsignal.cpp \
+    Signal/cos.cpp \
+    Signal/cos_hfm.cpp \
+    Signal/cos_hpm.cpp \
+    Signal/cosmodcos.cpp \
+    Signal/cosmodrect.cpp \
     Signal/factoryofsignal.cpp \
+    Signal/modcos.cpp \
     Signal/modrect.cpp \
-    Signal/modsine.cpp \
     Signal/nosignal.cpp \
     Signal/rectangle.cpp \
+    Signal/rectmodcos.cpp \
     Signal/rectmodrect.cpp \
-    Signal/rectmodsine.cpp \
-    Signal/sine.cpp \
-    Signal/sine_hfm.cpp \
-    Signal/sine_hpm.cpp \
-    Signal/sinemodrect.cpp \
-    Signal/sinemodsine.cpp \
     Structes/all_data.cpp \
     UI/adc_delay.cpp \
     UI/amplitidemainsignalui.cpp \
@@ -120,19 +120,19 @@ HEADERS += \
     SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqsinesine.h \
     SettersVarANDRangeCheck/settermainsignal.h \
     SettersVarANDRangeCheck/settermodsignal.h \
+    Signal/cos.h \
+    Signal/cos_hfm.h \
+    Signal/cos_hpm.h \
+    Signal/cosmodcos.h \
+    Signal/cosmodrect.h \
     Signal/factoryofsignal.h \
+    Signal/modcos.h \
     Signal/modrect.h \
-    Signal/modsine.h \
     Signal/nosignal.h \
     Signal/rectangle.h \
+    Signal/rectmodcos.h \
     Signal/rectmodrect.h \
-    Signal/rectmodsine.h \
     Signal/signals_defenition.h \
-    Signal/sine.h \
-    Signal/sine_hfm.h \
-    Signal/sine_hpm.h \
-    Signal/sinemodrect.h \
-    Signal/sinemodsine.h \
     Structes/ModSignalVariables.h \
     Structes/SignalVariables.h \
     Structes/all_data.h \

@@ -8,7 +8,7 @@ SignalsUI::SignalsUI(SignalVariables *const signalVariables, ModSignalVariables 
     : QWidget{parent}, m_setterMainSignal(signalVariables), m_freqRangesMainSignal{signalVariables}, m_durationRangesMainSignal{signalVariables}
 {
     w_signalsBox = new QComboBox;
-    w_signalsBox->addItems(QStringList{"None", "Sine", "Rect"});
+    w_signalsBox->addItems(QStringList{"None", "Cos", "Rect"});
     w_signalsBox->setItemData(SIGNALS :: RECTANGLE, QString("Rectangle"), Qt :: ToolTipRole);
 
     w_frequencySignalBox = new QComboBox;

@@ -11,7 +11,6 @@ FreqRangesMainSignal::FreqRangesMainSignal(SignalVariables * const signalVariabl
     m_vectorFreqRanges.push_back(&m_setRangeFreqSine);
     m_vectorFreqRanges.push_back(&m_setRangeFreqRect);
 
-
 }
 
 void FreqRangesMainSignal::checkRangeFrequency(const int &index)

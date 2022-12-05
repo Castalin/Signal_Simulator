@@ -10,7 +10,7 @@ ModulationUI::ModulationUI(SignalVariables *const signalVariables, ModSignalVari
       m_amplRangeModSignal{signalVariables, modSignalVariables}
 {
     mapOfSignals[SIGNALS_MOD :: NO_SIGNAL] = QString("None");
-    mapOfSignals[SIGNALS_MOD :: SINE_HAM] = QString("HAM");
+    mapOfSignals[SIGNALS_MOD :: COS_HAM]   = QString("HAM");
     mapOfSignals[SIGNALS_MOD :: RECTANGLE] = QString("Rect");
     mapOfSignals[SIGNALS_MOD :: HFM] = QString("HFM");
     mapOfSignals[SIGNALS_MOD :: HPM] = QString("HPM");
@@ -20,8 +20,8 @@ ModulationUI::ModulationUI(SignalVariables *const signalVariables, ModSignalVari
 
     w_signalsBoxMod = new QComboBox;
     w_signalsBoxMod->setInsertPolicy(QComboBox :: InsertPolicy :: InsertAtBottom);
-    w_signalsBoxMod->addItems(QStringList{"None", "HAM", "Rect"});
-    w_signalsBoxMod->setItemData(SIGNALS_MOD :: SINE_HAM, QString{"Harmonic amplitude modulation"}, Qt :: ToolTipRole);
+    w_signalsBoxMod->addItems(QStringList{"None", "Cos", "Rect"});
+    //w_signalsBoxMod->setItemData(SIGNALS_MOD :: COS_HAM, QString{"Harmonic amplitude modulation"}, Qt :: ToolTipRole);
     w_signalsBoxMod->setItemData(SIGNALS_MOD :: RECTANGLE, QString{"Rectangle"}, Qt :: ToolTipRole);
 
     w_signalsBoxMod->setEnabled(false);
@@ -132,7 +132,7 @@ void ModulationUI :: slot_signalModChanged(const int &currentIndex)
             w_durationSignalNumMod->setEnabled(false);
             break;
         }
-        case SIGNALS_MOD :: SINE_HAM:
+        case SIGNALS_MOD :: COS_HAM:
         case SIGNALS_MOD :: HFM:
         case SIGNALS_MOD :: HPM:
         {
@@ -183,12 +183,14 @@ void ModulationUI::setMainSignalType(const int &index)
     m_mainSignalType = static_cast<SIGNALS_MAIN :: SIGNALS_MAIN>(index);
     switch(m_mainSignalType)
     {
-        case SIGNALS_MAIN :: SINE:
+        case SIGNALS_MAIN :: COS:
         {
         w_signalsBoxMod->addItem(mapOfSignals[SIGNALS_MOD :: HFM]);
         w_signalsBoxMod->addItem(mapOfSignals[SIGNALS_MOD :: HPM]);
         w_signalsBoxMod->setItemData(w_signalsBoxMod->findText(mapOfSignals[SIGNALS_MOD :: HFM]), QString{"Harmonic frequency modulation"}, Qt :: ToolTipRole);
         w_signalsBoxMod->setItemData(w_signalsBoxMod->findText(mapOfSignals[SIGNALS_MOD :: HPM]), QString{"Harmonic frequency modulation"}, Qt :: ToolTipRole);
+        w_signalsBoxMod->setItemData(SIGNALS_MOD :: COS_HAM, QString{"Harmonic amplitude modulation"}, Qt :: ToolTipRole);
+        w_signalsBoxMod->setItemText(SIGNALS_MOD :: COS_HAM, mapOfSignals[SIGNALS_MOD :: COS_HAM]);
         break;
         }
         default:
@@ -197,6 +199,9 @@ void ModulationUI::setMainSignalType(const int &index)
             w_signalsBoxMod->removeItem(w_signalsBoxMod->findText(mapOfSignals[SIGNALS_MOD :: HFM]));
             w_signalsBoxMod->removeItem(w_signalsBoxMod->findText(mapOfSignals[SIGNALS_MOD :: HPM]));
             connect(w_signalsBoxMod, QOverload<int> :: of(&QComboBox :: currentIndexChanged), this, &ModulationUI :: slot_signalModChanged);
+            w_signalsBoxMod->setItemData(SIGNALS_MOD :: COS_HAM, QString{""}, Qt :: ToolTipRole);
+            w_signalsBoxMod->setItemText(SIGNALS_MOD :: COS_HAM, QString{"Cos"});
+
         }
     }
 

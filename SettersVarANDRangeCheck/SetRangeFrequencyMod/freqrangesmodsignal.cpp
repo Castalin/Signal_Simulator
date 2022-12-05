@@ -8,16 +8,16 @@ FreqRangesModSignal::FreqRangesModSignal(SignalVariables * const signalVariables
       m_setRangeFreqRectRect{modSignalVariables}, m_setRangeFreqSineHFM{signalVariables}, m_setRangeFreqSineHPM{signalVariables}
 {
     m_mapFreqRanges[QPair(SIGNALS_MAIN :: NO_SIGNAL, SIGNALS_MOD :: NO_SIGNAL)] = &m_setRangeFreqNoSignalNoSignal;
-    m_mapFreqRanges[QPair(SIGNALS_MAIN :: NO_SIGNAL, SIGNALS_MOD :: SINE_HAM)]  = &m_setRangeFreqNoSignalSine;
+    m_mapFreqRanges[QPair(SIGNALS_MAIN :: NO_SIGNAL, SIGNALS_MOD :: COS_HAM)]   = &m_setRangeFreqNoSignalSine;
     m_mapFreqRanges[QPair(SIGNALS_MAIN :: NO_SIGNAL, SIGNALS_MOD :: RECTANGLE)] = &m_setRangeFreqNoSignalRect;
-    m_mapFreqRanges[QPair(SIGNALS_MAIN :: SINE,      SIGNALS_MOD :: NO_SIGNAL)] = &m_setRangeFreqSineNoSignal;
-    m_mapFreqRanges[QPair(SIGNALS_MAIN :: SINE,      SIGNALS_MOD :: SINE_HAM)]  = &m_setRangeFreqSineSine;
-    m_mapFreqRanges[QPair(SIGNALS_MAIN :: SINE,      SIGNALS_MOD :: RECTANGLE)] = &m_setRangeFreqSineRect;
+    m_mapFreqRanges[QPair(SIGNALS_MAIN :: COS,       SIGNALS_MOD :: NO_SIGNAL)] = &m_setRangeFreqSineNoSignal;
+    m_mapFreqRanges[QPair(SIGNALS_MAIN :: COS,       SIGNALS_MOD :: COS_HAM)]   = &m_setRangeFreqSineSine;
+    m_mapFreqRanges[QPair(SIGNALS_MAIN :: COS,       SIGNALS_MOD :: RECTANGLE)] = &m_setRangeFreqSineRect;
     m_mapFreqRanges[QPair(SIGNALS_MAIN :: RECTANGLE, SIGNALS_MOD :: NO_SIGNAL)] = &m_setRangeFreqRectNoSignal;
-    m_mapFreqRanges[QPair(SIGNALS_MAIN :: RECTANGLE, SIGNALS_MOD :: SINE_HAM)]  = &m_setRangeFreqRectSine;
+    m_mapFreqRanges[QPair(SIGNALS_MAIN :: RECTANGLE, SIGNALS_MOD :: COS_HAM)]   = &m_setRangeFreqRectSine;
     m_mapFreqRanges[QPair(SIGNALS_MAIN :: RECTANGLE, SIGNALS_MOD :: RECTANGLE)] = &m_setRangeFreqRectRect;
-    m_mapFreqRanges[QPair(SIGNALS_MAIN :: SINE,      SIGNALS_MOD :: HFM)]       = &m_setRangeFreqSineHFM;
-    m_mapFreqRanges[QPair(SIGNALS_MAIN :: SINE,      SIGNALS_MOD :: HPM)]       = &m_setRangeFreqSineHPM;
+    m_mapFreqRanges[QPair(SIGNALS_MAIN :: COS,       SIGNALS_MOD :: HFM)]       = &m_setRangeFreqSineHFM;
+    m_mapFreqRanges[QPair(SIGNALS_MAIN :: COS,       SIGNALS_MOD :: HPM)]       = &m_setRangeFreqSineHPM;
 
     i_SetRangeFreq = &m_setRangeFreqNoSignalNoSignal;
 

@@ -1,21 +1,21 @@
-#ifndef SINE_HPM_H
-#define SINE_HPM_H
+#ifndef COS_HPM_H
+#define COS_HPM_H
 
 #include "AbstractANDInterfaces/a_signal.h"
 #include "AbstractANDInterfaces/i_getsignal.h"
 #include "AbstractANDInterfaces/i_getsignalim.h"
-#include "modsine.h"
+#include "modcos.h"
 
-class Sine_HPM : protected A_signal, public I_getSignal, public I_getSignalIm
+class Cos_HPM : protected A_signal, public I_getSignal, public I_getSignalIm
 {
 public:
-    Sine_HPM(SignalVariables * const signalVariables, ModSine * const modSine);
+    Cos_HPM(SignalVariables * const signalVariables, ModCos * const modCos);
 
     virtual double getSignal(const int &i) const override;
     virtual double getSignalIm(const int &i) const override;
 
 private:
-    ModSine *const m_modSine;
+    ModCos *const m_modCos;
 };
 
-#endif // SINE_HPM_H
+#endif // COS_HPM_H

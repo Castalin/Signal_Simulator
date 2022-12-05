@@ -1,22 +1,22 @@
-#ifndef SINEMODRECT_H
-#define SINEMODRECT_H
+#ifndef COSMODRECT_H
+#define COSMODRECT_H
 #include "modrect.h"
 #include "AbstractANDInterfaces/i_getsignal.h"
-#include "sine.h"
+#include "cos.h"
 #include "AbstractANDInterfaces/i_getsignalim.h"
 
 
-class SineModRect :  public I_getSignal, public I_getSignalIm
+class CosModRect :  public I_getSignal, public I_getSignalIm
 {
 public:
-    SineModRect(Sine *const sine, ModRect *const modRect);
+    CosModRect(Cos *const cos, ModRect *const modRect);
     virtual double getSignal(const int &i) const override;
     virtual double getSignalIm(const int &i) const override;
 
 private:
-    Sine * const m_sine;
+    Cos * const m_cos;
     ModRect *const m_modRect;
 
 };
 
-#endif // SINEMODRECT_H
+#endif // COSMODRECT_H

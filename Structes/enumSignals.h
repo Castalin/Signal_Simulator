@@ -6,7 +6,7 @@ namespace SIGNALS_MAIN
     enum SIGNALS_MAIN
     {
         NO_SIGNAL           = 0,
-        SINE                = 1,
+        COS                = 1,
         RECTANGLE           = 2,
         HFM                 = 3,
         HPM                 = 4,
@@ -17,7 +17,7 @@ namespace SIGNALS_MAIN
 enum SIGNALS_MOD
 {
     NO_SIGNAL           = 0,
-    SINE_HAM            = 1,
+    COS_HAM            = 1,
     RECTANGLE           = 2,
     HFM                 = 3,
     HPM                 = 4,

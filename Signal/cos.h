@@ -1,16 +1,16 @@
-#ifndef SINE_H
-#define SINE_H
+#ifndef COS_H
+#define COS_H
 #include "AbstractANDInterfaces/a_signal.h"
 #include "AbstractANDInterfaces/i_getsignal.h"
 #include "AbstractANDInterfaces/i_getsignalim.h"
 
 
-class Sine : protected A_signal, public I_getSignal, public I_getSignalIm
+class Cos : protected A_signal, public I_getSignal, public I_getSignalIm
 {
 public:
-    Sine(SignalVariables *const signalVariables);
+    Cos(SignalVariables *const signalVariables);
     virtual double getSignal(const int &i) const override;
     virtual double getSignalIm(const int &i) const override;
 };
 
-#endif // SINE_H
+#endif // COS_H

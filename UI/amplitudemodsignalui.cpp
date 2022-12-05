@@ -6,7 +6,7 @@ AmplitudeModSignalUI::AmplitudeModSignalUI(SetterModSignal * const ptrToSetterMo
 {
 
     stringMap[NO_SIGNAL]    = QPair<QString, QString>(QString{"Ampl: "}, QString{"Amplitude"});
-    stringMap[SINE_HAM]     = QPair<QString, QString>(QString{"Ampl: "}, QString{"Amplitude"});
+    stringMap[COS_HAM]      = QPair<QString, QString>(QString{"Ampl: "}, QString{"Amplitude"});
     stringMap[RECTANGLE]    = QPair<QString, QString>(QString{"Ampl: "}, QString{"Amplitude"});
     stringMap[HFM]          = QPair<QString, QString>(QString{"Fdev: "}, QString{"Frequency deviation, kHz"});
     stringMap[HPM]          = QPair<QString, QString>(QString{"Pdev: "}, QString{"Phase deviation, 0.01Rad"});

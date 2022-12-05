@@ -4,7 +4,7 @@ AmplRangesModSignal::AmplRangesModSignal(SignalVariables * const signalVariables
     : m_setRangeHFM{signalVariables, modSignalVariables}, m_setRangeHPM{signalVariables, modSignalVariables}
 {
     mapOfAmplRangeSetters[NO_SIGNAL]    = &m_setRangeNoSignal;
-    mapOfAmplRangeSetters[SINE_HAM]     = &m_setRangeHAM;
+    mapOfAmplRangeSetters[COS_HAM]     = &m_setRangeHAM;
     mapOfAmplRangeSetters[RECTANGLE]    = &m_setRangeRect;
     mapOfAmplRangeSetters[HFM]          = &m_setRangeHFM;
     mapOfAmplRangeSetters[HPM]          = &m_setRangeHPM;

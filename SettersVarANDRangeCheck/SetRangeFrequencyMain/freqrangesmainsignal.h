@@ -20,13 +20,6 @@ private:
     QDoubleSpinBox *m_ptrToFreqSpinNum;
     std :: vector<I_setRangeFrequency*> m_vectorFreqRanges;
 
-    enum SIGNALS
-    {
-        NO_SIGNAL           = 0,
-        SINE                = 1,
-        RECTANGLE           = 2,
-    };
-
     enum FREQUENCY
     {
         kHz                 = 0,

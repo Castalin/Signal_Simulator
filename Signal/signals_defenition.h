@@ -2,16 +2,16 @@
 #define SIGNALS_DEFENITION_H
 
 #include "nosignal.h"
-#include "sine.h"
+#include "cos.h"
 #include "rectangle.h"
-#include "modsine.h"
+#include "modcos.h"
 #include "modrect.h"
-#include "sinemodsine.h"
-#include "sinemodrect.h"
-#include "rectmodsine.h"
+#include "cosmodcos.h"
+#include "cosmodrect.h"
+#include "rectmodcos.h"
 #include "rectmodrect.h"
-#include "sine_hfm.h"
-#include "sine_hpm.h"
+#include "cos_hfm.h"
+#include "cos_hpm.h"
 #include "Structes/enumSignals.h"
 
 #endif // SIGNALS_DEFENITION_H

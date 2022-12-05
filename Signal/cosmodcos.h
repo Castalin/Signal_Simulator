@@ -1,18 +1,18 @@
-#ifndef SINEMODSINE_H
-#define SINEMODSINE_H
+#ifndef COSMODCOS_H
+#define COSMODCOS_H
 #include "AbstractANDInterfaces/a_signal.h"
-#include "modsine.h"
+#include "modcos.h"
 #include "AbstractANDInterfaces/i_getsignal.h"
 #include "AbstractANDInterfaces/i_getsignalim.h"
 
-class SineModSine : protected A_signal, public I_getSignal, public I_getSignalIm
+class CosModCos : protected A_signal, public I_getSignal, public I_getSignalIm
 {
 public:
-    SineModSine(SignalVariables *const signalVariables, ModSine *const modSine); //
+    CosModCos(SignalVariables *const signalVariables, ModCos *const modSine); //
     virtual double getSignal(const int &i) const override;
     virtual double getSignalIm(const int &i) const override;
 private:
-    ModSine *const m_modSine;
+    ModCos *const m_modCos;
 };
 
-#endif // SINEMODSINE_H
+#endif // COSMODCOS_H
