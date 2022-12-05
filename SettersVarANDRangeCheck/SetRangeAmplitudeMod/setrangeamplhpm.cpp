@@ -8,7 +8,14 @@ SetRangeAmplHPM::SetRangeAmplHPM(SignalVariables * const signalVariables, ModSig
 
 int SetRangeAmplHPM::getAmplModMax() const
 {
-    return 100 * ((m_signalVariables->m_decimation / 2 - m_signalVariables->m_frequency) / m_modSignalVariables->m_frequencyMod - 1);
+    if (m_signalVariables->m_decimation / 4 < m_signalVariables->m_frequency)
+    {
+        return 100 * ((m_signalVariables->m_decimation / 2 - m_signalVariables->m_frequency) / m_modSignalVariables->m_frequencyMod - 1);
+    }
+    else
+    {
+        return 100 * (m_signalVariables->m_frequency / m_modSignalVariables->m_frequencyMod - 1);
+    }
 }
 
 int SetRangeAmplHPM::getAmplModMin() const
