@@ -14,14 +14,29 @@ double SetRangeFreqSineRect::setRangeFrequency() const
     }
     else
     {
-        double a = m_modSignalVariables->m_decimation / 2 - m_signalVariables->m_frequency - 2 / m_modSignalVariables->m_durationMod;
-        if (a > 0)
+        if (m_modSignalVariables->m_decimation / 4 < m_signalVariables->m_frequency)
         {
-            return a;
+            double a = m_modSignalVariables->m_decimation / 2 - m_signalVariables->m_frequency - 2 / m_modSignalVariables->m_durationMod;
+            if (a > 0)
+            {
+                return a;
+            }
+            else
+            {
+                return 0;
+            }
         }
         else
         {
-            return 0;
+            double a = m_signalVariables->m_frequency - 2 / m_modSignalVariables->m_durationMod;
+            if (a > 0)
+            {
+                return a;
+            }
+            else
+            {
+                return 0;
+            }
         }
     }
 }
