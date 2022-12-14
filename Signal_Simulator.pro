@@ -55,30 +55,32 @@ SOURCES += \
     SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqsinesine.cpp \
     SettersVarANDRangeCheck/settermainsignal.cpp \
     SettersVarANDRangeCheck/settermodsignal.cpp \
-    Signal/cos.cpp \
-    Signal/cos_hfm.cpp \
-    Signal/cos_hpm.cpp \
-    Signal/cosmodcos.cpp \
-    Signal/cosmodrect.cpp \
-    Signal/cosmodrip.cpp \
+    Signal/Cos/cos.cpp \
+    Signal/Cos/cos_hfm.cpp \
+    Signal/Cos/cos_hpm.cpp \
+    Signal/Cos/cosmodcos.cpp \
+    Signal/Cos/cosmodrect.cpp \
+    Signal/Cos/cosmodrip.cpp \
+    Signal/NoSignal/modcos.cpp \
+    Signal/NoSignal/modrect.cpp \
+    Signal/NoSignal/modrip.cpp \
+    Signal/NoSignal/nosignal.cpp \
+    Signal/Noise/noise.cpp \
+    Signal/Rectangle/rectangle.cpp \
+    Signal/Rectangle/rectmodcos.cpp \
+    Signal/Rectangle/rectmodrect.cpp \
+    Signal/Rectangle/rectmodrip.cpp \
     Signal/factoryofsignal.cpp \
-    Signal/modcos.cpp \
-    Signal/modrect.cpp \
-    Signal/modrip.cpp \
-    Signal/nosignal.cpp \
-    Signal/rectangle.cpp \
-    Signal/rectmodcos.cpp \
-    Signal/rectmodrect.cpp \
-    Signal/rectmodrip.cpp \
     Structes/all_data.cpp \
-    UI/adc_delay.cpp \
+    UI/Untouchable/adc_delay.cpp \
+    UI/Untouchable/controlsettingsOne.cpp \
+    UI/Untouchable/controlsettingsTwo.cpp \
     UI/amplitidemainsignalui.cpp \
     UI/amplitudemodsignalui.cpp \
     UI/controladdresses.cpp \
     UI/controlangle.cpp \
-    UI/controlsettingsOne.cpp \
-    UI/controlsettingsTwo.cpp \
     UI/modulationui.cpp \
+    UI/noiseui.cpp \
     UI/signalsui.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -131,34 +133,37 @@ HEADERS += \
     SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqsinesine.h \
     SettersVarANDRangeCheck/settermainsignal.h \
     SettersVarANDRangeCheck/settermodsignal.h \
-    Signal/cos.h \
-    Signal/cos_hfm.h \
-    Signal/cos_hpm.h \
-    Signal/cosmodcos.h \
-    Signal/cosmodrect.h \
-    Signal/cosmodrip.h \
+    Signal/Cos/cos.h \
+    Signal/Cos/cos_hfm.h \
+    Signal/Cos/cos_hpm.h \
+    Signal/Cos/cosmodcos.h \
+    Signal/Cos/cosmodrect.h \
+    Signal/Cos/cosmodrip.h \
+    Signal/NoSignal/modcos.h \
+    Signal/NoSignal/modrect.h \
+    Signal/NoSignal/modrip.h \
+    Signal/NoSignal/nosignal.h \
+    Signal/Noise/noise.h \
+    Signal/Rectangle/rectangle.h \
+    Signal/Rectangle/rectmodcos.h \
+    Signal/Rectangle/rectmodrect.h \
+    Signal/Rectangle/rectmodrip.h \
     Signal/factoryofsignal.h \
-    Signal/modcos.h \
-    Signal/modrect.h \
-    Signal/modrip.h \
-    Signal/nosignal.h \
-    Signal/rectangle.h \
-    Signal/rectmodcos.h \
-    Signal/rectmodrect.h \
-    Signal/rectmodrip.h \
     Signal/signals_defenition.h \
     Structes/ModSignalVariables.h \
+    Structes/NoiseVariables.h \
     Structes/SignalVariables.h \
     Structes/all_data.h \
     Structes/enumSignals.h \
-    UI/adc_delay.h \
+    UI/Untouchable/adc_delay.h \
+    UI/Untouchable/controlsettingsOne.h \
+    UI/Untouchable/controlsettingsTwo.h \
     UI/amplitidemainsignalui.h \
     UI/amplitudemodsignalui.h \
     UI/controladdresses.h \
     UI/controlangle.h \
-    UI/controlsettingsOne.h \
-    UI/controlsettingsTwo.h \
     UI/modulationui.h \
+    UI/noiseui.h \
     UI/signalsui.h \
     mainwindow.h \
 

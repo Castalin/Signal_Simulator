@@ -15,6 +15,11 @@ SignalVariables *All_Data::getMainSignalVar()
     return &m_signalVariables;
 }
 
+NoiseVariables *All_Data::getNoiseVar()
+{
+    return &m_noiseVariables;
+}
+
 void All_Data::setDecimationFrequence(const int &decimation)
 {
     m_signalVariables.m_decimation = decimation;

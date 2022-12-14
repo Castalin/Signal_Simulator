@@ -3,9 +3,9 @@
 
 #include <QMainWindow>
 #include "UI/signalsui.h"
-#include "UI/controlsettingsOne.h"
-#include "UI/controlsettingsTwo.h"
-#include "UI/adc_delay.h"
+#include "UI/Untouchable/controlsettingsOne.h"
+#include "UI/Untouchable/controlsettingsTwo.h"
+#include "UI/Untouchable/adc_delay.h"
 #include "UI/controlangle.h"
 #include "UI/controladdresses.h"
 #include "BackEnd/controldatamain.h"

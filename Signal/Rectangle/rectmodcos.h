@@ -1,22 +1,20 @@
-#ifndef RECTMODRIP_H
-#define RECTMODRIP_H
-
+#ifndef RECTMODCOS_H
+#define RECTMODCOS_H
+#include "Signal/NoSignal/modcos.h"
 #include "rectangle.h"
-#include "modrip.h"
 #include "AbstractANDInterfaces/i_getsignal.h"
 #include "AbstractANDInterfaces/i_getsignalim.h"
 
-
-class RectModRIP : public I_getSignal, public I_getSignalIm
+class RectModCos : public I_getSignal, public I_getSignalIm
 {
 public:
-    RectModRIP(Rectangle *const rect, ModRIP *const modRIP);
+    RectModCos(Rectangle *const rect, ModCos *const modCos);
     virtual double getSignal(const int &i) const override;
     virtual double getSignalIm(const int &i) const override;
 
 private :
     Rectangle *const m_rect;
-    ModRIP *const m_modRIP;
+    ModCos *const m_modCos;
 };
 
-#endif // RECTMODRIP_H
+#endif // RECTMODCOS_H
