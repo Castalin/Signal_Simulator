@@ -1,12 +1,12 @@
-#include "setrangefreqsinesine.h"
+#include "setrangefreqsinerip.h"
 
-SetRangeFreqSineSine::SetRangeFreqSineSine(SignalVariables * const signalVariables)
+SetRangeFreqSineRIP::SetRangeFreqSineRIP(SignalVariables *const signalVariables)
     :A_signal{signalVariables}
 {
 
 }
 
-double SetRangeFreqSineSine::setRangeFrequency() const
+double SetRangeFreqSineRIP::setRangeFrequency() const
 {
     if (m_signalVariables->m_decimation / 4 < m_signalVariables->m_frequency)
     {

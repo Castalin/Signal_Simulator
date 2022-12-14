@@ -3,11 +3,12 @@
 AmplRangesModSignal::AmplRangesModSignal(SignalVariables * const signalVariables, ModSignalVariables * const modSignalVariables)
     : m_setRangeHFM{signalVariables, modSignalVariables}, m_setRangeHPM{signalVariables, modSignalVariables}
 {
-    mapOfAmplRangeSetters[NO_SIGNAL]    = &m_setRangeNoSignal;
-    mapOfAmplRangeSetters[COS_HAM]     = &m_setRangeHAM;
-    mapOfAmplRangeSetters[RECTANGLE]    = &m_setRangeRect;
-    mapOfAmplRangeSetters[HFM]          = &m_setRangeHFM;
-    mapOfAmplRangeSetters[HPM]          = &m_setRangeHPM;
+    mapOfAmplRangeSetters[NO_SIGNAL]        = &m_setRangeNoSignal;
+    mapOfAmplRangeSetters[COS_HAM]          = &m_setRangeHAM;
+    mapOfAmplRangeSetters[RECTANGLE]        = &m_setRangeRect;
+    mapOfAmplRangeSetters[COS_HAM_RNDPHASE] = &m_setRangeRIP;
+    mapOfAmplRangeSetters[HFM]              = &m_setRangeHFM;
+    mapOfAmplRangeSetters[HPM]              = &m_setRangeHPM;
 
     i_setRangeAmpl = mapOfAmplRangeSetters[NO_SIGNAL];
 

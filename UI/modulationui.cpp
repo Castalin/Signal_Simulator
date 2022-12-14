@@ -12,6 +12,7 @@ ModulationUI::ModulationUI(SignalVariables *const signalVariables, ModSignalVari
     mapOfSignals[SIGNALS_MOD :: NO_SIGNAL] = QString("None");
     mapOfSignals[SIGNALS_MOD :: COS_HAM]   = QString("HAM");
     mapOfSignals[SIGNALS_MOD :: RECTANGLE] = QString("Rect");
+    mapOfSignals[SIGNALS_MOD :: COS_HAM_RNDPHASE] = QString("RIP");
     mapOfSignals[SIGNALS_MOD :: HFM] = QString("HFM");
     mapOfSignals[SIGNALS_MOD :: HPM] = QString("HPM");
 
@@ -20,9 +21,10 @@ ModulationUI::ModulationUI(SignalVariables *const signalVariables, ModSignalVari
 
     w_signalsBoxMod = new QComboBox;
     w_signalsBoxMod->setInsertPolicy(QComboBox :: InsertPolicy :: InsertAtBottom);
-    w_signalsBoxMod->addItems(QStringList{"None", "Cos", "Rect"});
+    w_signalsBoxMod->addItems(QStringList{"None", "Cos", "Rect", "RIP"});
     //w_signalsBoxMod->setItemData(SIGNALS_MOD :: COS_HAM, QString{"Harmonic amplitude modulation"}, Qt :: ToolTipRole);
     w_signalsBoxMod->setItemData(SIGNALS_MOD :: RECTANGLE, QString{"Rectangle"}, Qt :: ToolTipRole);
+    w_signalsBoxMod->setItemData(SIGNALS_MOD :: COS_HAM_RNDPHASE, QString{"Random initial phase"}, Qt :: ToolTipRole);
 
     w_signalsBoxMod->setEnabled(false);
 
@@ -135,6 +137,7 @@ void ModulationUI :: slot_signalModChanged(const int &currentIndex)
         case SIGNALS_MOD :: COS_HAM:
         case SIGNALS_MOD :: HFM:
         case SIGNALS_MOD :: HPM:
+        case SIGNALS_MOD :: COS_HAM_RNDPHASE:
         {
             w_frequencySignalBoxMod->setEnabled(true);
             w_frequencySignalNumMod->setEnabled(true);
@@ -207,6 +210,7 @@ void ModulationUI::setMainSignalType(const int &index)
 
     m_freqRangesModSignal.changeSetterForRange(QPair(index, w_signalsBoxMod->currentIndex()));
     m_freqRangesModSignal.checkRangeFrequencyMod(w_frequencySignalBoxMod->currentIndex());
+    m_amplitudeModSignalUI->setLabel(w_signalsBoxMod->currentIndex());
     emit signal_signalType(w_signalsBoxMod->currentIndex());
 }
 

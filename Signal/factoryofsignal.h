@@ -11,16 +11,19 @@ public:
 
 private:
     NoSignal m_noSignal;
-    Cos m_sine;
+    Cos m_cos;
     Rectangle m_rectangle;
-    ModCos m_modSine;
+    ModCos m_modCos;
     ModRect m_modRect;
-    CosModCos m_sineModSine;
-    CosModRect m_sineModRect;
-    RectModCos m_rectModSine;
+    CosModCos m_cosModCos;
+    CosModRect m_cosModRect;
+    RectModCos m_rectModCos;
     RectModRect m_rectModRect;
-    Cos_HFM m_sineHFM;
-    Cos_HPM m_sineHPM;
+    Cos_HFM m_cosHFM;
+    Cos_HPM m_cosHPM;
+    ModRIP m_modRIP;
+    CosModRIP m_cosModRIP;
+    RectModRIP m_RectModRip;
     int i = 0;
 
     I_getSignal *m_ptrToSignalRe;

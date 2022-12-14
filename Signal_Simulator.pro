@@ -29,6 +29,7 @@ SOURCES += \
     SettersVarANDRangeCheck/SetRangeAmplitudeMod/setrangeamplhpm.cpp \
     SettersVarANDRangeCheck/SetRangeAmplitudeMod/setrangeamplnosignal.cpp \
     SettersVarANDRangeCheck/SetRangeAmplitudeMod/setrangeamplrect.cpp \
+    SettersVarANDRangeCheck/SetRangeAmplitudeMod/setrangeamplrip.cpp \
     SettersVarANDRangeCheck/SetRangeDurationMain/durationrangesmainsignal.cpp \
     SettersVarANDRangeCheck/SetRangeDurationMain/setrangedurationrect.cpp \
     SettersVarANDRangeCheck/SetRangeDurationMod/durationrangesmodsignal.cpp \
@@ -40,14 +41,17 @@ SOURCES += \
     SettersVarANDRangeCheck/SetRangeFrequencyMod/freqrangesmodsignal.cpp \
     SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqnosignalnosignal.cpp \
     SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqnosignalrect.cpp \
+    SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqnosignalrip.cpp \
     SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqnosignalsine.cpp \
     SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqrectnosignal.cpp \
     SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqrectrect.cpp \
+    SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqrectrip.cpp \
     SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqrectsine.cpp \
     SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqsinehfm.cpp \
     SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqsinehpm.cpp \
     SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqsinenosignal.cpp \
     SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqsinerect.cpp \
+    SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqsinerip.cpp \
     SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqsinesine.cpp \
     SettersVarANDRangeCheck/settermainsignal.cpp \
     SettersVarANDRangeCheck/settermodsignal.cpp \
@@ -56,13 +60,16 @@ SOURCES += \
     Signal/cos_hpm.cpp \
     Signal/cosmodcos.cpp \
     Signal/cosmodrect.cpp \
+    Signal/cosmodrip.cpp \
     Signal/factoryofsignal.cpp \
     Signal/modcos.cpp \
     Signal/modrect.cpp \
+    Signal/modrip.cpp \
     Signal/nosignal.cpp \
     Signal/rectangle.cpp \
     Signal/rectmodcos.cpp \
     Signal/rectmodrect.cpp \
+    Signal/rectmodrip.cpp \
     Structes/all_data.cpp \
     UI/adc_delay.cpp \
     UI/amplitidemainsignalui.cpp \
@@ -97,6 +104,7 @@ HEADERS += \
     SettersVarANDRangeCheck/SetRangeAmplitudeMod/setrangeamplhpm.h \
     SettersVarANDRangeCheck/SetRangeAmplitudeMod/setrangeamplnosignal.h \
     SettersVarANDRangeCheck/SetRangeAmplitudeMod/setrangeamplrect.h \
+    SettersVarANDRangeCheck/SetRangeAmplitudeMod/setrangeamplrip.h \
     SettersVarANDRangeCheck/SetRangeDurationMain/durationrangesmainsignal.h \
     SettersVarANDRangeCheck/SetRangeDurationMain/setrangedurationrect.h \
     SettersVarANDRangeCheck/SetRangeDurationMod/durationrangesmodsignal.h \
@@ -109,14 +117,17 @@ HEADERS += \
     SettersVarANDRangeCheck/SetRangeFrequencyMod/freqrangesmodsignal.h \
     SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqnosignalnosignal.h \
     SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqnosignalrect.h \
+    SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqnosignalrip.h \
     SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqnosignalsine.h \
     SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqrectnosignal.h \
     SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqrectrect.h \
+    SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqrectrip.h \
     SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqrectsine.h \
     SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqsinehfm.h \
     SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqsinehpm.h \
     SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqsinenosignal.h \
     SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqsinerect.h \
+    SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqsinerip.h \
     SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqsinesine.h \
     SettersVarANDRangeCheck/settermainsignal.h \
     SettersVarANDRangeCheck/settermodsignal.h \
@@ -125,13 +136,16 @@ HEADERS += \
     Signal/cos_hpm.h \
     Signal/cosmodcos.h \
     Signal/cosmodrect.h \
+    Signal/cosmodrip.h \
     Signal/factoryofsignal.h \
     Signal/modcos.h \
     Signal/modrect.h \
+    Signal/modrip.h \
     Signal/nosignal.h \
     Signal/rectangle.h \
     Signal/rectmodcos.h \
     Signal/rectmodrect.h \
+    Signal/rectmodrip.h \
     Signal/signals_defenition.h \
     Structes/ModSignalVariables.h \
     Structes/SignalVariables.h \

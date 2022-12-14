@@ -17,10 +17,11 @@ namespace SIGNALS_MAIN
 enum SIGNALS_MOD
 {
     NO_SIGNAL           = 0,
-    COS_HAM            = 1,
+    COS_HAM             = 1,
     RECTANGLE           = 2,
-    HFM                 = 3,
-    HPM                 = 4,
+    COS_HAM_RNDPHASE    = 3,
+    HFM                 = 4,
+    HPM                 = 5,
 };
 
 

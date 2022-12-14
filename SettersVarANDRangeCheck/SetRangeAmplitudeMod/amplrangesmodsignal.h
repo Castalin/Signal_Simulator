@@ -16,6 +16,7 @@ private:
     SetRangeAmplRect m_setRangeRect;
     SetRangeAmplHFM m_setRangeHFM;
     SetRangeAmplHPM m_setRangeHPM;
+    SetRangeAmplRIP m_setRangeRIP;
 
     I_getAmplModRange *i_setRangeAmpl;
     std :: map <int, I_getAmplModRange*>mapOfAmplRangeSetters;

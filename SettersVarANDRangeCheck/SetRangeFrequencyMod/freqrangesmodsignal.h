@@ -29,6 +29,9 @@ private:
     SetRangeFreqRectRect m_setRangeFreqRectRect;
     SetRangeFreqSineHFM m_setRangeFreqSineHFM;
     SetRangeFreqSineHPM m_setRangeFreqSineHPM;
+    SetRangeFreqNoSignalRip m_setRangeFreqNoSignalRIP;
+    SetRangeFreqSineRIP m_setRangeFreqSineRIP;
+    SetRangeFreqRectRIP m_setRangeFreqRectRIP;
 
     enum FREQUENCY
     {

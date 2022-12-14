@@ -12,6 +12,9 @@
 #include "rectmodrect.h"
 #include "cos_hfm.h"
 #include "cos_hpm.h"
+#include "modrip.h"
+#include "cosmodrip.h"
+#include "rectmodrip.h"
 #include "Structes/enumSignals.h"
 
 #endif // SIGNALS_DEFENITION_H

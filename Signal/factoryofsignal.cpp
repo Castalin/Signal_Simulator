@@ -1,23 +1,26 @@
 #include "factoryofsignal.h"
 
 FactoryOfSignal::FactoryOfSignal(SignalVariables *const signalVariables, ModSignalVariables *const modSignalVariables)
-    : m_noSignal{signalVariables}, m_sine{signalVariables}, m_rectangle{signalVariables}, m_modSine{modSignalVariables},
-      m_modRect{modSignalVariables}, m_sineModSine{signalVariables, &m_modSine}, m_sineModRect{&m_sine, &m_modRect},
-      m_rectModSine{&m_rectangle, &m_modSine}, m_rectModRect{&m_rectangle, &m_modRect}, m_sineHFM{signalVariables, &m_modSine},
-      m_sineHPM{signalVariables, &m_modSine}
+    : m_noSignal{signalVariables}, m_cos{signalVariables}, m_rectangle{signalVariables}, m_modCos{modSignalVariables},
+      m_modRect{modSignalVariables}, m_cosModCos{signalVariables, &m_modCos}, m_cosModRect{&m_cos, &m_modRect},
+      m_rectModCos{&m_rectangle, &m_modCos}, m_rectModRect{&m_rectangle, &m_modRect}, m_cosHFM{signalVariables, &m_modCos},
+      m_cosHPM{signalVariables, &m_modCos}, m_modRIP{modSignalVariables}, m_cosModRIP{signalVariables, &m_modRIP}, m_RectModRip{&m_rectangle, &m_modRIP}
 {
 
-    m_mapSignal[QPair<int, int>(SIGNALS_MAIN :: NO_SIGNAL, SIGNALS_MOD :: NO_SIGNAL)] = QPair<I_getSignal*, I_getSignalIm*>(&m_noSignal, &m_noSignal);
-    m_mapSignal[QPair<int, int>(SIGNALS_MAIN :: COS,       SIGNALS_MOD :: NO_SIGNAL)] = QPair<I_getSignal*, I_getSignalIm*>(&m_sine, &m_sine);
-    m_mapSignal[QPair<int, int>(SIGNALS_MAIN :: RECTANGLE, SIGNALS_MOD :: NO_SIGNAL)] = QPair<I_getSignal*, I_getSignalIm*>(&m_rectangle, &m_rectangle);
-    m_mapSignal[QPair<int, int>(SIGNALS_MAIN :: NO_SIGNAL, SIGNALS_MOD :: COS_HAM)]   = QPair<I_getSignal*, I_getSignalIm*>(&m_modSine, &m_modSine);
-    m_mapSignal[QPair<int, int>(SIGNALS_MAIN :: NO_SIGNAL, SIGNALS_MOD :: RECTANGLE)] = QPair<I_getSignal*, I_getSignalIm*>(&m_modRect, &m_modRect);
-    m_mapSignal[QPair<int, int>(SIGNALS_MAIN :: COS,       SIGNALS_MOD :: COS_HAM)]   = QPair<I_getSignal*, I_getSignalIm*>(&m_sineModSine, &m_sineModSine);
-    m_mapSignal[QPair<int, int>(SIGNALS_MAIN :: COS,       SIGNALS_MOD :: RECTANGLE)] = QPair<I_getSignal*, I_getSignalIm*>(&m_sineModRect, &m_sineModRect);
-    m_mapSignal[QPair<int, int>(SIGNALS_MAIN :: RECTANGLE, SIGNALS_MOD :: COS_HAM)]   = QPair<I_getSignal*, I_getSignalIm*>(&m_rectModSine, &m_rectModSine);
-    m_mapSignal[QPair<int, int>(SIGNALS_MAIN :: RECTANGLE, SIGNALS_MOD :: RECTANGLE)] = QPair<I_getSignal*, I_getSignalIm*>(&m_rectModRect, &m_rectModRect);
-    m_mapSignal[QPair<int, int>(SIGNALS_MAIN :: COS,       SIGNALS_MOD :: HFM)]       = QPair<I_getSignal*, I_getSignalIm*>(&m_sineHFM, &m_sineHFM);
-    m_mapSignal[QPair<int, int>(SIGNALS_MAIN :: COS,       SIGNALS_MOD :: HPM)]       = QPair<I_getSignal*, I_getSignalIm*>(&m_sineHPM, &m_sineHPM);
+    m_mapSignal[QPair<int, int>(SIGNALS_MAIN :: NO_SIGNAL, SIGNALS_MOD :: NO_SIGNAL)]           = QPair<I_getSignal*, I_getSignalIm*>(&m_noSignal, &m_noSignal);
+    m_mapSignal[QPair<int, int>(SIGNALS_MAIN :: COS,       SIGNALS_MOD :: NO_SIGNAL)]           = QPair<I_getSignal*, I_getSignalIm*>(&m_cos, &m_cos);
+    m_mapSignal[QPair<int, int>(SIGNALS_MAIN :: RECTANGLE, SIGNALS_MOD :: NO_SIGNAL)]           = QPair<I_getSignal*, I_getSignalIm*>(&m_rectangle, &m_rectangle);
+    m_mapSignal[QPair<int, int>(SIGNALS_MAIN :: NO_SIGNAL, SIGNALS_MOD :: COS_HAM)]             = QPair<I_getSignal*, I_getSignalIm*>(&m_modCos, &m_modCos);
+    m_mapSignal[QPair<int, int>(SIGNALS_MAIN :: NO_SIGNAL, SIGNALS_MOD :: RECTANGLE)]           = QPair<I_getSignal*, I_getSignalIm*>(&m_modRect, &m_modRect);
+    m_mapSignal[QPair<int, int>(SIGNALS_MAIN :: NO_SIGNAL, SIGNALS_MOD :: COS_HAM_RNDPHASE)]    = QPair<I_getSignal*, I_getSignalIm*>(&m_modRIP, &m_modRIP);
+    m_mapSignal[QPair<int, int>(SIGNALS_MAIN :: COS,       SIGNALS_MOD :: COS_HAM)]             = QPair<I_getSignal*, I_getSignalIm*>(&m_cosModCos, &m_cosModCos);
+    m_mapSignal[QPair<int, int>(SIGNALS_MAIN :: COS,       SIGNALS_MOD :: RECTANGLE)]           = QPair<I_getSignal*, I_getSignalIm*>(&m_cosModRect, &m_cosModRect);
+    m_mapSignal[QPair<int, int>(SIGNALS_MAIN :: COS,       SIGNALS_MOD :: COS_HAM_RNDPHASE)]    = QPair<I_getSignal*, I_getSignalIm*>(&m_cosModRIP, &m_cosModRIP);
+    m_mapSignal[QPair<int, int>(SIGNALS_MAIN :: RECTANGLE, SIGNALS_MOD :: COS_HAM)]             = QPair<I_getSignal*, I_getSignalIm*>(&m_rectModCos, &m_rectModCos);
+    m_mapSignal[QPair<int, int>(SIGNALS_MAIN :: RECTANGLE, SIGNALS_MOD :: RECTANGLE)]           = QPair<I_getSignal*, I_getSignalIm*>(&m_rectModRect, &m_rectModRect);
+    m_mapSignal[QPair<int, int>(SIGNALS_MAIN :: RECTANGLE, SIGNALS_MOD :: COS_HAM_RNDPHASE)]    = QPair<I_getSignal*, I_getSignalIm*>(&m_RectModRip, &m_RectModRip);
+    m_mapSignal[QPair<int, int>(SIGNALS_MAIN :: COS,       SIGNALS_MOD :: HFM)]                 = QPair<I_getSignal*, I_getSignalIm*>(&m_cosHFM, &m_cosHFM);
+    m_mapSignal[QPair<int, int>(SIGNALS_MAIN :: COS,       SIGNALS_MOD :: HPM)]                 = QPair<I_getSignal*, I_getSignalIm*>(&m_cosHPM, &m_cosHPM);
 
 
     m_ptrToSignalRe = &m_noSignal;
@@ -27,6 +30,8 @@ FactoryOfSignal::FactoryOfSignal(SignalVariables *const signalVariables, ModSign
 
 void FactoryOfSignal::setSignalType(const QPair<int, int> &signalType)
 {
+    (signalType.second == COS_HAM_RNDPHASE) ? m_modRIP.startTimer() : m_modRIP.stopTimer();
+
     QPair<I_getSignal*, I_getSignalIm*> pair = m_mapSignal.at(signalType);
     m_ptrToSignalRe = pair.first;
     m_ptrToSignalIm = pair.second;

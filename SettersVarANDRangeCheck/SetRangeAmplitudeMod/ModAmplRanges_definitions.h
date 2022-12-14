@@ -6,5 +6,6 @@
 #include "setrangeamplrect.h"
 #include "setrangeamplhfm.h"
 #include "setrangeamplhpm.h"
+#include "setrangeamplrip.h"
 
 #endif // MODAMPLRANGES_DEFINITIONS_H
