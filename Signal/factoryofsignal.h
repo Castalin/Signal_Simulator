@@ -26,16 +26,23 @@ private:
     RectModRIP m_RectModRip;
     int i = 0;
 
+    Noise m_noise;
+
     I_getSignal *m_ptrToSignalRe;
     I_getSignalIm *m_ptrToSignalIm;
 
     std :: map<QPair<int, int>, QPair<I_getSignal*, I_getSignalIm*>> m_mapSignal;
+
+    (double)(*)ptrToFunc;
+
 
 public:
     void setSignalType(const QPair<int, int> &signalType);
     double getSignalRe();
     double getSignalIm();
     void resetI();
+
+
 
 };
 

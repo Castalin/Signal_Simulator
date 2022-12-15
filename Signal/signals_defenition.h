@@ -15,6 +15,7 @@
 #include "Signal/NoSignal/modrip.h"
 #include "Signal/Cos/cosmodrip.h"
 #include "Signal/Rectangle/rectmodrip.h"
+#include "Signal/Noise/noise.h"
 #include "Structes/enumSignals.h"
 
 #endif // SIGNALS_DEFENITION_H

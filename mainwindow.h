@@ -10,6 +10,7 @@
 #include "UI/controladdresses.h"
 #include "BackEnd/controldatamain.h"
 #include "BackEnd/signaldatamain.h"
+#include "UI/noiseui.h"
 #include "Structes/all_data.h"
 
 class MainWindow : public QMainWindow
@@ -32,6 +33,7 @@ private:
     ControlAddresses *m_ctrAddresses;
     ControlDataMain *m_ctrDataMain;
     SignalDataMain *m_signalDataMain;
+    NoiseUI *m_noiseUI;
 
     All_Data m_all_Data;
 };

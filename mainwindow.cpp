@@ -15,13 +15,15 @@ MainWindow::MainWindow(QWidget *parent)
     QGridLayout *mainLayout = new QGridLayout;
     m_all_Data = All_Data();
     m_signalsUI = new SignalsUI(m_all_Data.getMainSignalVar(), m_all_Data.getModSignalVar());
+    m_noiseUI = new NoiseUI(m_all_Data.getNoiseVar());
 
     mainLayout->setVerticalSpacing(2);
     mainLayout->setMargin(2);
     mainLayout->addWidget(m_signalsUI, 0, 0, 6, 6, Qt :: AlignTop);
-    mainLayout->addWidget(m_ctrSettings_1, 0, 6, 2, 2);
-    mainLayout->addWidget(m_ctrSettings_2, 2, 6, 2, 2, Qt :: AlignTop);
-    mainLayout->addWidget(m_adc_Delay, 4, 6, 2, 2, Qt :: AlignTop);
+    mainLayout->addWidget(m_noiseUI, 0, 6, 1, 3);
+    mainLayout->addWidget(m_ctrSettings_1, 1, 6, 2, 3);
+    mainLayout->addWidget(m_ctrSettings_2, 3, 6, 2, 3, Qt :: AlignTop);
+    mainLayout->addWidget(m_adc_Delay, 5, 6, 2, 3, Qt :: AlignTop);
     mainLayout->addWidget(m_ctrAngle, 5, 0, 2, 6, Qt :: AlignBottom);
     mainLayout->addWidget(m_ctrAddresses, 7, 0, 2, 6, Qt :: AlignTop);
 

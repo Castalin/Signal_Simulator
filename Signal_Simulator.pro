@@ -55,6 +55,7 @@ SOURCES += \
     SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqsinesine.cpp \
     SettersVarANDRangeCheck/settermainsignal.cpp \
     SettersVarANDRangeCheck/settermodsignal.cpp \
+    SettersVarANDRangeCheck/setternoise.cpp \
     Signal/Cos/cos.cpp \
     Signal/Cos/cos_hfm.cpp \
     Signal/Cos/cos_hpm.cpp \
@@ -133,6 +134,7 @@ HEADERS += \
     SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqsinesine.h \
     SettersVarANDRangeCheck/settermainsignal.h \
     SettersVarANDRangeCheck/settermodsignal.h \
+    SettersVarANDRangeCheck/setternoise.h \
     Signal/Cos/cos.h \
     Signal/Cos/cos_hfm.h \
     Signal/Cos/cos_hpm.h \
