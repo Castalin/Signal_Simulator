@@ -49,7 +49,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(m_ctrDataMain, &ControlDataMain :: signal_ADC_B_DELAY_0, m_adc_Delay, &ADCDelay :: slot_proccessingADC_B_DELAY_0);
     connect(m_ctrDataMain, &ControlDataMain :: signal_ADC_B_DELAY_1, m_adc_Delay, &ADCDelay :: slot_proccessingADC_B_DELAY_1);
 
-    m_signalDataMain = new SignalDataMain(m_all_Data.getMainSignalVar(), m_all_Data.getModSignalVar());
+    m_signalDataMain = new SignalDataMain(m_all_Data.getMainSignalVar(), m_all_Data.getModSignalVar(), m_all_Data.getNoiseVar());
 
     connect(m_ctrAddresses, &ControlAddresses :: signal_setSignalSettings, m_signalDataMain, &SignalDataMain :: slot_setAddressSettings);                   // binds address
     connect(m_ctrAngle, &ControlAngle :: signal_angleValueChanged, m_signalDataMain, &SignalDataMain :: slot_angleChanged);
@@ -65,6 +65,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(m_signalDataMain, &SignalDataMain :: finished, m_ctrAngle, &ControlAngle :: slot_stopBtn);                                                       // stops timers
     connect(m_signalDataMain, &SignalDataMain :: finished, m_signalsUI, &SignalsUI :: slot_stopMovingSliderOut);                                                // stops timers
     connect(m_signalsUI, &SignalsUI :: signal_signalType, m_signalDataMain, &SignalDataMain :: slot_setSignalType);
+    connect(m_noiseUI, &NoiseUI :: signal_noiseState, m_signalDataMain, &SignalDataMain :: slot_setNoiseState);
 
 }
 

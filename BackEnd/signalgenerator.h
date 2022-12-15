@@ -8,7 +8,7 @@ class SignalGenerator : public QObject
 {
     Q_OBJECT
 public:
-    explicit SignalGenerator(SignalVariables *const signalVariables, ModSignalVariables *const modSignalVariables, QByteArray *ptrToData, QObject *parent = nullptr);
+    explicit SignalGenerator(SignalVariables *const signalVariables, ModSignalVariables *const modSignalVariables, NoiseVariables *const noiseVariables, QByteArray *ptrToData, QObject *parent = nullptr);
 
 private:
     int m_strobeSize;
@@ -22,6 +22,8 @@ public:
     void deleteSignal();
     void setStrobeSize(const unsigned char &info);
     void setSignalType(const QPair<int, int> &signalType);
+
+    void setNoiseState(const int &state);
 
 private:
     void countChannelA();

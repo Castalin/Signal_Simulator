@@ -1,13 +1,13 @@
 #include "BackEnd/signaldatamain.h"
 
 
-SignalDataMain::SignalDataMain(SignalVariables *const signalVariables, ModSignalVariables *const  modSignalVariables, QObject *parent)
+SignalDataMain::SignalDataMain(SignalVariables *const signalVariables, ModSignalVariables *const  modSignalVariables, NoiseVariables * const noiseVariables, QObject *parent)
     : QThread{parent}
 {
     m_Message = new QByteArray(1032, 0x00);
     m_mutex = new QMutex;
     m_angleCounter = new AngleCounter;
-    m_signalGenerator = new SignalGenerator(signalVariables, modSignalVariables, m_Message);
+    m_signalGenerator = new SignalGenerator(signalVariables, modSignalVariables, noiseVariables, m_Message);
 
     m_workingThreadEnable = false;
     m_sleepValue = 960;
@@ -128,6 +128,11 @@ void SignalDataMain::slot_startSourceScale(const unsigned char &info)
 void SignalDataMain::slot_setSignalType(const QPair<int, int> &signalType)
 {
     m_signalGenerator->setSignalType(signalType);
+}
+
+void SignalDataMain::slot_setNoiseState(const int &state)
+{
+    m_signalGenerator->setNoiseState(state);
 }
 
 

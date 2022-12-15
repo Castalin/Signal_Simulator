@@ -36,6 +36,7 @@ NoiseUI::NoiseUI(NoiseVariables *const noiseVariables, QWidget *parent)
 
 void NoiseUI::slot_stateChanged(const int &state)
 {
+    emit signal_noiseState(state);
     if (Qt :: CheckState :: Checked == state)
     {
         w_levelDispSlider->setEnabled(true);
@@ -45,12 +46,13 @@ void NoiseUI::slot_stateChanged(const int &state)
     {
         w_levelDispSlider->setEnabled(false);
         w_levelDispLabel->setEnabled(false);
-    }
+    }    
 }
 
 void NoiseUI::slot_updateLabel(const int &value)
 {
     w_levelDispLabel->setText(w_levelDispLabel->text().remove(6,  w_levelDispLabel->text().size()) + QString :: number(value));
+
 }
 
 

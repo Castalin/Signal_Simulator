@@ -11,10 +11,10 @@ Noise::Noise(NoiseVariables * const noiseVariables)
 
 double Noise::getSignal(const int &i) const
 {
-    return 3 * pow(m_noiseVariables->m_dispersion, 0.5) * (rand() % 1000) / 1000.0 * pow(-1.0, static_cast<double>(rand() % 2));
+    return 3 * pow(m_noiseVariables->m_dispersion / 2000.0, 0.5) * (rand() % 1000) / 1000.0 * pow(-1.0, static_cast<double>(rand() % 2));
 }
 
 double Noise::getSignalIm(const int &i) const
 {
-    return 3 * pow(m_noiseVariables->m_dispersion, 0.5) * (rand() % 1000) / 1000.0 * pow(-1.0, static_cast<double>(rand() % 2));
+    return 3 * pow(m_noiseVariables->m_dispersion / 2000.0, 0.5) * (rand() % 1000) / 1000.0 * pow(-1.0, static_cast<double>(rand() % 2));
 }

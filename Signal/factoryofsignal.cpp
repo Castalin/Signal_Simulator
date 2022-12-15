@@ -1,10 +1,11 @@
 #include "factoryofsignal.h"
 
-FactoryOfSignal::FactoryOfSignal(SignalVariables *const signalVariables, ModSignalVariables *const modSignalVariables)
+FactoryOfSignal::FactoryOfSignal(SignalVariables *const signalVariables, ModSignalVariables *const modSignalVariables, NoiseVariables * const noiseVariables)
     : m_noSignal{signalVariables}, m_cos{signalVariables}, m_rectangle{signalVariables}, m_modCos{modSignalVariables},
       m_modRect{modSignalVariables}, m_cosModCos{signalVariables, &m_modCos}, m_cosModRect{&m_cos, &m_modRect},
       m_rectModCos{&m_rectangle, &m_modCos}, m_rectModRect{&m_rectangle, &m_modRect}, m_cosHFM{signalVariables, &m_modCos},
-      m_cosHPM{signalVariables, &m_modCos}, m_modRIP{modSignalVariables}, m_cosModRIP{signalVariables, &m_modRIP}, m_RectModRip{&m_rectangle, &m_modRIP}
+      m_cosHPM{signalVariables, &m_modCos}, m_modRIP{modSignalVariables}, m_cosModRIP{signalVariables, &m_modRIP}, m_RectModRip{&m_rectangle, &m_modRIP},
+      m_noise{noiseVariables}
 {
 
     m_mapSignal[QPair<int, int>(SIGNALS_MAIN :: NO_SIGNAL, SIGNALS_MOD :: NO_SIGNAL)]           = QPair<I_getSignal*, I_getSignalIm*>(&m_noSignal, &m_noSignal);
@@ -25,7 +26,10 @@ FactoryOfSignal::FactoryOfSignal(SignalVariables *const signalVariables, ModSign
 
     m_ptrToSignalRe = &m_noSignal;
     m_ptrToSignalIm = &m_noSignal;
+    ptrToSignalRe = &FactoryOfSignal :: getSignalNoiseRe;
+    ptrToSignalIm = &FactoryOfSignal :: getSignalNoiseIm;
     i = 0;
+
 }
 
 void FactoryOfSignal::setSignalType(const QPair<int, int> &signalType)
@@ -37,6 +41,21 @@ void FactoryOfSignal::setSignalType(const QPair<int, int> &signalType)
     m_ptrToSignalIm = pair.second;
 }
 
+void FactoryOfSignal::setNoiseState(const int &state)
+{
+    if (state == Qt :: Checked)
+    {
+        ptrToSignalRe = &FactoryOfSignal :: getSignalNoiseRe;
+        ptrToSignalIm = &FactoryOfSignal :: getSignalNoiseIm;
+    }
+    else
+    {
+        ptrToSignalRe = &FactoryOfSignal :: getSignalRe;
+        ptrToSignalIm = &FactoryOfSignal :: getSignalIm;
+    }
+
+}
+
 double FactoryOfSignal::getSignalRe()
 {
     return m_ptrToSignalRe->getSignal(i);
@@ -45,6 +64,16 @@ double FactoryOfSignal::getSignalRe()
 double FactoryOfSignal::getSignalIm()
 {
     return m_ptrToSignalIm->getSignalIm(i++);
+}
+
+double FactoryOfSignal::getSignalNoiseRe()
+{
+    return m_ptrToSignalRe->getSignal(i) + m_noise.getSignal(i);
+}
+
+double FactoryOfSignal::getSignalNoiseIm()
+{
+    return m_ptrToSignalIm->getSignalIm(i++) + m_noise.getSignalIm(i);
 }
 
 void FactoryOfSignal::resetI()

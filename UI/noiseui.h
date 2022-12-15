@@ -25,6 +25,7 @@ private slots:
     void slot_updateLabel(const int &value);
 
 signals:
+    void signal_noiseState(const int &state);
 
 };
 

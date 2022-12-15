@@ -7,7 +7,7 @@
 class FactoryOfSignal
 {
 public:
-    FactoryOfSignal(SignalVariables *const signalVariables, ModSignalVariables *const modSignalVariables);
+    FactoryOfSignal(SignalVariables *const signalVariables, ModSignalVariables *const modSignalVariables, NoiseVariables *const noiseVariables);
 
 private:
     NoSignal m_noSignal;
@@ -27,21 +27,23 @@ private:
     int i = 0;
 
     Noise m_noise;
-
     I_getSignal *m_ptrToSignalRe;
     I_getSignalIm *m_ptrToSignalIm;
 
     std :: map<QPair<int, int>, QPair<I_getSignal*, I_getSignalIm*>> m_mapSignal;
 
-    (double)(*)ptrToFunc;
-
+    double getSignalNoiseRe();
+    double getSignalNoiseIm();
 
 public:
     void setSignalType(const QPair<int, int> &signalType);
+    void setNoiseState(const int &state);
     double getSignalRe();
     double getSignalIm();
     void resetI();
 
+    double (FactoryOfSignal :: *ptrToSignalRe)();
+    double (FactoryOfSignal :: *ptrToSignalIm)();
 
 
 };
