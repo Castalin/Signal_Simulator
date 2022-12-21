@@ -85,6 +85,7 @@ SOURCES += \
     UI/signalsui.cpp \
     main.cpp \
     mainwindow.cpp \
+    test.cpp
 
 HEADERS += \
     AbstractANDInterfaces/a_signal.h \
@@ -168,6 +169,7 @@ HEADERS += \
     UI/noiseui.h \
     UI/signalsui.h \
     mainwindow.h \
+    test.h
 
 
 # Default rules for deployment.
