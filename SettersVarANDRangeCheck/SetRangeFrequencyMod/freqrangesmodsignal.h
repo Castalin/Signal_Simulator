@@ -19,19 +19,26 @@ private:
     I_setRangeFrequency *i_SetRangeFreq;
 
     SetRangeFreqNoSignalNoSignal m_setRangeFreqNoSignalNoSignal;
-    SetRangeFreqNoSignalSine m_setRangeFreqNoSignalSine;
+    SetRangeFreqNoSignalCos m_setRangeFreqNoSignalCos;
     SetRangeFreqNoSignalRect m_setRangeFreqNoSignalRect;
-    SetRangeFreqSineNoSignal m_setRangeFreqSineNoSignal;
-    SetRangeFreqSineSine m_setRangeFreqSineSine;
-    SetRangeFreqSineRect m_setRangeFreqSineRect;
+    SetRangeFreqCosNoSignal m_setRangeFreqCosNoSignal;
+    SetRangeFreqCosCos m_setRangeFreqCosCos;
+    SetRangeFreqCosRect m_setRangeFreqCosRect;
     SetRangeFreqRectNoSignal m_setRangeFreqRectNoSignal;
-    SetRangeFreqRectSine m_setRangeFreqRectSine;
+    SetRangeFreqRectCos m_setRangeFreqRectCos;
     SetRangeFreqRectRect m_setRangeFreqRectRect;
-    SetRangeFreqSineHFM m_setRangeFreqSineHFM;
-    SetRangeFreqSineHPM m_setRangeFreqSineHPM;
+    SetRangeFreqCosHFM m_setRangeFreqCosHFM;
+    SetRangeFreqCosHPM m_setRangeFreqCosHPM;
     SetRangeFreqNoSignalRip m_setRangeFreqNoSignalRIP;
-    SetRangeFreqSineRIP m_setRangeFreqSineRIP;
+    SetRangeFreqCosCosRIP m_setRangeFreqCosCosRIP;
     SetRangeFreqRectRIP m_setRangeFreqRectRIP;
+    SetRangeFreqCosRIPNoSignal m_setRangeFreqCosRIPNoSignal;
+    SetRangeFreqCosRIPRect m_setRangeFreqCosRIPRect;
+    SetRangeFreqCosRIPCosRIP m_setRangeFreqCosRIPCosRIP;
+    SetRangeFreqCosRIPCos m_setRangeFreqCosRIPCos;
+    SetRangeFreqCosRIPHFM m_setRangeFreqCosRIPHFM;
+    SetRangeFreqCosRIPHPM m_setRangeFreqCosRIPHPM;
+
 
     enum FREQUENCY
     {

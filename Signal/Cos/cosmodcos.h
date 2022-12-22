@@ -8,9 +8,9 @@
 class CosModCos : protected A_signal, public I_getSignal, public I_getSignalIm
 {
 public:
-    CosModCos(SignalVariables *const signalVariables, ModCos *const modSine); //
-    virtual double getSignal(const int &i) const override;
-    virtual double getSignalIm(const int &i) const override;
+    CosModCos(SignalVariables *const signalVariables, ModCos *const modCos); //
+    virtual double getSignal(const int &i) override;
+    virtual double getSignalIm(const int &i) override;
 private:
     ModCos *const m_modCos;
 };

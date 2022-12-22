@@ -8,8 +8,8 @@ class ModCos : protected A_signalMod, public I_getSignal, public I_getSignalIm
 {
 public:
     ModCos(ModSignalVariables *const modSignalVariable);
-    virtual double getSignal(const int &i) const override;
-    virtual double getSignalIm(const int &i) const override;
+    virtual double getSignal(const int &i) override;
+    virtual double getSignalIm(const int &i) override;
 };
 
 #endif // MODCOS_H

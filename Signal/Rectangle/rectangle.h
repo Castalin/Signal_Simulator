@@ -8,8 +8,8 @@ class Rectangle : protected A_signal, public I_getSignal, public I_getSignalIm
 {
 public:
     Rectangle(SignalVariables *const signalVariables);
-    virtual double getSignal(const int &i) const override;
-    virtual double getSignalIm(const int &i) const override;
+    virtual double getSignal(const int &i) override;
+    virtual double getSignalIm(const int &i) override;
 };
 
 #endif // RECTANGLE_H

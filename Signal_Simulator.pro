@@ -10,6 +10,7 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    AbstractANDInterfaces/a_randomgenerator.cpp \
     AbstractANDInterfaces/a_signal.cpp \
     AbstractANDInterfaces/a_signalmod.cpp \
     AbstractANDInterfaces/i_getamplmodrange.cpp \
@@ -35,24 +36,31 @@ SOURCES += \
     SettersVarANDRangeCheck/SetRangeDurationMod/durationrangesmodsignal.cpp \
     SettersVarANDRangeCheck/SetRangeDurationMod/setrangedurationrectMod.cpp \
     SettersVarANDRangeCheck/SetRangeFrequencyMain/freqrangesmainsignal.cpp \
+    SettersVarANDRangeCheck/SetRangeFrequencyMain/setrangefreqcos.cpp \
+    SettersVarANDRangeCheck/SetRangeFrequencyMain/setrangefreqcosrip.cpp \
     SettersVarANDRangeCheck/SetRangeFrequencyMain/setrangefreqnosignal.cpp \
     SettersVarANDRangeCheck/SetRangeFrequencyMain/setrangefreqrect.cpp \
-    SettersVarANDRangeCheck/SetRangeFrequencyMain/setrangefreqsine.cpp \
+    SettersVarANDRangeCheck/SetRangeFrequencyMod/Cos/setrangefreqcoscos.cpp \
+    SettersVarANDRangeCheck/SetRangeFrequencyMod/Cos/setrangefreqcoscosrip.cpp \
+    SettersVarANDRangeCheck/SetRangeFrequencyMod/Cos/setrangefreqcoshfm.cpp \
+    SettersVarANDRangeCheck/SetRangeFrequencyMod/Cos/setrangefreqcoshpm.cpp \
+    SettersVarANDRangeCheck/SetRangeFrequencyMod/Cos/setrangefreqcosnosignal.cpp \
+    SettersVarANDRangeCheck/SetRangeFrequencyMod/Cos/setrangefreqcosrect.cpp \
+    SettersVarANDRangeCheck/SetRangeFrequencyMod/CosRIP/setrangefreqcosripcos.cpp \
+    SettersVarANDRangeCheck/SetRangeFrequencyMod/CosRIP/setrangefreqcosripcosrip.cpp \
+    SettersVarANDRangeCheck/SetRangeFrequencyMod/CosRIP/setrangefreqcosriphfm.cpp \
+    SettersVarANDRangeCheck/SetRangeFrequencyMod/CosRIP/setrangefreqcosriphpm.cpp \
+    SettersVarANDRangeCheck/SetRangeFrequencyMod/CosRIP/setrangefreqcosripnosignal.cpp \
+    SettersVarANDRangeCheck/SetRangeFrequencyMod/CosRIP/setrangefreqcosriprect.cpp \
+    SettersVarANDRangeCheck/SetRangeFrequencyMod/NoSignal/setrangefreqnosignalcos.cpp \
+    SettersVarANDRangeCheck/SetRangeFrequencyMod/NoSignal/setrangefreqnosignalnosignal.cpp \
+    SettersVarANDRangeCheck/SetRangeFrequencyMod/Rect/setrangefreqrectcos.cpp \
     SettersVarANDRangeCheck/SetRangeFrequencyMod/freqrangesmodsignal.cpp \
-    SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqnosignalnosignal.cpp \
-    SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqnosignalrect.cpp \
-    SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqnosignalrip.cpp \
-    SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqnosignalsine.cpp \
-    SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqrectnosignal.cpp \
-    SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqrectrect.cpp \
-    SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqrectrip.cpp \
-    SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqrectsine.cpp \
-    SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqsinehfm.cpp \
-    SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqsinehpm.cpp \
-    SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqsinenosignal.cpp \
-    SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqsinerect.cpp \
-    SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqsinerip.cpp \
-    SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqsinesine.cpp \
+    SettersVarANDRangeCheck/SetRangeFrequencyMod/NoSignal/setrangefreqnosignalrect.cpp \
+    SettersVarANDRangeCheck/SetRangeFrequencyMod/NoSignal/setrangefreqnosignalrip.cpp \
+    SettersVarANDRangeCheck/SetRangeFrequencyMod/Rect/setrangefreqrectnosignal.cpp \
+    SettersVarANDRangeCheck/SetRangeFrequencyMod/Rect/setrangefreqrectrect.cpp \
+    SettersVarANDRangeCheck/SetRangeFrequencyMod/Rect/setrangefreqrectrip.cpp \
     SettersVarANDRangeCheck/settermainsignal.cpp \
     SettersVarANDRangeCheck/settermodsignal.cpp \
     SettersVarANDRangeCheck/setternoise.cpp \
@@ -62,6 +70,12 @@ SOURCES += \
     Signal/Cos/cosmodcos.cpp \
     Signal/Cos/cosmodrect.cpp \
     Signal/Cos/cosmodrip.cpp \
+    Signal/CosRIP/cosrip.cpp \
+    Signal/CosRIP/cosripmodcos.cpp \
+    Signal/CosRIP/cosripmodcosrip.cpp \
+    Signal/CosRIP/cosripmodhfm.cpp \
+    Signal/CosRIP/cosripmodhpm.cpp \
+    Signal/CosRIP/cosripmodrect.cpp \
     Signal/NoSignal/modcos.cpp \
     Signal/NoSignal/modrect.cpp \
     Signal/NoSignal/modrip.cpp \
@@ -87,6 +101,7 @@ SOURCES += \
     mainwindow.cpp
 
 HEADERS += \
+    AbstractANDInterfaces/a_randomgenerator.h \
     AbstractANDInterfaces/a_signal.h \
     AbstractANDInterfaces/a_signalmod.h \
     AbstractANDInterfaces/i_getamplmodrange.h \
@@ -112,26 +127,34 @@ HEADERS += \
     SettersVarANDRangeCheck/SetRangeDurationMain/setrangedurationrect.h \
     SettersVarANDRangeCheck/SetRangeDurationMod/durationrangesmodsignal.h \
     SettersVarANDRangeCheck/SetRangeDurationMod/setrangedurationrectMod.h \
+    SettersVarANDRangeCheck/SetRangeFrequencyMain/SetRangeFreq_definitions.h \
     SettersVarANDRangeCheck/SetRangeFrequencyMain/freqrangesmainsignal.h \
+    SettersVarANDRangeCheck/SetRangeFrequencyMain/setrangefreqcos.h \
+    SettersVarANDRangeCheck/SetRangeFrequencyMain/setrangefreqcosrip.h \
     SettersVarANDRangeCheck/SetRangeFrequencyMain/setrangefreqnosignal.h \
     SettersVarANDRangeCheck/SetRangeFrequencyMain/setrangefreqrect.h \
-    SettersVarANDRangeCheck/SetRangeFrequencyMain/setrangefreqsine.h \
+    SettersVarANDRangeCheck/SetRangeFrequencyMod/Cos/setrangefreqcoscos.h \
+    SettersVarANDRangeCheck/SetRangeFrequencyMod/Cos/setrangefreqcoscosrip.h \
+    SettersVarANDRangeCheck/SetRangeFrequencyMod/Cos/setrangefreqcoshfm.h \
+    SettersVarANDRangeCheck/SetRangeFrequencyMod/Cos/setrangefreqcoshpm.h \
+    SettersVarANDRangeCheck/SetRangeFrequencyMod/Cos/setrangefreqcosnosignal.h \
+    SettersVarANDRangeCheck/SetRangeFrequencyMod/Cos/setrangefreqcosrect.h \
+    SettersVarANDRangeCheck/SetRangeFrequencyMod/CosRIP/setrangefreqcosripcos.h \
+    SettersVarANDRangeCheck/SetRangeFrequencyMod/CosRIP/setrangefreqcosripcosrip.h \
+    SettersVarANDRangeCheck/SetRangeFrequencyMod/CosRIP/setrangefreqcosriphfm.h \
+    SettersVarANDRangeCheck/SetRangeFrequencyMod/CosRIP/setrangefreqcosriphpm.h \
+    SettersVarANDRangeCheck/SetRangeFrequencyMod/CosRIP/setrangefreqcosripnosignal.h \
+    SettersVarANDRangeCheck/SetRangeFrequencyMod/CosRIP/setrangefreqcosriprect.h \
     SettersVarANDRangeCheck/SetRangeFrequencyMod/ModFreqRanges_definitions.h \
+    SettersVarANDRangeCheck/SetRangeFrequencyMod/NoSignal/setrangefreqnosignalcos.h \
+    SettersVarANDRangeCheck/SetRangeFrequencyMod/NoSignal/setrangefreqnosignalnosignal.h \
+    SettersVarANDRangeCheck/SetRangeFrequencyMod/Rect/setrangefreqrectcos.h \
     SettersVarANDRangeCheck/SetRangeFrequencyMod/freqrangesmodsignal.h \
-    SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqnosignalnosignal.h \
-    SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqnosignalrect.h \
-    SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqnosignalrip.h \
-    SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqnosignalsine.h \
-    SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqrectnosignal.h \
-    SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqrectrect.h \
-    SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqrectrip.h \
-    SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqrectsine.h \
-    SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqsinehfm.h \
-    SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqsinehpm.h \
-    SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqsinenosignal.h \
-    SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqsinerect.h \
-    SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqsinerip.h \
-    SettersVarANDRangeCheck/SetRangeFrequencyMod/setrangefreqsinesine.h \
+    SettersVarANDRangeCheck/SetRangeFrequencyMod/NoSignal/setrangefreqnosignalrect.h \
+    SettersVarANDRangeCheck/SetRangeFrequencyMod/NoSignal/setrangefreqnosignalrip.h \
+    SettersVarANDRangeCheck/SetRangeFrequencyMod/Rect/setrangefreqrectnosignal.h \
+    SettersVarANDRangeCheck/SetRangeFrequencyMod/Rect/setrangefreqrectrect.h \
+    SettersVarANDRangeCheck/SetRangeFrequencyMod/Rect/setrangefreqrectrip.h \
     SettersVarANDRangeCheck/settermainsignal.h \
     SettersVarANDRangeCheck/settermodsignal.h \
     SettersVarANDRangeCheck/setternoise.h \
@@ -141,6 +164,12 @@ HEADERS += \
     Signal/Cos/cosmodcos.h \
     Signal/Cos/cosmodrect.h \
     Signal/Cos/cosmodrip.h \
+    Signal/CosRIP/cosrip.h \
+    Signal/CosRIP/cosripmodcos.h \
+    Signal/CosRIP/cosripmodcosrip.h \
+    Signal/CosRIP/cosripmodhfm.h \
+    Signal/CosRIP/cosripmodhpm.h \
+    Signal/CosRIP/cosripmodrect.h \
     Signal/NoSignal/modcos.h \
     Signal/NoSignal/modrect.h \
     Signal/NoSignal/modrip.h \

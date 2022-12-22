@@ -8,7 +8,7 @@ class SetterNoise
 public:
     SetterNoise(NoiseVariables *const noiseVariables);
 
-    void setDispersion(const int &dispersion) const;
+    void setDispersion(const double &dispersion) const;
 
 private:
     NoiseVariables *const m_ptrToNoiseVariables;

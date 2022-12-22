@@ -15,7 +15,14 @@
 #include "Signal/NoSignal/modrip.h"
 #include "Signal/Cos/cosmodrip.h"
 #include "Signal/Rectangle/rectmodrip.h"
+#include "Signal/CosRIP/cosrip.h"
+#include "Signal/CosRIP/cosripmodcos.h"
+#include "Signal/CosRIP/cosripmodcosrip.h"
+#include "Signal/CosRIP/cosripmodhfm.h"
+#include "Signal/CosRIP/cosripmodhpm.h"
+#include "Signal/CosRIP/cosripmodrect.h"
 #include "Signal/Noise/noise.h"
 #include "Structes/enumSignals.h"
+
 
 #endif // SIGNALS_DEFENITION_H

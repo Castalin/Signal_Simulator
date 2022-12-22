@@ -6,10 +6,11 @@ namespace SIGNALS_MAIN
     enum SIGNALS_MAIN
     {
         NO_SIGNAL           = 0,
-        COS                = 1,
+        COS                 = 1,
         RECTANGLE           = 2,
-        HFM                 = 3,
-        HPM                 = 4,
+        COS_RIP             = 3,
+        HFM                 = 4,
+        HPM                 = 5,
     };
 
 }

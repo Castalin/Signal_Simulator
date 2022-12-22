@@ -5,11 +5,12 @@ AmplitudeModSignalUI::AmplitudeModSignalUI(SetterModSignal * const ptrToSetterMo
     : QWidget{parent}, m_ptrToSetterModSignal{ptrToSetterModSignal}
 {
 
-    stringMap[NO_SIGNAL]    = QPair<QString, QString>(QString{"Ampl: "}, QString{"Amplitude"});
-    stringMap[COS_HAM]      = QPair<QString, QString>(QString{"Ampl: "}, QString{"Amplitude"});
-    stringMap[RECTANGLE]    = QPair<QString, QString>(QString{"Ampl: "}, QString{"Amplitude"});
-    stringMap[HFM]          = QPair<QString, QString>(QString{"Fdev: "}, QString{"Frequency deviation, kHz"});
-    stringMap[HPM]          = QPair<QString, QString>(QString{"Pdev: "}, QString{"Phase deviation, 0.01Rad"});
+    stringMap[NO_SIGNAL]        = QPair<QString, QString>(QString{"Ampl: "}, QString{"Amplitude"});
+    stringMap[COS_HAM]          = QPair<QString, QString>(QString{"Ampl: "}, QString{"Amplitude"});
+    stringMap[RECTANGLE]        = QPair<QString, QString>(QString{"Ampl: "}, QString{"Amplitude"});
+    stringMap[HFM]              = QPair<QString, QString>(QString{"Fdev: "}, QString{"Frequency deviation, kHz"});
+    stringMap[HPM]              = QPair<QString, QString>(QString{"Pdev: "}, QString{"Phase deviation, 0.01Rad"});
+    stringMap[COS_HAM_RNDPHASE] = QPair<QString, QString>(QString{"Ampl: "}, QString{"Amplitude"});
 
     w_levelSignalSliderMod = new QSlider(Qt :: Orientation :: Horizontal);
     w_levelSignalSliderMod->setMaximum(100);

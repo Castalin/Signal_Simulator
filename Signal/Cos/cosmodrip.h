@@ -10,8 +10,8 @@ class CosModRIP : private A_signal, public I_getSignal, public I_getSignalIm
 {
 public:
     CosModRIP(SignalVariables *const signalVariables, ModRIP *const modRIP); //
-    virtual double getSignal(const int &i) const override;
-    virtual double getSignalIm(const int &i) const override;
+    virtual double getSignal(const int &i) override;
+    virtual double getSignalIm(const int &i) override;
 
 private:
     ModRIP *m_ptrToModRIP;

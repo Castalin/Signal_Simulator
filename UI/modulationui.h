@@ -43,6 +43,7 @@ private:
     SIGNALS_MAIN :: SIGNALS_MAIN m_mainSignalType;
 
     void checkEverything();
+    void setUI(const int &index);
 
 private slots:
         void slot_checkedModul(const int &state);

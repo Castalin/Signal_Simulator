@@ -9,6 +9,7 @@
 #include "SettersVarANDRangeCheck/settermainsignal.h"
 #include "SettersVarANDRangeCheck/SetRangeFrequencyMain/freqrangesmainsignal.h"
 #include "SettersVarANDRangeCheck/SetRangeDurationMain/durationrangesmainsignal.h"
+#include "Structes/enumSignals.h"
 
 class SignalsUI : public QWidget
 {
@@ -32,15 +33,6 @@ private:
     ModulationUI *m_modulationUI;
 
     QPair<int, int> m_signalType;
-
-
-    enum SIGNALS
-    {
-        NO_SIGNAL           = 0,
-        SINE                = 1,
-        RECTANGLE           = 2,
-    };
-
 
 private slots:
     void slot_signalChanged(const int &currentIndex);

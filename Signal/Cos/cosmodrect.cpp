@@ -7,12 +7,12 @@ CosModRect::CosModRect(Cos * const cos, ModRect * const modRect)
 
 }
 
-double CosModRect::getSignal(const int &i) const
+double CosModRect::getSignal(const int &i)
 {
     return m_modRect->getSignal(i) * m_cos->getSignal(i);
 }
 
-double CosModRect::getSignalIm(const int &i) const
+double CosModRect::getSignalIm(const int &i)
 {
     return m_modRect->getSignal(i) * m_cos->getSignalIm(i);
 }

@@ -8,12 +8,12 @@ CosModCos::CosModCos(SignalVariables * const signalVariables, ModCos * const mod
 
 }
 
-double CosModCos :: getSignal(const int &i) const
+double CosModCos :: getSignal(const int &i)
 {
     return (m_signalVariables->m_amplitude + m_modCos->getSignal(i)) * qCos(2 * M_PI * i * m_signalVariables->m_frequency / m_signalVariables->m_decimation);
 }
 
-double CosModCos::getSignalIm(const int &i) const
+double CosModCos::getSignalIm(const int &i)
 {
     return (m_signalVariables->m_amplitude + m_modCos->getSignal(i)) * qSin(2 * M_PI * i * m_signalVariables->m_frequency / m_signalVariables->m_decimation);
 }

@@ -6,7 +6,7 @@ ModRect::ModRect(ModSignalVariables * const modSignalVariable)
 
 }
 
-double ModRect::getSignal(const int &i) const
+double ModRect::getSignal(const int &i)
 {
     if (m_modSignalVariables->m_frequencyMod == 0)
     {
@@ -41,7 +41,7 @@ double ModRect::getSignal(const int &i) const
     }
 }
 
-double ModRect::getSignalIm(const int &i) const
+double ModRect::getSignalIm(const int &i)
 {
     return getSignal(i);
 }

@@ -11,8 +11,8 @@ class RectModRIP : public I_getSignal, public I_getSignalIm
 {
 public:
     RectModRIP(Rectangle *const rect, ModRIP *const modRIP);
-    virtual double getSignal(const int &i) const override;
-    virtual double getSignalIm(const int &i) const override;
+    virtual double getSignal(const int &i) override;
+    virtual double getSignalIm(const int &i) override;
 
 private :
     Rectangle *const m_rect;

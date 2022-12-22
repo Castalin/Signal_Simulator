@@ -10,8 +10,8 @@ class CosModRect :  public I_getSignal, public I_getSignalIm
 {
 public:
     CosModRect(Cos *const cos, ModRect *const modRect);
-    virtual double getSignal(const int &i) const override;
-    virtual double getSignalIm(const int &i) const override;
+    virtual double getSignal(const int &i) override;
+    virtual double getSignalIm(const int &i) override;
 
 private:
     Cos * const m_cos;

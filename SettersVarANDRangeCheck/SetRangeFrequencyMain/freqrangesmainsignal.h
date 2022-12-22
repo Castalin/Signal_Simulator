@@ -1,9 +1,7 @@
 #ifndef FREQRANGESMAINSIGNAL_H
 #define FREQRANGESMAINSIGNAL_H
-#include "setrangefreqnosignal.h"
-#include "setrangefreqsine.h"
-#include "setrangefreqrect.h"
 #include "AbstractANDInterfaces/a_signal.h"
+#include "SetRangeFreq_definitions.h"
 #include <QDoubleSpinBox>
 #include <vector>
 
@@ -14,8 +12,9 @@ public:
 
 private:
     SetRangeFreqNoSignal m_setRangeFreqNoSignal;
-    SetRangeFreqSine m_setRangeFreqSine;
+    SetRangeFreqCos m_setRangeFreqCos;
     SetRangeFreqRect m_setRangeFreqRect;
+    SetRangeFreqCosRIP m_setRangeFreqCosRIP;
     I_setRangeFrequency *i_SetRangeFreq;
     QDoubleSpinBox *m_ptrToFreqSpinNum;
     std :: vector<I_setRangeFrequency*> m_vectorFreqRanges;

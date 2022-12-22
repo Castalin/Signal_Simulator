@@ -9,8 +9,8 @@ class Cos : protected A_signal, public I_getSignal, public I_getSignalIm
 {
 public:
     Cos(SignalVariables *const signalVariables);
-    virtual double getSignal(const int &i) const override;
-    virtual double getSignalIm(const int &i) const override;
+    virtual double getSignal(const int &i) override;
+    virtual double getSignalIm(const int &i) override;
 };
 
 #endif // COS_H

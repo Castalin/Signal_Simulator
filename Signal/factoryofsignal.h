@@ -23,7 +23,13 @@ private:
     Cos_HPM m_cosHPM;
     ModRIP m_modRIP;
     CosModRIP m_cosModRIP;
-    RectModRIP m_RectModRip;
+    RectModRIP m_rectModRip;
+    CosRIP m_cosRIP;
+    CosRIPModCos m_cosRIPModCos;
+    CosRIPModCosRIP m_cosRIPModCosRIP;
+    CosRIPModHFM m_cosRIPModCosHFM;
+    CosRIPModHPM m_cosRIPModCosHPM;
+    CosRIPModRect m_cosRIPModRect;
     int i = 0;
 
     Noise m_noise;

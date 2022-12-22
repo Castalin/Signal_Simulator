@@ -8,8 +8,10 @@ SignalsUI::SignalsUI(SignalVariables *const signalVariables, ModSignalVariables 
     : QWidget{parent}, m_setterMainSignal(signalVariables), m_freqRangesMainSignal{signalVariables}, m_durationRangesMainSignal{signalVariables}
 {
     w_signalsBox = new QComboBox;
-    w_signalsBox->addItems(QStringList{"None", "Cos", "Rect"});
-    w_signalsBox->setItemData(SIGNALS :: RECTANGLE, QString("Rectangle"), Qt :: ToolTipRole);
+    w_signalsBox->addItems(QStringList{"None", "Cos", "Rect", "CosRIP"});
+    w_signalsBox->setItemData(SIGNALS_MAIN :: RECTANGLE, QString("Rectangle"), Qt :: ToolTipRole);
+    w_signalsBox->setItemData(SIGNALS_MAIN :: COS_RIP, QString("Cos with random initial phase"), Qt :: ToolTipRole);
+
 
     w_frequencySignalBox = new QComboBox;
     w_frequencySignalBox->addItems(QStringList{"kHz", "MHz"});
@@ -88,7 +90,7 @@ void SignalsUI :: slot_signalChanged(const int &currentIndex)
 
     switch (currentIndex)
     {
-    case SIGNALS :: NO_SIGNAL:
+    case SIGNALS_MAIN :: NO_SIGNAL:
     {
         w_frequencySignalBox->setEnabled(false);
         w_frequencySignalNum->setEnabled(false);
@@ -96,7 +98,8 @@ void SignalsUI :: slot_signalChanged(const int &currentIndex)
         w_durationSignalNum->setEnabled(false);
         break;
     }
-    case SIGNALS :: SINE:
+    case SIGNALS_MAIN :: COS:
+    case SIGNALS_MAIN :: COS_RIP:
     {
         w_frequencySignalBox->setEnabled(true);
         w_frequencySignalNum->setEnabled(true);
@@ -104,7 +107,7 @@ void SignalsUI :: slot_signalChanged(const int &currentIndex)
         w_durationSignalNum->setEnabled(false);
         break;
     }
-    case SIGNALS :: RECTANGLE:
+    case SIGNALS_MAIN :: RECTANGLE:
     {
         w_frequencySignalBox->setEnabled(true);
         w_frequencySignalNum->setEnabled(true);

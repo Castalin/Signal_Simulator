@@ -6,7 +6,7 @@ SetterNoise::SetterNoise(NoiseVariables *const noiseVariables)
 
 }
 
-void SetterNoise::setDispersion(const int &dispersion) const
+void SetterNoise::setDispersion(const double &dispersion) const
 {
     m_ptrToNoiseVariables->m_dispersion = dispersion;
 }

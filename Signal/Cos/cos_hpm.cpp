@@ -7,12 +7,12 @@ Cos_HPM::Cos_HPM(SignalVariables * const signalVariables, ModCos * const modCos)
 
 }
 
-double Cos_HPM::getSignal(const int &i) const
+double Cos_HPM::getSignal(const int &i)
 {
     return m_signalVariables->m_amplitude * qCos(2 * M_PI * i * m_signalVariables->m_frequency / m_signalVariables->m_decimation + m_modCos->getSignal(i));
 }
 
-double Cos_HPM::getSignalIm(const int &i) const
+double Cos_HPM::getSignalIm(const int &i)
 {
     return m_signalVariables->m_amplitude * qSin(2 * M_PI * i * m_signalVariables->m_frequency / m_signalVariables->m_decimation + m_modCos->getSignal(i));
 }

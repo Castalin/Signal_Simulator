@@ -3,14 +3,15 @@
 
 
 FreqRangesMainSignal::FreqRangesMainSignal(SignalVariables * const signalVariables)
-    : A_signal{signalVariables}, m_setRangeFreqNoSignal{signalVariables}, m_setRangeFreqSine{signalVariables}, m_setRangeFreqRect{signalVariables}
+    : A_signal{signalVariables}, m_setRangeFreqNoSignal{signalVariables}, m_setRangeFreqCos{signalVariables}, m_setRangeFreqRect{signalVariables},
+      m_setRangeFreqCosRIP{signalVariables}
 {
     i_SetRangeFreq = &m_setRangeFreqNoSignal;
 
     m_vectorFreqRanges.push_back(&m_setRangeFreqNoSignal);
-    m_vectorFreqRanges.push_back(&m_setRangeFreqSine);
+    m_vectorFreqRanges.push_back(&m_setRangeFreqCos);
     m_vectorFreqRanges.push_back(&m_setRangeFreqRect);
-
+    m_vectorFreqRanges.push_back(&m_setRangeFreqCosRIP);//m_setRangeFreqCosRIP
 }
 
 void FreqRangesMainSignal::checkRangeFrequency(const int &index)

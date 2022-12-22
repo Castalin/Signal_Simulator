@@ -98,6 +98,40 @@ void ModulationUI::checkEverything()
     m_amplRangeModSignal.changeSetterForRange(w_signalsBoxMod->currentIndex());
 }
 
+void ModulationUI::setUI(const int &index)
+{
+    if ((m_mainSignalType == SIGNALS_MAIN :: COS_RIP && index == SIGNALS_MAIN :: COS) || (m_mainSignalType == SIGNALS_MAIN :: COS && index == SIGNALS_MAIN :: COS_RIP))
+    {
+        m_mainSignalType = static_cast<SIGNALS_MAIN :: SIGNALS_MAIN>(index);
+        return;
+    }
+    m_mainSignalType = static_cast<SIGNALS_MAIN :: SIGNALS_MAIN>(index);
+    switch(m_mainSignalType)
+    {
+        case SIGNALS_MAIN :: COS:
+        case SIGNALS_MAIN :: COS_RIP:
+        {
+        w_signalsBoxMod->addItem(mapOfSignals[SIGNALS_MOD :: HFM]);
+        w_signalsBoxMod->addItem(mapOfSignals[SIGNALS_MOD :: HPM]);
+        w_signalsBoxMod->setItemData(w_signalsBoxMod->findText(mapOfSignals[SIGNALS_MOD :: HFM]), QString{"Harmonic frequency modulation"}, Qt :: ToolTipRole);
+        w_signalsBoxMod->setItemData(w_signalsBoxMod->findText(mapOfSignals[SIGNALS_MOD :: HPM]), QString{"Harmonic phase modulation"}, Qt :: ToolTipRole);
+        w_signalsBoxMod->setItemData(SIGNALS_MOD :: COS_HAM, QString{"Harmonic amplitude modulation"}, Qt :: ToolTipRole);
+        w_signalsBoxMod->setItemText(SIGNALS_MOD :: COS_HAM, mapOfSignals[SIGNALS_MOD :: COS_HAM]);
+        break;
+        }
+        default:
+        {
+            disconnect(w_signalsBoxMod, QOverload<int> :: of(&QComboBox :: currentIndexChanged), this, &ModulationUI :: slot_signalModChanged);
+            w_signalsBoxMod->removeItem(w_signalsBoxMod->findText(mapOfSignals[SIGNALS_MOD :: HFM]));
+            w_signalsBoxMod->removeItem(w_signalsBoxMod->findText(mapOfSignals[SIGNALS_MOD :: HPM]));
+            connect(w_signalsBoxMod, QOverload<int> :: of(&QComboBox :: currentIndexChanged), this, &ModulationUI :: slot_signalModChanged);
+            w_signalsBoxMod->setItemData(SIGNALS_MOD :: COS_HAM, QString{""}, Qt :: ToolTipRole);
+            w_signalsBoxMod->setItemText(SIGNALS_MOD :: COS_HAM, QString{"Cos"});
+
+        }
+    }
+}
+
 
 void ModulationUI :: slot_checkedModul(const int &state)
 {
@@ -183,33 +217,11 @@ void ModulationUI::stopMovingSlider()
 
 void ModulationUI::setMainSignalType(const int &index)
 {
-    m_mainSignalType = static_cast<SIGNALS_MAIN :: SIGNALS_MAIN>(index);
-    switch(m_mainSignalType)
-    {
-        case SIGNALS_MAIN :: COS:
-        {
-        w_signalsBoxMod->addItem(mapOfSignals[SIGNALS_MOD :: HFM]);
-        w_signalsBoxMod->addItem(mapOfSignals[SIGNALS_MOD :: HPM]);
-        w_signalsBoxMod->setItemData(w_signalsBoxMod->findText(mapOfSignals[SIGNALS_MOD :: HFM]), QString{"Harmonic frequency modulation"}, Qt :: ToolTipRole);
-        w_signalsBoxMod->setItemData(w_signalsBoxMod->findText(mapOfSignals[SIGNALS_MOD :: HPM]), QString{"Harmonic frequency modulation"}, Qt :: ToolTipRole);
-        w_signalsBoxMod->setItemData(SIGNALS_MOD :: COS_HAM, QString{"Harmonic amplitude modulation"}, Qt :: ToolTipRole);
-        w_signalsBoxMod->setItemText(SIGNALS_MOD :: COS_HAM, mapOfSignals[SIGNALS_MOD :: COS_HAM]);
-        break;
-        }
-        default:
-        {
-            disconnect(w_signalsBoxMod, QOverload<int> :: of(&QComboBox :: currentIndexChanged), this, &ModulationUI :: slot_signalModChanged);
-            w_signalsBoxMod->removeItem(w_signalsBoxMod->findText(mapOfSignals[SIGNALS_MOD :: HFM]));
-            w_signalsBoxMod->removeItem(w_signalsBoxMod->findText(mapOfSignals[SIGNALS_MOD :: HPM]));
-            connect(w_signalsBoxMod, QOverload<int> :: of(&QComboBox :: currentIndexChanged), this, &ModulationUI :: slot_signalModChanged);
-            w_signalsBoxMod->setItemData(SIGNALS_MOD :: COS_HAM, QString{""}, Qt :: ToolTipRole);
-            w_signalsBoxMod->setItemText(SIGNALS_MOD :: COS_HAM, QString{"Cos"});
-
-        }
-    }
-
+    setUI(index);
     m_freqRangesModSignal.changeSetterForRange(QPair(index, w_signalsBoxMod->currentIndex()));
     m_freqRangesModSignal.checkRangeFrequencyMod(w_frequencySignalBoxMod->currentIndex());
+    m_durationModSignal.checkRangeDuration(w_durationSignalBoxMod->currentIndex());
+    m_amplRangeModSignal.changeSetterForRange(w_signalsBoxMod->currentIndex());
     m_amplitudeModSignalUI->setLabel(w_signalsBoxMod->currentIndex());
     emit signal_signalType(w_signalsBoxMod->currentIndex());
 }

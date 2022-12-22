@@ -7,12 +7,13 @@ Cos::Cos(SignalVariables *const signalVariables)
 
 }
 
-double Cos::getSignal(const int &i) const
+double Cos::getSignal(const int &i)
 {
     return m_signalVariables->m_amplitude * qCos(2 * M_PI * i * m_signalVariables->m_frequency / m_signalVariables->m_decimation);
 }
 
-double Cos::getSignalIm(const int &i) const
+
+double Cos::getSignalIm(const int &i)
 {
     return m_signalVariables->m_amplitude * qSin(2 * M_PI * i * m_signalVariables->m_frequency / m_signalVariables->m_decimation);
 }

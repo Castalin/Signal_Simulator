@@ -10,8 +10,8 @@ class Cos_HFM : protected A_signal, public I_getSignal, public I_getSignalIm
 public:
     Cos_HFM(SignalVariables * const signalVariables, ModCos * const modCos);
 
-    virtual double getSignal(const int &i) const override;
-    virtual double getSignalIm(const int &i) const override;
+    virtual double getSignal(const int &i) override;
+    virtual double getSignalIm(const int &i) override;
 
 private:
     ModCos *const m_modCos;

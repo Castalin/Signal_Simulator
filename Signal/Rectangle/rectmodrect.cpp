@@ -6,12 +6,12 @@ RectModRect::RectModRect(Rectangle * const rectangle, ModRect * const modRect)
 
 }
 
-double RectModRect::getSignal(const int &i) const
+double RectModRect::getSignal(const int &i)
 {
     return m_rect->getSignal(i) * m_modRect->getSignal(i);
 }
 
-double RectModRect::getSignalIm(const int &i) const
+double RectModRect::getSignalIm(const int &i)
 {
     return m_rect->getSignal(i) * m_modRect->getSignal(i);
 }

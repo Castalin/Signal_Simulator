@@ -6,12 +6,12 @@ RectModRIP::RectModRIP(Rectangle *const rect, ModRIP *const modRIP)
 
 }
 
-double RectModRIP::getSignal(const int &i) const
+double RectModRIP::getSignal(const int &i)
 {
     return m_rect->getSignal(i) * m_modRIP->getSignal(i);
 }
 
-double RectModRIP::getSignalIm(const int &i) const
+double RectModRIP::getSignalIm(const int &i)
 {
     return m_rect->getSignal(i) * m_modRIP->getSignalIm(i);
 }
