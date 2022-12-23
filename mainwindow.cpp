@@ -20,10 +20,10 @@ MainWindow::MainWindow(QWidget *parent)
     mainLayout->setVerticalSpacing(2);
     mainLayout->setMargin(2);
     mainLayout->addWidget(m_signalsUI, 0, 0, 6, 6, Qt :: AlignTop);
-    mainLayout->addWidget(m_noiseUI, 0, 6, 1, 3);
-    mainLayout->addWidget(m_ctrSettings_1, 1, 6, 2, 3);
-    mainLayout->addWidget(m_ctrSettings_2, 3, 6, 2, 3, Qt :: AlignTop);
-    mainLayout->addWidget(m_adc_Delay, 5, 6, 2, 3, Qt :: AlignTop);
+    mainLayout->addWidget(m_noiseUI, 0, 6, 4, 3);
+    mainLayout->addWidget(m_ctrSettings_1, 3, 6, 2, 3);
+    mainLayout->addWidget(m_ctrSettings_2, 5, 6, 2, 3, Qt :: AlignTop);
+    mainLayout->addWidget(m_adc_Delay, 7, 6, 2, 3, Qt :: AlignTop);
     mainLayout->addWidget(m_ctrAngle, 5, 0, 2, 6, Qt :: AlignBottom);
     mainLayout->addWidget(m_ctrAddresses, 7, 0, 2, 6, Qt :: AlignTop);
 

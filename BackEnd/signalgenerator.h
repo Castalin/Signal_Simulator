@@ -23,7 +23,7 @@ public:
     void setStrobeSize(const unsigned char &info);
     void setSignalType(const QPair<int, int> &signalType);
 
-    void setNoiseState(const int &state);
+    void setNoiseState(const QPair<int, int> &state);
 
 private:
     void countChannelA();

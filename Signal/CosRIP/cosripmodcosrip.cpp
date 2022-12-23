@@ -10,15 +10,10 @@ CosRIPModCosRIP::CosRIPModCosRIP(SignalVariables *const signalVariables, ModRIP 
 double CosRIPModCosRIP::getSignal(const int &i)
 {
     generateValue();
-    return (m_signalVariables->m_amplitude + m_ptrToModRIP->getSignal(i)) * qCos(2 * M_PI * i * m_signalVariables->m_frequency / m_signalVariables->m_decimation + m_randVariable);
+    return (m_signalVariables->m_amplitude + m_ptrToModRIP->getSignal(i)) * qCos(2 * M_PI * i * m_signalVariables->m_frequency / m_signalVariables->m_decimation + generateValue());
 }
 
 double CosRIPModCosRIP::getSignalIm(const int &i)
 {
-    return (m_signalVariables->m_amplitude + m_ptrToModRIP->getSignal(i)) * qSin(2 * M_PI * i * m_signalVariables->m_frequency / m_signalVariables->m_decimation + m_randVariable);
-}
-
-void CosRIPModCosRIP::generateValue()
-{
-    return A_RandomGenerator :: generateValue();
+    return (m_signalVariables->m_amplitude + m_ptrToModRIP->getSignal(i)) * qSin(2 * M_PI * i * m_signalVariables->m_frequency / m_signalVariables->m_decimation + generateValue());
 }

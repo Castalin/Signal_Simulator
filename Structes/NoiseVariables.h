@@ -3,7 +3,8 @@
 
 struct NoiseVariables
 {
-    double m_dispersion = 0.0;
+    double m_dispersion_A = 0.0;
+    double m_dispersion_B = 0.0;
 };
 
 #endif // NOISEVARIABLES_H

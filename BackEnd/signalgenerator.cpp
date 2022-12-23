@@ -45,7 +45,7 @@ void SignalGenerator::setSignalType(const QPair<int, int> &signalType)
     m_factoryOfSignal.setSignalType(signalType);
 }
 
-void SignalGenerator::setNoiseState(const int &state)
+void SignalGenerator::setNoiseState(const QPair<int, int> &state)
 {
     m_factoryOfSignal.setNoiseState(state);
 }
@@ -55,9 +55,9 @@ void SignalGenerator::countChannelA()
     qint16 value;
     for (int i{0}; i < m_strobeSize - 1; ++i)      // 8 - first signal address
     {
-        value = 11900 * m_factoryOfSignal.getSignalRe();
+        value = 11900 * (m_factoryOfSignal.*(m_factoryOfSignal.ptrToSignalReChannel_1))();
         memcpy(m_ptrToData->data() + 8 + 4 * i, &value, 2);
-        value = 11900 * m_factoryOfSignal.getSignalIm();
+        value = 11900 * (m_factoryOfSignal.*(m_factoryOfSignal.ptrToSignalImChannel_1))();
         memcpy(m_ptrToData->data() + 8 + 4 * i + 2, &value, 2);
     }
     value = 0;
@@ -68,9 +68,9 @@ void SignalGenerator::countChannelA()
 
     for (int i{m_strobeSize}; i < 256; ++i)      // 8 - first signal address
     {
-        value = 11900 * (m_factoryOfSignal.*(m_factoryOfSignal.ptrToSignalRe))();
+        value = 11900 * (m_factoryOfSignal.*(m_factoryOfSignal.ptrToSignalReChannel_2))();
         memcpy(m_ptrToData->data() + 8 + 4 * i, &value, 2);
-        value = 11900 * (m_factoryOfSignal.*(m_factoryOfSignal.ptrToSignalIm))();
+        value = 11900 * (m_factoryOfSignal.*(m_factoryOfSignal.ptrToSignalImChannel_2))();
         memcpy(m_ptrToData->data() + 8 + 4 * i + 2, &value, 2);
     }
 }
@@ -80,9 +80,9 @@ void SignalGenerator::countChannelB()
     qint16 value;
     for (int i{0}; i < 256; ++i)      // 8 - first signal address
     {
-        value = 11900 * (m_factoryOfSignal.*(m_factoryOfSignal.ptrToSignalRe))();
+        value = 11900 * (m_factoryOfSignal.*(m_factoryOfSignal.ptrToSignalReChannel_2))();
         memcpy(m_ptrToData->data() + 8 + 4 * i, &value, 2);
-        value = 11900 * (m_factoryOfSignal.*(m_factoryOfSignal.ptrToSignalIm))();
+        value = 11900 * (m_factoryOfSignal.*(m_factoryOfSignal.ptrToSignalImChannel_2))();
         memcpy(m_ptrToData->data() + 8 + 4 * i + 2, &value, 2);
     }
 }

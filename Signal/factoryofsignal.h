@@ -32,24 +32,31 @@ private:
     CosRIPModRect m_cosRIPModRect;
     int i = 0;
 
-    Noise m_noise;
+    NoiseChannel_1 m_noiseChannel_1;
+    NoiseChannel_2 m_noiseChannel_2;
     I_getSignal *m_ptrToSignalRe;
     I_getSignalIm *m_ptrToSignalIm;
 
     std :: map<QPair<int, int>, QPair<I_getSignal*, I_getSignalIm*>> m_mapSignal;
 
-    double getSignalNoiseRe();
-    double getSignalNoiseIm();
+    double getSignalNoiseReChannel_1();
+    double getSignalNoiseImChannel_1();
+
+    double getSignalNoiseReChannel_2();
+    double getSignalNoiseImChannel_2();
 
 public:
     void setSignalType(const QPair<int, int> &signalType);
-    void setNoiseState(const int &state);
+    void setNoiseState(const QPair<int, int> &state);
     double getSignalRe();
     double getSignalIm();
     void resetI();
 
-    double (FactoryOfSignal :: *ptrToSignalRe)();
-    double (FactoryOfSignal :: *ptrToSignalIm)();
+    double (FactoryOfSignal :: *ptrToSignalReChannel_2)();
+    double (FactoryOfSignal :: *ptrToSignalImChannel_2)();
+
+    double (FactoryOfSignal :: *ptrToSignalReChannel_1)();
+    double (FactoryOfSignal :: *ptrToSignalImChannel_1)();
 
 
 };

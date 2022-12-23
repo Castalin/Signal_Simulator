@@ -54,7 +54,7 @@ public slots:
     void slot_startSourceScale(const unsigned char &info);
 
     void slot_setSignalType(const QPair<int, int> &signalType);
-    void slot_setNoiseState(const int &state);
+    void slot_setNoiseState(const QPair<int, int> &state);
 
 
 

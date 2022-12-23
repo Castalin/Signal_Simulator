@@ -6,7 +6,12 @@ SetterNoise::SetterNoise(NoiseVariables *const noiseVariables)
 
 }
 
-void SetterNoise::setDispersion(const double &dispersion) const
+void SetterNoise::setDispChannel_1(const double &dispersion) const
 {
-    m_ptrToNoiseVariables->m_dispersion = dispersion;
+    m_ptrToNoiseVariables->m_dispersion_A = dispersion;
+}
+
+void SetterNoise::setDispChannel_2(const double &dispersion) const
+{
+    m_ptrToNoiseVariables->m_dispersion_B = dispersion;
 }

@@ -21,7 +21,9 @@
 #include "Signal/CosRIP/cosripmodhfm.h"
 #include "Signal/CosRIP/cosripmodhpm.h"
 #include "Signal/CosRIP/cosripmodrect.h"
-#include "Signal/Noise/noise.h"
+#include "Signal/Noise/noisechannel_2.h"
+#include "Signal/Noise/noisechannel_1.h"
+
 #include "Structes/enumSignals.h"
 
 

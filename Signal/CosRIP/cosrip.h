@@ -12,7 +12,6 @@ public:
     CosRIP(SignalVariables * const signalVariables);
     virtual double getSignal(const int &i) override;
     virtual double getSignalIm(const int &i) override;
-    virtual void generateValue() override;
 };
 
 #endif // COSRIP_H

@@ -13,8 +13,6 @@ public:
     CosRIPModCosRIP(SignalVariables *const signalVariables, ModRIP *const modRIP); //
     virtual double getSignal(const int &i) override;
     virtual double getSignalIm(const int &i) override;
-    virtual void generateValue() override;
-
 private:
     ModRIP *m_ptrToModRIP;
 };

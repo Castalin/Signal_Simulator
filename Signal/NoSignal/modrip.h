@@ -13,8 +13,6 @@ public:
 
     virtual double getSignal(const int &i) override;
     virtual double getSignalIm(const int &i) override;
-    virtual void generateValue() override;
-
 };
 
 #endif // MODRIP_H

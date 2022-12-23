@@ -8,7 +8,7 @@ FactoryOfSignal::FactoryOfSignal(SignalVariables *const signalVariables, ModSign
       m_cosHPM{signalVariables, &m_modCos}, m_modRIP{modSignalVariables}, m_cosModRIP{signalVariables, &m_modRIP}, m_rectModRip{&m_rectangle, &m_modRIP},
       m_cosRIP{signalVariables}, m_cosRIPModCos{signalVariables, &m_modCos}, m_cosRIPModCosRIP{signalVariables, &m_modRIP},
       m_cosRIPModCosHFM{signalVariables, &m_modCos}, m_cosRIPModCosHPM{signalVariables, &m_modCos}, m_cosRIPModRect{&m_cosRIP, &m_modRect},
-      m_noise{noiseVariables}
+      m_noiseChannel_1{noiseVariables}, m_noiseChannel_2{noiseVariables}
 {
 
     m_mapSignal[QPair<int, int>(SIGNALS_MAIN :: NO_SIGNAL, SIGNALS_MOD :: NO_SIGNAL)]           = QPair<I_getSignal*, I_getSignalIm*>(&m_noSignal, &m_noSignal);
@@ -36,10 +36,23 @@ FactoryOfSignal::FactoryOfSignal(SignalVariables *const signalVariables, ModSign
 
     m_ptrToSignalRe = &m_noSignal;
     m_ptrToSignalIm = &m_noSignal;
-    ptrToSignalRe = &FactoryOfSignal :: getSignalRe;
-    ptrToSignalIm = &FactoryOfSignal :: getSignalIm;
+    ptrToSignalReChannel_1 = &FactoryOfSignal :: getSignalRe;
+    ptrToSignalImChannel_1 = &FactoryOfSignal :: getSignalIm;
+
+    ptrToSignalReChannel_2 = &FactoryOfSignal :: getSignalRe;
+    ptrToSignalImChannel_2 = &FactoryOfSignal :: getSignalIm;
     i = 0;
 
+}
+
+double FactoryOfSignal::getSignalNoiseReChannel_1()
+{
+    return m_ptrToSignalRe->getSignal(i) + m_noiseChannel_1.getSignal(i);
+}
+
+double FactoryOfSignal::getSignalNoiseImChannel_1()
+{
+    return m_ptrToSignalIm->getSignalIm(i++) + m_noiseChannel_1.getSignalIm(i);
 }
 
 void FactoryOfSignal::setSignalType(const QPair<int, int> &signalType)
@@ -49,17 +62,28 @@ void FactoryOfSignal::setSignalType(const QPair<int, int> &signalType)
     m_ptrToSignalIm = pair.second;
 }
 
-void FactoryOfSignal::setNoiseState(const int &state)
+void FactoryOfSignal::setNoiseState(const QPair<int, int> &state)
 {
-    if (state == Qt :: Checked)
+    if (state.second == Qt :: Checked)
     {
-        ptrToSignalRe = &FactoryOfSignal :: getSignalNoiseRe;
-        ptrToSignalIm = &FactoryOfSignal :: getSignalNoiseIm;
+        ptrToSignalReChannel_2 = &FactoryOfSignal :: getSignalNoiseReChannel_2;
+        ptrToSignalImChannel_2 = &FactoryOfSignal :: getSignalNoiseImChannel_2;
     }
     else
     {
-        ptrToSignalRe = &FactoryOfSignal :: getSignalRe;
-        ptrToSignalIm = &FactoryOfSignal :: getSignalIm;
+        ptrToSignalReChannel_2 = &FactoryOfSignal :: getSignalRe;
+        ptrToSignalImChannel_2 = &FactoryOfSignal :: getSignalIm;
+    }
+
+    if (state.first == Qt :: Checked)
+    {
+        ptrToSignalReChannel_1 = &FactoryOfSignal :: getSignalNoiseReChannel_1;
+        ptrToSignalImChannel_1 = &FactoryOfSignal :: getSignalNoiseImChannel_1;
+    }
+    else
+    {
+        ptrToSignalReChannel_1 = &FactoryOfSignal :: getSignalRe;
+        ptrToSignalImChannel_1 = &FactoryOfSignal :: getSignalIm;
     }
 
 }
@@ -74,15 +98,14 @@ double FactoryOfSignal::getSignalIm()
     return m_ptrToSignalIm->getSignalIm(i++);
 }
 
-double FactoryOfSignal::getSignalNoiseRe()
+double FactoryOfSignal::getSignalNoiseReChannel_2()
 {
-    return m_ptrToSignalRe->getSignal(i) + m_noise.getSignal(i);
+    return m_ptrToSignalRe->getSignal(i) + m_noiseChannel_2.getSignal(i);
 }
 
-double FactoryOfSignal::getSignalNoiseIm()
+double FactoryOfSignal::getSignalNoiseImChannel_2()
 {
-    i++;
-    return m_ptrToSignalIm->getSignalIm(i) + m_noise.getSignalIm(i);
+    return m_ptrToSignalIm->getSignalIm(i++) + m_noiseChannel_2.getSignalIm(i);
 }
 
 void FactoryOfSignal::resetI()

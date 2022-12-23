@@ -130,7 +130,7 @@ void SignalDataMain::slot_setSignalType(const QPair<int, int> &signalType)
     m_signalGenerator->setSignalType(signalType);
 }
 
-void SignalDataMain::slot_setNoiseState(const int &state)
+void SignalDataMain::slot_setNoiseState(const QPair<int, int> &state)
 {
     m_signalGenerator->setNoiseState(state);
 }

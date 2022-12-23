@@ -80,7 +80,8 @@ SOURCES += \
     Signal/NoSignal/modrect.cpp \
     Signal/NoSignal/modrip.cpp \
     Signal/NoSignal/nosignal.cpp \
-    Signal/Noise/noise.cpp \
+    Signal/Noise/noisechannel_1.cpp \
+    Signal/Noise/noisechannel_2.cpp \
     Signal/Rectangle/rectangle.cpp \
     Signal/Rectangle/rectmodcos.cpp \
     Signal/Rectangle/rectmodrect.cpp \
@@ -174,7 +175,8 @@ HEADERS += \
     Signal/NoSignal/modrect.h \
     Signal/NoSignal/modrip.h \
     Signal/NoSignal/nosignal.h \
-    Signal/Noise/noise.h \
+    Signal/Noise/noisechannel_1.h \
+    Signal/Noise/noisechannel_2.h \
     Signal/Rectangle/rectangle.h \
     Signal/Rectangle/rectmodcos.h \
     Signal/Rectangle/rectmodrect.h \

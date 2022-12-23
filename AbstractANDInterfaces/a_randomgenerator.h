@@ -6,11 +6,13 @@ class A_RandomGenerator
 {
 public:
     A_RandomGenerator();
-
 protected:
-    double m_randVariable;
-    virtual void generateValue() = 0;
     int i;
+    double m_randVariable;
+
+public:
+    virtual double generateValue();
+
 };
 
 #endif // A_RANDOMGENERATOR_H
