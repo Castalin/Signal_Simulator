@@ -9,7 +9,6 @@ CosRIPModCosRIP::CosRIPModCosRIP(SignalVariables *const signalVariables, ModRIP 
 
 double CosRIPModCosRIP::getSignal(const int &i)
 {
-    generateValue();
     return (m_signalVariables->m_amplitude + m_ptrToModRIP->getSignal(i)) * qCos(2 * M_PI * i * m_signalVariables->m_frequency / m_signalVariables->m_decimation + generateValue());
 }
 

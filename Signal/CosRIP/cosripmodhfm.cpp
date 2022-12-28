@@ -9,7 +9,6 @@ CosRIPModHFM::CosRIPModHFM(SignalVariables * const signalVariables, ModCos * con
 
 double CosRIPModHFM::getSignal(const int &i)
 {
-    generateValue();
     return m_signalVariables->m_amplitude * qCos(2 * M_PI * i * (m_signalVariables->m_frequency + 100000 * m_modCos->getSignal(i)) / m_signalVariables->m_decimation + generateValue());
 }
 

@@ -24,12 +24,20 @@ private:
     QLabel *w_levelDispLabel_2;
     SetterNoise m_setterNoise;
 
+    QCheckBox *w_checkSynchronize;
+    void disconnectAll();
+    void connectAll();
 
 private slots:
     void slot_stateChanged_1(const int &state);
     void slot_stateChanged_2(const int &state);
-    void slot_updateLabel_1(const double &value);
-    void slot_updateLabel_2(const double &value);
+    void slot_updateLblSpin_1(const double &value);
+    void slot_updateLblSlid_1(const double &value);
+    void slot_updateLblSpin_2(const double &value);
+    void slot_updateLblSlid_2(const double &value);
+
+    void slot_updateAll(const double &value);
+    void slot_synchronize(const int &state);
 
 signals:
     void signal_noiseState(const QPair<int, int> &state);

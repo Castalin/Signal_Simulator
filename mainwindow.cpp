@@ -21,7 +21,7 @@ MainWindow::MainWindow(QWidget *parent)
     mainLayout->setMargin(2);
     mainLayout->addWidget(m_signalsUI, 0, 0, 6, 6, Qt :: AlignTop);
     mainLayout->addWidget(m_noiseUI, 0, 6, 4, 3);
-    mainLayout->addWidget(m_ctrSettings_1, 3, 6, 2, 3);
+    mainLayout->addWidget(m_ctrSettings_1, 3, 6, 2, 3, Qt :: AlignTop);
     mainLayout->addWidget(m_ctrSettings_2, 5, 6, 2, 3, Qt :: AlignTop);
     mainLayout->addWidget(m_adc_Delay, 7, 6, 2, 3, Qt :: AlignTop);
     mainLayout->addWidget(m_ctrAngle, 5, 0, 2, 6, Qt :: AlignBottom);

@@ -5,16 +5,18 @@
 A_RandomGenerator::A_RandomGenerator()
 {
     srand(time(0));
+    i = 0;
+    m_randVariable = 0.0;
 }
 
 double A_RandomGenerator::generateValue()
 {
-    if (i >= 512)
+    if (i == 4094)
     {
         i = 0;
-        m_randVariable = m_randVariable =  2 * 3.1415 * (rand() % 360) / 360;
+        m_randVariable = 2 * 3.1415 * (rand() % 360) / 360;
     }
-    i++;
+    ++i;
     return m_randVariable;
 }
 
