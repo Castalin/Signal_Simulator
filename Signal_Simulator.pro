@@ -1,7 +1,7 @@
 QT       += core gui
 QT       += network
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport
 
 CONFIG += c++17
 
@@ -88,18 +88,20 @@ SOURCES += \
     Signal/Rectangle/rectmodrip.cpp \
     Signal/factoryofsignal.cpp \
     Structes/all_data.cpp \
+    UI/Plots/signalplot.cpp \
+    UI/SignalSettings/amplitidemainsignalui.cpp \
+    UI/SignalSettings/amplitudemodsignalui.cpp \
+    UI/SignalSettings/modulationui.cpp \
+    UI/SignalSettings/signalsui.cpp \
     UI/Untouchable/adc_delay.cpp \
     UI/Untouchable/controlsettingsOne.cpp \
     UI/Untouchable/controlsettingsTwo.cpp \
-    UI/amplitidemainsignalui.cpp \
-    UI/amplitudemodsignalui.cpp \
     UI/controladdresses.cpp \
     UI/controlangle.cpp \
-    UI/modulationui.cpp \
     UI/noiseui.cpp \
-    UI/signalsui.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    otherLibs/qcustomplot.cpp
 
 HEADERS += \
     AbstractANDInterfaces/a_randomgenerator.h \
@@ -188,17 +190,19 @@ HEADERS += \
     Structes/SignalVariables.h \
     Structes/all_data.h \
     Structes/enumSignals.h \
+    UI/Plots/signalplot.h \
+    UI/SignalSettings/amplitidemainsignalui.h \
+    UI/SignalSettings/amplitudemodsignalui.h \
+    UI/SignalSettings/modulationui.h \
+    UI/SignalSettings/signalsui.h \
     UI/Untouchable/adc_delay.h \
     UI/Untouchable/controlsettingsOne.h \
     UI/Untouchable/controlsettingsTwo.h \
-    UI/amplitidemainsignalui.h \
-    UI/amplitudemodsignalui.h \
     UI/controladdresses.h \
     UI/controlangle.h \
-    UI/modulationui.h \
     UI/noiseui.h \
-    UI/signalsui.h \
-    mainwindow.h
+    mainwindow.h \
+    otherLibs/qcustomplot.h
 
 
 # Default rules for deployment.

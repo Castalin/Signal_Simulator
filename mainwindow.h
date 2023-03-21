@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "UI/signalsui.h"
+#include "UI/SignalSettings/signalsui.h"
 #include "UI/Untouchable/controlsettingsOne.h"
 #include "UI/Untouchable/controlsettingsTwo.h"
 #include "UI/Untouchable/adc_delay.h"
@@ -11,6 +11,8 @@
 #include "BackEnd/controldatamain.h"
 #include "BackEnd/signaldatamain.h"
 #include "UI/noiseui.h"
+#include "UI/Plots/signalplot.h"
+
 #include "Structes/all_data.h"
 
 class MainWindow : public QMainWindow
@@ -34,6 +36,8 @@ private:
     ControlDataMain *m_ctrDataMain;
     SignalDataMain *m_signalDataMain;
     NoiseUI *m_noiseUI;
+    SignalPlot *m_signalPlot;
+    QCheckBox *m_checkPlots;
 
     All_Data m_all_Data;
 };

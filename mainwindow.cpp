@@ -11,21 +11,43 @@ MainWindow::MainWindow(QWidget *parent)
     m_adc_Delay = new ADCDelay;
     m_ctrAngle = new ControlAngle;
     m_ctrAddresses = new ControlAddresses;
-    QGroupBox *mainWidget = new QGroupBox(QString("  Signal Simulator"));
-    QGridLayout *mainLayout = new QGridLayout;
     m_all_Data = All_Data();
     m_signalsUI = new SignalsUI(m_all_Data.getMainSignalVar(), m_all_Data.getModSignalVar());
     m_noiseUI = new NoiseUI(m_all_Data.getNoiseVar());
+    m_signalPlot = new SignalPlot;
 
-    mainLayout->setVerticalSpacing(2);
-    mainLayout->setMargin(2);
-    mainLayout->addWidget(m_signalsUI, 0, 0, 6, 6, Qt :: AlignTop);
-    mainLayout->addWidget(m_noiseUI, 0, 6, 4, 3);
-    mainLayout->addWidget(m_ctrSettings_1, 3, 6, 2, 3, Qt :: AlignTop);
-    mainLayout->addWidget(m_ctrSettings_2, 5, 6, 2, 3, Qt :: AlignTop);
-    mainLayout->addWidget(m_adc_Delay, 7, 6, 2, 3, Qt :: AlignTop);
-    mainLayout->addWidget(m_ctrAngle, 5, 0, 2, 6, Qt :: AlignBottom);
-    mainLayout->addWidget(m_ctrAddresses, 7, 0, 2, 6, Qt :: AlignTop);
+    QGroupBox *mainWidget = new QGroupBox(QString("  Signal Simulator"));
+    QVBoxLayout *settingsLayout_1 = new QVBoxLayout;
+    QVBoxLayout *settingsLayout_2 = new QVBoxLayout;
+    QHBoxLayout *mainLayout = new QHBoxLayout;
+    m_checkPlots = new QCheckBox(QString("Plots"));
+
+    settingsLayout_1->addWidget(m_signalsUI);
+    settingsLayout_1->addWidget(m_ctrAngle);
+    settingsLayout_1->addWidget(m_ctrAddresses);
+
+    settingsLayout_2->addWidget(m_noiseUI);
+    settingsLayout_2->addWidget(m_ctrSettings_1);
+    settingsLayout_2->addWidget(m_ctrSettings_2);
+    settingsLayout_2->addWidget(m_adc_Delay);
+    settingsLayout_2->addWidget(m_checkPlots);
+    //settingsLayout->setMargin(2);
+
+    //settingsLayout->setVerticalSpacing(2);
+   /*
+    settingsLayout->addWidget(m_signalsUI, 0, 0, 6, 6, Qt :: AlignTop);
+    settingsLayout->addWidget(m_noiseUI, 0, 6, 4, 3);
+    settingsLayout->addWidget(m_ctrSettings_1, 3, 6, 2, 3, Qt :: AlignTop);
+    settingsLayout->addWidget(m_ctrSettings_2, 5, 6, 2, 3, Qt :: AlignTop);
+    settingsLayout->addWidget(m_adc_Delay, 7, 6, 2, 3, Qt :: AlignTop);
+    settingsLayout->addWidget(m_ctrAngle, 5, 0, 2, 6, Qt :: AlignBottom);
+    settingsLayout->addWidget(m_ctrAddresses, 7, 0, 2, 6, Qt :: AlignTop);
+    settingsLayout->addWidget(m_adc_Delay, 8, 6, 3, 3, Qt :: AlignCenter);
+    settingsLayout->addWidget(m_signalPlot, 0, 9, 3, 3, Qt :: AlignCenter);
+*/
+    mainLayout->addLayout(settingsLayout_1);
+    mainLayout->addLayout(settingsLayout_2);
+    mainLayout->addWidget(m_signalPlot);
 
     mainWidget->setLayout(mainLayout);
     this->setCentralWidget(mainWidget);
@@ -66,6 +88,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(m_signalDataMain, &SignalDataMain :: finished, m_signalsUI, &SignalsUI :: slot_stopMovingSliderOut);                                                // stops timers
     connect(m_signalsUI, &SignalsUI :: signal_signalType, m_signalDataMain, &SignalDataMain :: slot_setSignalType);
     connect(m_noiseUI, &NoiseUI :: signal_noiseState, m_signalDataMain, &SignalDataMain :: slot_setNoiseState);
+
+    connect(m_checkPlots, &QCheckBox :: stateChanged, this, [this](const int &state)->void{state == Qt :: Checked ? m_signalPlot->setVisible(true) : m_signalPlot->setVisible(false);});
 
 }
 

@@ -24,6 +24,7 @@ public:
     void setSignalType(const QPair<int, int> &signalType);
 
     void setNoiseState(const QPair<int, int> &state);
+    const int c_header;
 
 private:
     void countChannelA();
