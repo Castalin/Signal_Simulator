@@ -11,6 +11,8 @@ CONFIG += c++17
 
 SOURCES += \
     AbstractANDInterfaces/a_randomgenerator.cpp \
+    AbstractANDInterfaces/a_settingsreceiver.cpp \
+    AbstractANDInterfaces/a_settingssender.cpp \
     AbstractANDInterfaces/a_signal.cpp \
     AbstractANDInterfaces/a_signalmod.cpp \
     AbstractANDInterfaces/i_getamplmodrange.cpp \
@@ -20,8 +22,6 @@ SOURCES += \
     AbstractANDInterfaces/i_setrangefrequency.cpp \
     BackEnd/anglecounter.cpp \
     BackEnd/processincomingdata.cpp \
-    BackEnd/settingsreceiver.cpp \
-    BackEnd/settingssender.cpp \
     BackEnd/signaldatamain.cpp \
     BackEnd/signalgenerator.cpp \
     SettersVarANDRangeCheck/SetRangeAmplitudeMod/amplrangesmodsignal.cpp \
@@ -106,6 +106,8 @@ SOURCES += \
 
 HEADERS += \
     AbstractANDInterfaces/a_randomgenerator.h \
+    AbstractANDInterfaces/a_settingsreceiver.h \
+    AbstractANDInterfaces/a_settingssender.h \
     AbstractANDInterfaces/a_signal.h \
     AbstractANDInterfaces/a_signalmod.h \
     AbstractANDInterfaces/i_getamplmodrange.h \
@@ -115,8 +117,6 @@ HEADERS += \
     AbstractANDInterfaces/i_setrangefrequency.h \
     BackEnd/anglecounter.h \
     BackEnd/processincomingdata.h \
-    BackEnd/settingsreceiver.h \
-    BackEnd/settingssender.h \
     BackEnd/signaldatamain.h \
     BackEnd/signalgenerator.h \
     SettersVarANDRangeCheck/SetRangeAmplitudeMod/ModAmplRanges_definitions.h \
@@ -128,7 +128,7 @@ HEADERS += \
     SettersVarANDRangeCheck/SetRangeAmplitudeMod/setrangeamplrect.h \
     SettersVarANDRangeCheck/SetRangeAmplitudeMod/setrangeamplrip.h \
     SettersVarANDRangeCheck/SetRangeDurationMain/durationrangesmainsignal.h \
-    SettersVarANDRangeCheck/SetRangeDurationMain/setrangedurationrect.h \
+    SettersVarANDRangeCheck/BackEndSetRangeDurationMain/setrangedurationrect.h \
     SettersVarANDRangeCheck/SetRangeDurationMod/durationrangesmodsignal.h \
     SettersVarANDRangeCheck/SetRangeDurationMod/setrangedurationrectMod.h \
     SettersVarANDRangeCheck/SetRangeFrequencyMain/SetRangeFreq_definitions.h \

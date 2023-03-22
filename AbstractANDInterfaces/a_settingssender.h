@@ -1,5 +1,5 @@
-#ifndef SETTINGSSENDER_H
-#define SETTINGSSENDER_H
+#ifndef A_SETTINGSSENDER_H
+#define A_SETTINGSSENDER_H
 
 #include <QUdpSocket>
 
@@ -20,4 +20,4 @@ public:
 
 };
 
-#endif // SETTINGSSENDER_H
+#endif // A_SETTINGSSENDER_H

@@ -1,5 +1,5 @@
-#ifndef SETTINGSRECEIVER_H
-#define SETTINGSRECEIVER_H
+#ifndef A_SETTINGSRECEIVER_H
+#define A_SETTINGSRECEIVER_H
 
 #include <QObject>
 #include <QThread>
@@ -34,4 +34,4 @@ signals:
 
 };
 
-#endif // SETTINGSRECEIVER_H
+#endif // A_SETTINGSRECEIVER_H
