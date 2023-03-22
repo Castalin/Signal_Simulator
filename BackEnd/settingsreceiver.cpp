@@ -76,5 +76,6 @@ SettingsReceiver::~SettingsReceiver()
     m_workingThreadEnabled = false;
     m_mutex->unlock();
 
+    delete m_mutex;
     wait();
 }

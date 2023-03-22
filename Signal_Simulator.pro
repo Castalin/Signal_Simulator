@@ -19,7 +19,7 @@ SOURCES += \
     AbstractANDInterfaces/i_setrangeduration.cpp \
     AbstractANDInterfaces/i_setrangefrequency.cpp \
     BackEnd/anglecounter.cpp \
-    BackEnd/controldatamain.cpp \
+    BackEnd/processincomingdata.cpp \
     BackEnd/settingsreceiver.cpp \
     BackEnd/settingssender.cpp \
     BackEnd/signaldatamain.cpp \
@@ -88,6 +88,7 @@ SOURCES += \
     Signal/Rectangle/rectmodrip.cpp \
     Signal/factoryofsignal.cpp \
     Structes/all_data.cpp \
+    UI/Plots/allplotsui.cpp \
     UI/Plots/signalplot.cpp \
     UI/SignalSettings/amplitidemainsignalui.cpp \
     UI/SignalSettings/amplitudemodsignalui.cpp \
@@ -113,7 +114,7 @@ HEADERS += \
     AbstractANDInterfaces/i_setrangeduration.h \
     AbstractANDInterfaces/i_setrangefrequency.h \
     BackEnd/anglecounter.h \
-    BackEnd/controldatamain.h \
+    BackEnd/processincomingdata.h \
     BackEnd/settingsreceiver.h \
     BackEnd/settingssender.h \
     BackEnd/signaldatamain.h \
@@ -190,6 +191,7 @@ HEADERS += \
     Structes/SignalVariables.h \
     Structes/all_data.h \
     Structes/enumSignals.h \
+    UI/Plots/allplotsui.h \
     UI/Plots/signalplot.h \
     UI/SignalSettings/amplitidemainsignalui.h \
     UI/SignalSettings/amplitudemodsignalui.h \

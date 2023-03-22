@@ -11,6 +11,11 @@ AngleCounter::AngleCounter(QObject *parent)
     connect(m_timer, &QTimer :: timeout, this, &AngleCounter :: timerOut);
 }
 
+AngleCounter::~AngleCounter()
+{
+    delete m_timer;
+}
+
 void AngleCounter::timerOut()
 {
         m_angleValue += m_timer->interval()*m_angleSpeedValue / 1000;

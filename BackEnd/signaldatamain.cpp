@@ -1,19 +1,34 @@
 #include "BackEnd/signaldatamain.h"
 
 
-SignalDataMain::SignalDataMain(SignalVariables *const signalVariables, ModSignalVariables *const  modSignalVariables, NoiseVariables * const noiseVariables, QObject *parent)
+SignalDataMain::SignalDataMain(SignalGenerator * const signalGenerator, QObject *parent)
     : QThread{parent}
 {
-    m_Message = new QByteArray(1032, 0x00);
+    m_Message = QVector<QByteArray*>(8, new QByteArray(1032, 0x00));
     m_mutex = new QMutex;
     m_angleCounter = new AngleCounter;
-    m_signalGenerator = new SignalGenerator(signalVariables, modSignalVariables, noiseVariables, m_Message);
+    m_signalGenerator = signalGenerator;
 
     m_workingThreadEnable = false;
     m_sleepValue = 960;
 
     connect(m_angleCounter, &AngleCounter :: signal_angleValueChanged, this, &SignalDataMain :: signal_angleValueChanged);
     delete m_sendingSocket;
+}
+
+SignalDataMain::~SignalDataMain()
+{
+    delete m_mutex;
+    delete m_angleCounter;
+    for (int i{0}; i < m_Message.size(); ++i)
+    {
+        delete m_Message[i];
+    }
+}
+
+QVector<QByteArray *> *SignalDataMain::getMessagePtr()
+{
+   return &m_Message;
 }
 
 void SignalDataMain::run()
@@ -30,24 +45,26 @@ void SignalDataMain::run()
     {
         while (m_workingThreadEnable == true)
         {
+            m_mutex->lock();
             for (int i{0}; i < 8; ++i, ++numberOfPackage)
             {
                 // (i == 0) ? memcpy(&m_ptrToData + PACKAGE_NUM_BYTE_0, &messageHeader[0], 2) : memcpy(&m_ptrToData + PACKAGE_NUM_BYTE_0, &messageHeader[1], 2);
                 if (i == 0)
                 {
-                    memcpy(m_Message->data() + HEADER_BYTE_0, &messageHeader[0], 2);
+                    memcpy(m_Message[i]->data() + HEADER_BYTE_0, &messageHeader[0], 2);
                 }
                 else
                 {
-                    memcpy(m_Message->data() + HEADER_BYTE_0, &messageHeader[1], 2);
+                    memcpy(m_Message[i]->data() + HEADER_BYTE_0, &messageHeader[1], 2);
                 }
-                memcpy(m_Message->data() + PACKAGE_NUM_BYTE_0, &numberOfPackage, 2);
-                memcpy(m_Message->data() + ANGLE_BYTE_0, angleAddress, 2);
-                m_signalGenerator->countSignal(i);
-                m_sendingSocket->writeDatagram(*m_Message, *m_hostAddress, m_hostPort);
+                memcpy(m_Message[i]->data() + PACKAGE_NUM_BYTE_0, &numberOfPackage, 2);
+                memcpy(m_Message[i]->data() + ANGLE_BYTE_0, angleAddress, 2);
+                m_signalGenerator->countSignal(i, m_Message[i]);
+                m_sendingSocket->writeDatagram(*m_Message[i], *m_hostAddress, m_hostPort);
 
                 usleep(1);
             }
+            m_mutex->unlock();
             usleep(m_sleepValue);
         }
         m_mutex->lock();
@@ -113,11 +130,6 @@ void SignalDataMain::slot_RxEnableValueChanged(const unsigned char &sentData)
 
 }
 
-void SignalDataMain::slot_StrobeSizeValueChanged(const unsigned char &sentData)
-{
-    m_signalGenerator->setStrobeSize(sentData);
-}
-
 void SignalDataMain::slot_startSourceScale(const unsigned char &info)
 {
     m_mutex->lock();
@@ -125,15 +137,6 @@ void SignalDataMain::slot_startSourceScale(const unsigned char &info)
     m_mutex->unlock();
 }
 
-void SignalDataMain::slot_setSignalType(const QPair<int, int> &signalType)
-{
-    m_signalGenerator->setSignalType(signalType);
-}
-
-void SignalDataMain::slot_setNoiseState(const QPair<int, int> &state)
-{
-    m_signalGenerator->setNoiseState(state);
-}
 
 
 

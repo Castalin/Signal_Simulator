@@ -1,24 +1,25 @@
 #ifndef SIGNALDATAMAIN_H
 #define SIGNALDATAMAIN_H
 
-#include "settingssender.h"
+#include "BackEnd/settingssender.h"
 #include <QThread>
 #include <QMutex>
-#include "anglecounter.h"
-#include "signalgenerator.h"
+#include "BackEnd/anglecounter.h"
+#include "BackEnd/signalgenerator.h"
 
 class SignalDataMain : public QThread, public SettingsSender
 {
     Q_OBJECT
 public:
-    explicit SignalDataMain(SignalVariables *const signalVariables, ModSignalVariables *const modSignalVariables,
-                            NoiseVariables *const noiseVariables, QObject *parent = nullptr);
+    explicit SignalDataMain(SignalGenerator * const signalGenerator, QObject *parent = nullptr);
+    virtual ~SignalDataMain();
+    QVector<QByteArray*> * getMessagePtr();
 
 signals:
     void signal_angleValueChanged(const double &value);
 
 private:
-    QByteArray *m_Message;
+    QVector<QByteArray*> m_Message;
     QMutex *m_mutex;
     bool m_workingThreadEnable;
     void run() override;
@@ -47,18 +48,12 @@ private:
 
 public slots:
     void slot_setAddressSettings(const QString &address, const int &port);
+
     void slot_angleChanged(const double &value);
     void slot_angleSpeedChanged(const double &value);
+
     void slot_RxEnableValueChanged(const unsigned char &sentData);
-    void slot_StrobeSizeValueChanged(const unsigned char &sentData);
     void slot_startSourceScale(const unsigned char &info);
-
-    void slot_setSignalType(const QPair<int, int> &signalType);
-    void slot_setNoiseState(const QPair<int, int> &state);
-
-
-
-private:
 
 
 };

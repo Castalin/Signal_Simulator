@@ -8,10 +8,11 @@
 #include "UI/Untouchable/adc_delay.h"
 #include "UI/controlangle.h"
 #include "UI/controladdresses.h"
-#include "BackEnd/controldatamain.h"
+#include "BackEnd/processincomingdata.h"
 #include "BackEnd/signaldatamain.h"
+#include "BackEnd/signalgenerator.h"
 #include "UI/noiseui.h"
-#include "UI/Plots/signalplot.h"
+#include "UI/Plots/allplotsui.h"
 
 #include "Structes/all_data.h"
 
@@ -27,18 +28,19 @@ signals:
 
 
 private:
-    SignalsUI *m_signalsUI;
-    ControlSettingsOne *m_ctrSettings_1;
-    ControlSettingsTwo *m_ctrSettings_2;
-    ADCDelay *m_adc_Delay;
-    ControlAngle *m_ctrAngle;
-    ControlAddresses *m_ctrAddresses;
-    ControlDataMain *m_ctrDataMain;
-    SignalDataMain *m_signalDataMain;
-    NoiseUI *m_noiseUI;
-    SignalPlot *m_signalPlot;
-    QCheckBox *m_checkPlots;
+    SignalsUI *w_signalsUI;
+    ControlSettingsOne *w_ctrSettings_1;
+    ControlSettingsTwo *w_ctrSettings_2;
+    ADCDelay *w_adc_Delay;
+    ControlAngle *w_ctrAngle;
+    ControlAddresses *w_ctrAddresses;
+    NoiseUI *w_noiseUI;
+    AllPlotsUI *w_allPlots;
+    QCheckBox *w_checkPlots;
 
+    ProcessIncomingData *m_ctrDataMain;
+    SignalGenerator *m_signalGenerator;
+    SignalDataMain *m_signalDataMain;
     All_Data m_all_Data;
 };
 #endif // MAINWINDOW_H

@@ -1,15 +1,15 @@
-#ifndef CONTROLDATAMAIN_H
-#define CONTROLDATAMAIN_H
+#ifndef PROCESSINCOMINGDATA_H
+#define PROCESSINCOMINGDATA_H
 
 #include "settingsreceiver.h"
 #include "settingssender.h"
 
-class ControlDataMain : public QObject
+class ProcessIncomingData : public QObject
 {
     Q_OBJECT
 public:
-    explicit ControlDataMain(QObject *parent = nullptr);
-
+    explicit ProcessIncomingData(QObject *parent = nullptr);
+    virtual ~ProcessIncomingData();
 
 private:
     QByteArray *m_Message;
@@ -68,4 +68,4 @@ public slots:
 
 };
 
-#endif // CONTROLDATAMAIN_H
+#endif // PROCESSINCOMINGDATA_H

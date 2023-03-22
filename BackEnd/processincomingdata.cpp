@@ -1,6 +1,6 @@
-#include "BackEnd/controldatamain.h"
+#include "BackEnd/processincomingdata.h"
 
-ControlDataMain::ControlDataMain(QObject *parent)
+ProcessIncomingData::ProcessIncomingData(QObject *parent)
     : QObject{parent}
 {
     m_Message = new QByteArray;
@@ -19,12 +19,19 @@ ControlDataMain::ControlDataMain(QObject *parent)
         m_Message->append(static_cast<quint8>(0));
     }
 
-    connect(m_ReceiveSocket, &SettingsReceiver :: signal_messageReceived, this, &ControlDataMain :: slot_processingAddress);
+    connect(m_ReceiveSocket, &SettingsReceiver :: signal_messageReceived, this, &ProcessIncomingData :: slot_processingAddress);
 
 }
 
+ProcessIncomingData::~ProcessIncomingData()
+{
+    delete m_Message;
+    delete m_ReceiveSocket;
+    delete m_SendingSocket;
+}
 
-void ControlDataMain::slot_processingAddress(const QByteArray receivedMessage)
+
+void ProcessIncomingData::slot_processingAddress(const QByteArray receivedMessage)
 {
 
     if (static_cast<quint8>(receivedMessage.at(0)) > 12)
@@ -135,17 +142,17 @@ void ControlDataMain::slot_processingAddress(const QByteArray receivedMessage)
     m_SendingSocket->sendMessage(m_Message);
 }
 
-void ControlDataMain::slot_setAddressSettings(const QString &address, const int &port)
+void ProcessIncomingData::slot_setAddressSettings(const QString &address, const int &port)
 {
     m_SendingSocket->setAddressSettings(address, port);
 }
 
-void ControlDataMain::slot_startThread(const QString &address, const int &port)
+void ProcessIncomingData::slot_startThread(const QString &address, const int &port)
 {
     m_ReceiveSocket->slot_startThread(address, port);
 }
 
-void ControlDataMain::slot_stopThread()
+void ProcessIncomingData::slot_stopThread()
 {
     m_ReceiveSocket->slot_stopThread();
 }

@@ -7,6 +7,12 @@ SettingsSender::SettingsSender()
     m_hostAddress = new QHostAddress;
 }
 
+SettingsSender::~SettingsSender()
+{
+    // sending socket should be deleted in working thread
+    delete m_hostAddress;
+}
+
 void SettingsSender::setAddressSettings(const QString &address, const int &port)
 {
     *m_hostAddress = QHostAddress(address);

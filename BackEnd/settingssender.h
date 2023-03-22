@@ -7,6 +7,7 @@ class SettingsSender
 {
 public:
     SettingsSender();
+    virtual ~SettingsSender();
 
 protected:
     QUdpSocket *m_sendingSocket;

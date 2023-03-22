@@ -7,7 +7,7 @@ SignalPlot::SignalPlot(QWidget *parent)
     QVBoxLayout *vectLayout = new QVBoxLayout();
 
     w_mainPlot = new QCustomPlot();
-    w_mainPlot->setMinimumSize(QSize(500, 200));
+    w_mainPlot->setMinimumSize(QSize(500, 300));
     w_mainPlot->setSizePolicy(QSizePolicy :: Expanding , QSizePolicy :: Expanding);
     w_mainPlot->setInteractions(QCP :: Interaction :: iRangeDrag | QCP :: Interaction :: iRangeZoom);
     w_mainPlot->addGraph();
@@ -22,8 +22,12 @@ SignalPlot::SignalPlot(QWidget *parent)
         w_mainPlot->graph(i)->setData(QVector<double>(2048, 0.0), QVector<double>(2048, 0.0));
     }
 
-    w_mainPlot->xAxis->setBasePen(QPen(QColor(Qt :: GlobalColor :: red), 2));
-    w_mainPlot->yAxis->setBasePen(QPen(QColor(Qt :: GlobalColor :: red), 2));
+    w_mainPlot->xAxis->grid()->setZeroLinePen(QPen(QColor(Qt :: GlobalColor :: red), 1.2));
+    w_mainPlot->xAxis->setTickLength(7);
+    w_mainPlot->xAxis->setSubTickLength(3);
+    w_mainPlot->yAxis->setTickLength(7);
+    w_mainPlot->yAxis->setSubTickLength(3);
+    w_mainPlot->yAxis->grid()->setZeroLinePen(QPen(QColor(Qt :: GlobalColor :: red), 1.2));
 
     w_checkBoxRePlot = new QCheckBox(QString("Real"));
     w_checkBoxRePlot->setCheckState(Qt :: CheckState :: Unchecked);
@@ -33,10 +37,10 @@ SignalPlot::SignalPlot(QWidget *parent)
     w_checkBoxAbsPlot->setCheckState(Qt :: CheckState :: Unchecked);
 
     QHBoxLayout *horLayout = new QHBoxLayout();
-    horLayout->addWidget(w_checkBoxRePlot);
-    horLayout->addWidget(w_checkBoxImPlot);
-    horLayout->addWidget(w_checkBoxAbsPlot);
-    horLayout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy :: Expanding));
+    horLayout->addWidget(w_checkBoxRePlot, 0, Qt :: AlignCenter);
+    horLayout->addWidget(w_checkBoxImPlot, 0, Qt :: AlignCenter);
+    horLayout->addWidget(w_checkBoxAbsPlot, 0, Qt :: AlignCenter);
+    //horLayout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy :: Expanding));
 
     connect(w_checkBoxRePlot, &QCheckBox :: stateChanged, this, &SignalPlot :: slot_checkRealPartState);
     connect(w_checkBoxImPlot, &QCheckBox :: stateChanged, this, &SignalPlot :: slot_checkImagPartState);
@@ -51,16 +55,19 @@ void SignalPlot::slot_checkRealPartState()
 {
     m_GraphsCondition ^= (1 << REAL);
     w_mainPlot->graph(REAL)->setVisible(m_GraphsCondition & (1 << REAL));
+    w_mainPlot->replot();
 }
 
 void SignalPlot::slot_checkImagPartState()
 {
     m_GraphsCondition ^= (1 << IMAG);
     w_mainPlot->graph(IMAG)->setVisible(m_GraphsCondition & (1 << IMAG));
+    w_mainPlot->replot();
 }
 
 void SignalPlot::slot_checkABSPartState()
 {
     m_GraphsCondition ^= (1 << ABS);
     w_mainPlot->graph(ABS)->setVisible(m_GraphsCondition & (1 << ABS));
+    w_mainPlot->replot();
 }
