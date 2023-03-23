@@ -1,8 +1,8 @@
-#include "BackEnd/settingsreceiver.h"
+#include "AbstractANDInterfaces//a_settingsreceiver.h"
 #include <QNetworkDatagram>
 
 
-SettingsReceiver::SettingsReceiver(int validLength, QObject *parent)
+a_SettingsReceiver::a_SettingsReceiver(int validLength, QObject *parent)
     : QThread{parent}
 {
     m_validLength = validLength;
@@ -10,7 +10,7 @@ SettingsReceiver::SettingsReceiver(int validLength, QObject *parent)
 }
 
 
-bool SettingsReceiver::isWorking()
+bool a_SettingsReceiver::isWorking()
 {
     bool workingThreadEnable;
     m_mutex->lock();
@@ -19,7 +19,7 @@ bool SettingsReceiver::isWorking()
     return workingThreadEnable;
 }
 
-void SettingsReceiver::slot_startThread(const QString &address, const int &port)
+void a_SettingsReceiver::slot_startThread(const QString &address, const int &port)
 {
     if (!isWorking())
     {
@@ -30,7 +30,7 @@ void SettingsReceiver::slot_startThread(const QString &address, const int &port)
     }
 }
 
-void SettingsReceiver::slot_stopThread()
+void a_SettingsReceiver::slot_stopThread()
 {
     if (isWorking())
     {
@@ -41,7 +41,7 @@ void SettingsReceiver::slot_stopThread()
 }
 
 
-void SettingsReceiver::run()
+void a_SettingsReceiver::run()
 {
     QByteArray receivedMessage;
 
@@ -70,7 +70,7 @@ void SettingsReceiver::run()
     m_mutex->unlock();
 }
 
-SettingsReceiver::~SettingsReceiver()
+a_SettingsReceiver::~a_SettingsReceiver()
 {
     m_mutex->lock();
     m_workingThreadEnabled = false;

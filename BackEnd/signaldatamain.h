@@ -1,13 +1,13 @@
 #ifndef SIGNALDATAMAIN_H
 #define SIGNALDATAMAIN_H
 
-#include "BackEnd/settingssender.h"
+#include "AbstractANDInterfaces/a_settingssender.h"
 #include <QThread>
 #include <QMutex>
 #include "BackEnd/anglecounter.h"
 #include "BackEnd/signalgenerator.h"
 
-class SignalDataMain : public QThread, public SettingsSender
+class SignalDataMain : public QThread, public a_SettingsSender
 {
     Q_OBJECT
 public:
@@ -52,7 +52,7 @@ public slots:
     void slot_angleChanged(const double &value);
     void slot_angleSpeedChanged(const double &value);
 
-    void slot_RxEnableValueChanged(const unsigned char &sentData);
+    void slot_RxEnableValueChanged(const bool &sentData);
     void slot_startSourceScale(const unsigned char &info);
 
 

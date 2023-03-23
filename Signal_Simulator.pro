@@ -21,6 +21,7 @@ SOURCES += \
     AbstractANDInterfaces/i_setrangeduration.cpp \
     AbstractANDInterfaces/i_setrangefrequency.cpp \
     BackEnd/anglecounter.cpp \
+    BackEnd/preparerdatagraphs.cpp \
     BackEnd/processincomingdata.cpp \
     BackEnd/signaldatamain.cpp \
     BackEnd/signalgenerator.cpp \
@@ -116,6 +117,7 @@ HEADERS += \
     AbstractANDInterfaces/i_setrangeduration.h \
     AbstractANDInterfaces/i_setrangefrequency.h \
     BackEnd/anglecounter.h \
+    BackEnd/preparerdatagraphs.h \
     BackEnd/processincomingdata.h \
     BackEnd/signaldatamain.h \
     BackEnd/signalgenerator.h \
@@ -128,7 +130,7 @@ HEADERS += \
     SettersVarANDRangeCheck/SetRangeAmplitudeMod/setrangeamplrect.h \
     SettersVarANDRangeCheck/SetRangeAmplitudeMod/setrangeamplrip.h \
     SettersVarANDRangeCheck/SetRangeDurationMain/durationrangesmainsignal.h \
-    SettersVarANDRangeCheck/BackEndSetRangeDurationMain/setrangedurationrect.h \
+    SettersVarANDRangeCheck/SetRangeDurationMain/setrangedurationrect.h \
     SettersVarANDRangeCheck/SetRangeDurationMod/durationrangesmodsignal.h \
     SettersVarANDRangeCheck/SetRangeDurationMod/setrangedurationrectMod.h \
     SettersVarANDRangeCheck/SetRangeFrequencyMain/SetRangeFreq_definitions.h \

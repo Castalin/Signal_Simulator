@@ -9,7 +9,7 @@ class AngleCounter : public QObject
     Q_OBJECT
 public:
     explicit AngleCounter(QObject *parent = nullptr);
-    ~AngleCounter();
+    virtual ~AngleCounter();
 private:
     double m_angleValue;
     double m_angleSpeedValue;

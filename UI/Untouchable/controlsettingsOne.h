@@ -69,7 +69,7 @@ private:
 
 
 signals:
-    void signal_RxValueChanged(const unsigned char &info);
+    void signal_RxValueChanged(const bool &info);
     void signal_DecimationChanged(const int &info);
     void signal_DecimationChanged();
 

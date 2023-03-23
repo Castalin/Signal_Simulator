@@ -78,7 +78,7 @@ void ControlSettingsOne::slot_processingIncomingDataControl(const unsigned char 
     {
         m_rxEnable = static_cast<RxEnable>(info & 0b00000001);
         w_ADCRxBox->setCurrentIndex(static_cast<quint8>(m_rxEnable));
-        emit signal_RxValueChanged(info);
+        emit signal_RxValueChanged(info & 0b00000001);
     }
 
     if (((info & 0b00000010) >> 1) != static_cast<quint8>(m_clockSignalSource))

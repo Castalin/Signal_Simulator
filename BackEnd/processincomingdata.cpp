@@ -4,8 +4,8 @@ ProcessIncomingData::ProcessIncomingData(QObject *parent)
     : QObject{parent}
 {
     m_Message = new QByteArray;
-    m_ReceiveSocket = new SettingsReceiver(2);    // 2 - number of valid packages
-    m_SendingSocket = new SettingsSender;
+    m_ReceiveSocket = new a_SettingsReceiver(2);    // 2 - number of valid packages
+    m_SendingSocket = new a_SettingsSender;
 
     for (int i{0}; i < 8; ++i)
     {
@@ -19,7 +19,7 @@ ProcessIncomingData::ProcessIncomingData(QObject *parent)
         m_Message->append(static_cast<quint8>(0));
     }
 
-    connect(m_ReceiveSocket, &SettingsReceiver :: signal_messageReceived, this, &ProcessIncomingData :: slot_processingAddress);
+    connect(m_ReceiveSocket, &a_SettingsReceiver :: signal_messageReceived, this, &ProcessIncomingData :: slot_processingAddress);
 
 }
 

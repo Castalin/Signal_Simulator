@@ -106,9 +106,9 @@ void SignalDataMain::slot_angleSpeedChanged(const double &value)
 }
 
 
-void SignalDataMain::slot_RxEnableValueChanged(const unsigned char &sentData)
+void SignalDataMain::slot_RxEnableValueChanged(const bool &sentData)
 {
-    if ((sentData & 0x01) == true)
+    if (sentData == true)
     {
         if (isWorking() == false)
         {

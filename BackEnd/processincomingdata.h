@@ -1,8 +1,8 @@
 #ifndef PROCESSINCOMINGDATA_H
 #define PROCESSINCOMINGDATA_H
 
-#include "settingsreceiver.h"
-#include "settingssender.h"
+#include "AbstractANDInterfaces/a_settingsreceiver.h"
+#include "AbstractANDInterfaces/a_settingssender.h"
 
 class ProcessIncomingData : public QObject
 {
@@ -13,8 +13,8 @@ public:
 
 private:
     QByteArray *m_Message;
-    SettingsReceiver *m_ReceiveSocket;
-    SettingsSender *m_SendingSocket;
+    a_SettingsReceiver *m_ReceiveSocket;
+    a_SettingsSender *m_SendingSocket;
 
 
     enum struct GreenBoardAddressBytes

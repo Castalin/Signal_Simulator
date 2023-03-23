@@ -6,12 +6,12 @@
 #include <QMutex>
 #include <QUdpSocket>
 
-class SettingsReceiver : public QThread
+class a_SettingsReceiver : public QThread
 {
     Q_OBJECT
 public:
-    explicit SettingsReceiver(int validLength, QObject *parent = nullptr);
-    ~SettingsReceiver();
+    explicit a_SettingsReceiver(int validLength, QObject *parent = nullptr);
+    ~a_SettingsReceiver();
 
 private:
     QMutex *m_mutex;

@@ -3,11 +3,11 @@
 
 #include <QUdpSocket>
 
-class SettingsSender
+class a_SettingsSender
 {
 public:
-    SettingsSender();
-    virtual ~SettingsSender();
+    a_SettingsSender();
+    virtual ~a_SettingsSender();
 
 protected:
     QUdpSocket *m_sendingSocket;

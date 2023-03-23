@@ -51,6 +51,16 @@ SignalPlot::SignalPlot(QWidget *parent)
     this->setLayout(vectLayout);
 }
 
+void SignalPlot::slot_redrawReAndIm(const QVector<double> &signalAbs)
+{
+
+}
+
+void SignalPlot::slot_redrawAbs(const QVector<double> &signalRe, const QVector<double> &signalIm)
+{
+
+}
+
 void SignalPlot::slot_checkRealPartState()
 {
     m_GraphsCondition ^= (1 << REAL);

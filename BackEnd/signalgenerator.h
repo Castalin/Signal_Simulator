@@ -14,11 +14,15 @@ private:
     int m_strobeSize;
     FactoryOfSignal m_factoryOfSignal;
     const int c_header;
+    const int m_packetSize;
+    const int numOfPackets;
     void countChannelA(QByteArray * const byteArrayPtr);
     void countChannelB(QByteArray * const byteArrayPtr);
+    void countChannelA(QVector<double> &signalRe, QVector<double> &signalIm);
 
 public:
     void countSignal(const int &numberOfPackage, QByteArray *const byteArrayPtr);
+    void countSignal(QVector<double> &signalRe, QVector<double> &signalIm);
 
 public slots:
     void slot_setStrobeSize(const unsigned char &info);

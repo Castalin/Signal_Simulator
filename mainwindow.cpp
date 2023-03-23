@@ -54,7 +54,6 @@ MainWindow::MainWindow(QWidget *parent)
     mainLayout->addLayout(settingsLayout_1);
     mainLayout->addLayout(settingsLayout_2);
     mainLayout->addWidget(w_allPlots);
-    w_allPlots->setVisible(false);
 
     mainWidget->setLayout(mainLayout);
     this->setCentralWidget(mainWidget);
@@ -96,7 +95,10 @@ MainWindow::MainWindow(QWidget *parent)
     connect(w_signalsUI, &SignalsUI :: signal_signalType, m_signalGenerator, &SignalGenerator :: slot_setSignalType);
     connect(w_noiseUI, &NoiseUI :: signal_noiseState, m_signalGenerator, &SignalGenerator :: slot_setNoiseState);
 
-    connect(w_checkPlots, &QCheckBox :: stateChanged, this, [this](const int &state)->void{state == Qt :: Checked ? w_allPlots->setVisible(true) : w_allPlots->setVisible(false);});
+    connect(m_signalDataMain, &SignalDataMain :: finished, w_allPlots, &AllPlotsUI :: slot_threadStarted);
+    connect(m_signalDataMain, &SignalDataMain :: started, w_allPlots, &AllPlotsUI :: slot_threadEnded);
+    connect(w_checkPlots, &QCheckBox :: stateChanged, w_allPlots, &AllPlotsUI :: slot_setPlottingEnable);
+
 
 }
 

@@ -1,19 +1,19 @@
-#include "BackEnd/settingssender.h"
+#include "AbstractANDInterfaces/a_settingssender.h"
 
-SettingsSender::SettingsSender()
+a_SettingsSender::a_SettingsSender()
 {
     m_hostPort = 0;
     m_sendingSocket = new QUdpSocket;
     m_hostAddress = new QHostAddress;
 }
 
-SettingsSender::~SettingsSender()
+a_SettingsSender::~a_SettingsSender()
 {
     // sending socket should be deleted in working thread
     delete m_hostAddress;
 }
 
-void SettingsSender::setAddressSettings(const QString &address, const int &port)
+void a_SettingsSender::setAddressSettings(const QString &address, const int &port)
 {
     *m_hostAddress = QHostAddress(address);
     m_hostPort = port;
@@ -22,7 +22,7 @@ void SettingsSender::setAddressSettings(const QString &address, const int &port)
     m_sendingSocket->open(QUdpSocket :: ReadWrite);
 }
 
-void SettingsSender::sendMessage(const QByteArray *data)
+void a_SettingsSender::sendMessage(const QByteArray *data)
 {
     m_sendingSocket->writeDatagram(*data, *m_hostAddress, m_hostPort);
 }

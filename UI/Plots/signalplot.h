@@ -29,10 +29,11 @@ private:
         ABS            = 2,
     };
 
-signals:
+public slots:
+    void slot_redrawReAndIm(const QVector<double> &signalRe, const QVector<double> &signalIm);
+    void slot_redrawAbs(const QVector<double> &signalAbs);
 
 private slots:
-
     void slot_checkRealPartState();
     void slot_checkImagPartState();
     void slot_checkABSPartState();

@@ -3,9 +3,7 @@
 
 #include <QWidget>
 #include "signalplot.h"
-#include "BackEnd/signalgenerator.h"
-#include <QTimer>
-#include <QMutex>
+#include "BackEnd/preparerdatagraphs.h"
 
 class AllPlotsUI : public QWidget
 {
@@ -18,11 +16,13 @@ public:
 private:
     SignalPlot *m_signalPlot;
 
-    SignalGenerator *m_signalGenerator;
+    PreparerDataGraphs m_preparerDataGraphs;
 
-    QVector<QByteArray*> *m_sendedMessage;           // watch signalDataMain
-    QMutex *m_mutex;
-    QTimer *m_timer;
+public slots:
+    void slot_threadStarted();
+    void slot_threadEnded();
+    void slot_setPlottingEnable(const int &cond);
+
 signals:
 
 };
