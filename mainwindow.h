@@ -9,8 +9,7 @@
 #include "UI/controlangle.h"
 #include "UI/controladdresses.h"
 #include "BackEnd/processincomingdata.h"
-#include "BackEnd/signaldatamain.h"
-#include "BackEnd/signalgenerator.h"
+#include "BackEnd/SignalSender/signaldatasender.h"
 #include "UI/noiseui.h"
 #include "UI/Plots/allplotsui.h"
 
@@ -37,10 +36,11 @@ private:
     NoiseUI *w_noiseUI;
     AllPlotsUI *w_allPlots;
     QCheckBox *w_checkPlots;
+    QPushButton *w_startDrawing;
+    QPushButton *w_stopDrawing;
 
     ProcessIncomingData *m_ctrDataMain;
-    SignalGenerator *m_signalGenerator;
-    SignalDataMain *m_signalDataMain;
+    SignalDataSender *m_signalDataSender;
     All_Data m_all_Data;
 };
 #endif // MAINWINDOW_H

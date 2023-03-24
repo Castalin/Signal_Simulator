@@ -1,13 +1,14 @@
 #include "factoryofsignal.h"
 #include "qnamespace.h"
 
-FactoryOfSignal::FactoryOfSignal(SignalVariables *const signalVariables, ModSignalVariables *const modSignalVariables, NoiseVariables * const noiseVariables)
-    : m_noSignal{signalVariables}, m_cos{signalVariables}, m_rectangle{signalVariables}, m_modCos{modSignalVariables},
+FactoryOfSignal::FactoryOfSignal(SignalVariables *const signalVariables, ModSignalVariables *const modSignalVariables,
+                                 NoiseVariables * const noiseVariables, const int &refreshNum, QObject *parent)
+    : QObject{parent}, m_noSignal{signalVariables}, m_cos{signalVariables}, m_rectangle{signalVariables}, m_modCos{modSignalVariables},
       m_modRect{modSignalVariables}, m_cosModCos{signalVariables, &m_modCos}, m_cosModRect{&m_cos, &m_modRect},
       m_rectModCos{&m_rectangle, &m_modCos}, m_rectModRect{&m_rectangle, &m_modRect}, m_cosHFM{signalVariables, &m_modCos},
-      m_cosHPM{signalVariables, &m_modCos}, m_modRIP{modSignalVariables}, m_cosModRIP{signalVariables, &m_modRIP}, m_rectModRip{&m_rectangle, &m_modRIP},
-      m_cosRIP{signalVariables}, m_cosRIPModCos{signalVariables, &m_modCos}, m_cosRIPModCosRIP{signalVariables, &m_modRIP},
-      m_cosRIPModCosHFM{signalVariables, &m_modCos}, m_cosRIPModCosHPM{signalVariables, &m_modCos}, m_cosRIPModRect{&m_cosRIP, &m_modRect},
+      m_cosHPM{signalVariables, &m_modCos}, m_modRIP{modSignalVariables, refreshNum}, m_cosModRIP{signalVariables, &m_modRIP}, m_rectModRip{&m_rectangle, &m_modRIP},
+      m_cosRIP{signalVariables, refreshNum}, m_cosRIPModCos{signalVariables, &m_modCos, refreshNum}, m_cosRIPModCosRIP{signalVariables, &m_modRIP, refreshNum},
+      m_cosRIPModCosHFM{signalVariables, &m_modCos, refreshNum}, m_cosRIPModCosHPM{signalVariables, &m_modCos, refreshNum}, m_cosRIPModRect{&m_cosRIP, &m_modRect},
       m_noiseChannel_1{noiseVariables}, m_noiseChannel_2{noiseVariables}
 {
 
@@ -55,14 +56,14 @@ double FactoryOfSignal::getSignalNoiseImChannel_1()
     return m_ptrToSignalIm->getSignalIm(i++) + m_noiseChannel_1.getSignalIm(i);
 }
 
-void FactoryOfSignal::setSignalType(const QPair<int, int> &signalType)
+void FactoryOfSignal::slot_setSignalType(const QPair<int, int> &signalType)
 {
     QPair<I_getSignal*, I_getSignalIm*> pair = m_mapSignal.at(signalType);
     m_ptrToSignalRe = pair.first;
     m_ptrToSignalIm = pair.second;
 }
 
-void FactoryOfSignal::setNoiseState(const QPair<int, int> &state)
+void FactoryOfSignal::slot_setNoiseState(const QPair<int, int> &state)
 {
     if (state.second == Qt :: Checked)
     {

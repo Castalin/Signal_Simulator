@@ -14,17 +14,18 @@ SOURCES += \
     AbstractANDInterfaces/a_settingsreceiver.cpp \
     AbstractANDInterfaces/a_settingssender.cpp \
     AbstractANDInterfaces/a_signal.cpp \
+    AbstractANDInterfaces/a_signalgenerator.cpp \
     AbstractANDInterfaces/a_signalmod.cpp \
     AbstractANDInterfaces/i_getamplmodrange.cpp \
     AbstractANDInterfaces/i_getsignal.cpp \
     AbstractANDInterfaces/i_getsignalim.cpp \
     AbstractANDInterfaces/i_setrangeduration.cpp \
     AbstractANDInterfaces/i_setrangefrequency.cpp \
-    BackEnd/anglecounter.cpp \
+    BackEnd/SignalSender/anglecounter.cpp \
+    BackEnd/SignalSender/signaldatasender.cpp \
+    BackEnd/SignalSender/signalgeneratorsender.cpp \
     BackEnd/preparerdatagraphs.cpp \
     BackEnd/processincomingdata.cpp \
-    BackEnd/signaldatamain.cpp \
-    BackEnd/signalgenerator.cpp \
     SettersVarANDRangeCheck/SetRangeAmplitudeMod/amplrangesmodsignal.cpp \
     SettersVarANDRangeCheck/SetRangeAmplitudeMod/setrangeamplham.cpp \
     SettersVarANDRangeCheck/SetRangeAmplitudeMod/setrangeamplhfm.cpp \
@@ -110,17 +111,18 @@ HEADERS += \
     AbstractANDInterfaces/a_settingsreceiver.h \
     AbstractANDInterfaces/a_settingssender.h \
     AbstractANDInterfaces/a_signal.h \
+    AbstractANDInterfaces/a_signalgenerator.h \
     AbstractANDInterfaces/a_signalmod.h \
     AbstractANDInterfaces/i_getamplmodrange.h \
     AbstractANDInterfaces/i_getsignal.h \
     AbstractANDInterfaces/i_getsignalim.h \
     AbstractANDInterfaces/i_setrangeduration.h \
     AbstractANDInterfaces/i_setrangefrequency.h \
-    BackEnd/anglecounter.h \
+    BackEnd/SignalSender/anglecounter.h \
+    BackEnd/SignalSender/signaldatasender.h \
+    BackEnd/SignalSender/signalgeneratorsender.h \
     BackEnd/preparerdatagraphs.h \
     BackEnd/processincomingdata.h \
-    BackEnd/signaldatamain.h \
-    BackEnd/signalgenerator.h \
     SettersVarANDRangeCheck/SetRangeAmplitudeMod/ModAmplRanges_definitions.h \
     SettersVarANDRangeCheck/SetRangeAmplitudeMod/amplrangesmodsignal.h \
     SettersVarANDRangeCheck/SetRangeAmplitudeMod/setrangeamplham.h \

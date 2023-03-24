@@ -10,7 +10,7 @@
 class CosRIPModHPM : protected A_signal, public I_getSignal, public I_getSignalIm, public A_RandomGenerator
 {
 public:
-    CosRIPModHPM(SignalVariables * const signalVariables, ModCos * const modCos);
+    CosRIPModHPM(SignalVariables * const signalVariables, ModCos * const modCos, const int &refreshNum);
 
     virtual double getSignal(const int &i) override;
     virtual double getSignalIm(const int &i) override;

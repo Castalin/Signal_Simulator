@@ -9,20 +9,24 @@ class AllPlotsUI : public QWidget
 {
     Q_OBJECT
 public:
-    explicit AllPlotsUI(SignalGenerator * const signalGenerator, QVector<QByteArray*> * const arraySignal, QWidget *parent = nullptr);
+    explicit AllPlotsUI(SignalVariables * const signalVariables, ModSignalVariables * const modSignalVariables, NoiseVariables * const noiseVariables,
+                        QWidget *parent = nullptr);
     virtual ~AllPlotsUI();
 
 
 private:
     SignalPlot *m_signalPlot;
 
-    PreparerDataGraphs m_preparerDataGraphs;
+    PreparerDataGraphs *m_preparerDataGraphs;
 
 public slots:
-    void slot_threadStarted();
-    void slot_threadEnded();
     void slot_setPlottingEnable(const int &cond);
-
+    void slot_setStrobeSize(const int &newStrobeSize);
+    void slot_setDecimation(const int &decimation);
+    void slot_setSignalType(const QPair<int, int> &signalType);
+    void slot_setNoiseState(const QPair<int, int> &state);
+    void slot_stopDrawing();
+    void slot_startDrawing();
 signals:
 
 };

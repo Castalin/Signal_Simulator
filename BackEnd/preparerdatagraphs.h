@@ -2,42 +2,41 @@
 #define PREPARERDATAGRAPHS_H
 #include <QTimer>
 #include <QMutex>
-#include "BackEnd/signalgenerator.h"
+#include "AbstractANDInterfaces/a_signalgenerator.h"
+#include "Signal/factoryofsignal.h"
 
-class PreparerDataGraphs : public QObject
+class PreparerDataGraphs : public QObject, public a_SignalGenerator
 {
     Q_OBJECT
 public:
-    explicit PreparerDataGraphs(SignalGenerator * const signalGenerator, QVector<QByteArray*> * const arraySignal, QObject *parent = nullptr);
+    explicit PreparerDataGraphs(SignalVariables * const signalVariables, ModSignalVariables * const modSignalVariables, NoiseVariables * const noiseVariables,
+                                QObject *parent = nullptr);
     virtual ~PreparerDataGraphs();
 
 private:
-    QMutex *m_mutex;
     QTimer *m_timer;
-    bool m_workingThread;
     bool m_plotGraphs;
-    const int m_packetSize;
-    const int c_header;
-
-    SignalGenerator *m_signalGenerator;
-    QVector<QByteArray*> *m_sendedMessage;           // watch signalDataMain
+    FactoryOfSignal *m_factoryOfSignal;
 
     QVector<double> m_signalRe, m_signalIm, m_signalAbs;
 
-    void copyFromMessage();
-    void getFromSignalGenerator();
     void makeAbs();
+
+    virtual void countChannelA() override;
+    virtual void countChannelB() override;
 
 public:
     void setPlottingEnable(const int &cond);
     void setThreadCondition(const bool &cond);
+    void slot_setSignalType(const QPair<int, int> &signalType);
+    void slot_setNoiseState(const QPair<int, int> &state);
 
 private slots:
     void slot_timerShot();
 
 signals:
-    void signalReAndIm(const QVector<double> &signalRe, const QVector<double> &signalIm);
-    void signalAbs(const QVector<double> &signalAbs);
+    void signalReAndIm(QVector<double> &signalRe, QVector<double> &signalIm);
+    void signalAbs(QVector<double> &signalAbs);
 };
 
 #endif // PREPARERDATAGRAPHS_H

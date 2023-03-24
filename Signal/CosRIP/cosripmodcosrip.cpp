@@ -1,8 +1,8 @@
 #include "cosripmodcosrip.h"
 #include <QtMath>
 
-CosRIPModCosRIP::CosRIPModCosRIP(SignalVariables *const signalVariables, ModRIP *const modRIP)
-    :A_signal{signalVariables}, m_ptrToModRIP{modRIP}
+CosRIPModCosRIP::CosRIPModCosRIP(SignalVariables *const signalVariables, ModRIP *const modRIP, const int &refreshNum)
+    :A_signal{signalVariables}, A_RandomGenerator{refreshNum}, m_ptrToModRIP{modRIP}
 {
 
 }

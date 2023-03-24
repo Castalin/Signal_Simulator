@@ -10,7 +10,7 @@
 class CosRIPModCos : protected A_signal, public I_getSignal, public I_getSignalIm, A_RandomGenerator
 {
 public:
-    CosRIPModCos(SignalVariables *const signalVariables, ModCos *const modCos); //
+    CosRIPModCos(SignalVariables *const signalVariables, ModCos *const modCos, const int &refreshNum); //
     virtual double getSignal(const int &i) override;
     virtual double getSignalIm(const int &i) override;
 private:

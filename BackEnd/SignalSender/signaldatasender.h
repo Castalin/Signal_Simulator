@@ -1,33 +1,35 @@
-#ifndef SIGNALDATAMAIN_H
-#define SIGNALDATAMAIN_H
+#ifndef SIGNALDATASENDER_H
+#define SIGNALDATASENDER_H
 
 #include "AbstractANDInterfaces/a_settingssender.h"
 #include <QThread>
 #include <QMutex>
-#include "BackEnd/anglecounter.h"
-#include "BackEnd/signalgenerator.h"
+#include "BackEnd/SignalSender/anglecounter.h"
+#include "BackEnd/SignalSender/signalgeneratorsender.h"
 
-class SignalDataMain : public QThread, public a_SettingsSender
+class SignalDataSender : public QThread, public a_SettingsSender
 {
     Q_OBJECT
 public:
-    explicit SignalDataMain(SignalGenerator * const signalGenerator, QObject *parent = nullptr);
-    virtual ~SignalDataMain();
-    QVector<QByteArray*> * getMessagePtr();
+    explicit SignalDataSender(SignalVariables * const signalVariables, ModSignalVariables * const modSignalVariables, NoiseVariables * const noiseVariables,
+                              QObject *parent = nullptr);
+    virtual ~SignalDataSender();
 
 signals:
     void signal_angleValueChanged(const double &value);
 
 private:
-    QVector<QByteArray*> m_Message;
     QMutex *m_mutex;
     bool m_workingThreadEnable;
     void run() override;
     bool isWorking();
     int m_sleepValue;
 
+    QVector<QByteArray*> m_Message;
+    const int m_numOfPackets;
+
     AngleCounter *m_angleCounter;
-    SignalGenerator *m_signalGenerator;
+    SignalGeneratorSender *m_signalGeneratorSender;
 
     enum
     {    // firstly
@@ -53,9 +55,12 @@ public slots:
     void slot_angleSpeedChanged(const double &value);
 
     void slot_RxEnableValueChanged(const bool &sentData);
-    void slot_startSourceScale(const unsigned char &info);
+    void slot_startSourceScale(const int &startSourceScale);
+    void slot_setStrobeSize(const int &strobeSize);
 
+    void slot_setSignalType(const QPair<int, int> &signalType);
+    void slot_setNoiseState(const QPair<int, int> &state);
 
 };
 
-#endif // SIGNALDATAMAIN_H
+#endif // SIGNALDATASENDER_H

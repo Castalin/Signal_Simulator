@@ -9,7 +9,7 @@
 class CosRIP : private A_signal, public I_getSignal, public I_getSignalIm, public A_RandomGenerator
 {
 public:
-    CosRIP(SignalVariables * const signalVariables);
+    CosRIP(SignalVariables * const signalVariables, const int &refreshNum);
     virtual double getSignal(const int &i) override;
     virtual double getSignalIm(const int &i) override;
 };

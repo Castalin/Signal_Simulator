@@ -1,8 +1,8 @@
 #include "cosripmodhfm.h"
 #include <QtMath>
 
-CosRIPModHFM::CosRIPModHFM(SignalVariables * const signalVariables, ModCos * const modCos)
-    : A_signal{signalVariables}, m_modCos{modCos}
+CosRIPModHFM::CosRIPModHFM(SignalVariables * const signalVariables, ModCos * const modCos, const int &refreshNum)
+    : A_signal{signalVariables}, A_RandomGenerator{refreshNum}, m_modCos{modCos}
 {
 
 }

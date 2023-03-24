@@ -9,7 +9,7 @@
 class ModRIP : protected A_signalMod, public I_getSignal, public I_getSignalIm, public A_RandomGenerator
 {
 public:
-    explicit ModRIP(ModSignalVariables  * const modSignalVariables);
+    explicit ModRIP(ModSignalVariables  * const modSignalVariables, const int &refreshNum);
 
     virtual double getSignal(const int &i) override;
     virtual double getSignalIm(const int &i) override;

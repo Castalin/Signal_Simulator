@@ -30,6 +30,16 @@ ProcessIncomingData::~ProcessIncomingData()
     delete m_SendingSocket;
 }
 
+void ProcessIncomingData::processControl_2(const unsigned char &byte)
+{
+    int startSourceScale = (1000 / (static_cast<int>(byte & 0b00000011) + 2)) - 40;
+    emit signal_startSourseScale(startSourceScale);
+    int strobeSize = 32;
+    int increaseIn = (byte & 0b01110000) >> 4;
+    strobeSize *= (1 << increaseIn);
+    emit signal_strobeChanged(strobeSize);
+}
+
 
 void ProcessIncomingData::slot_processingAddress(const QByteArray receivedMessage)
 {
@@ -103,6 +113,7 @@ void ProcessIncomingData::slot_processingAddress(const QByteArray receivedMessag
         {
             memcpy(m_Message->data() + 17 + 2 * static_cast<int>(GreenBoardAddressBytes::CONTROL2), receivedMessage.data() + 1, 1);
             //m_Message->replace((17 + 2 * static_cast<quint16>(GreenBoardAddressBytes::CONTROL2)), 1, QByteArray(1, receivedMessage.at(1)));
+            processControl_2(receivedMessage[1]);
             emit signal_controlSettingsTwo(receivedMessage[1]);
             break;
         }

@@ -4,8 +4,8 @@
 #include <ctime>
 
 
-ModRIP::ModRIP(ModSignalVariables * const modSignalVariables)
-    : A_signalMod{modSignalVariables}
+ModRIP::ModRIP(ModSignalVariables * const modSignalVariables, const int &refreshNum)
+    : A_signalMod{modSignalVariables}, A_RandomGenerator{refreshNum}
 {
 
 }

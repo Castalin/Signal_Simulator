@@ -5,10 +5,11 @@
 class A_RandomGenerator
 {
 public:
-    A_RandomGenerator();
+    A_RandomGenerator(const int &refreshNum = 1);
 protected:
     int i;
     double m_randVariable;
+    int m_refreshNum;
 
 public:
     virtual double generateValue();

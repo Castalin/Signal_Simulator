@@ -16,6 +16,8 @@ private:
     a_SettingsReceiver *m_ReceiveSocket;
     a_SettingsSender *m_SendingSocket;
 
+    void processControl_2(const unsigned char &byte);
+
 
     enum struct GreenBoardAddressBytes
     {
@@ -44,6 +46,8 @@ signals:
     void signal_ADC_B_DELAY_0(const unsigned char &info);
     void signal_ADC_B_DELAY_1(const unsigned char &info);
     void signal_LED(const unsigned char &info);
+    void signal_strobeChanged(const int &strobe);
+    void signal_startSourseScale(const int &value);
     /*
     void signal_controlWord_0(const unsigned char &info);
     void signal_controlWord_1(const unsigned char &info);

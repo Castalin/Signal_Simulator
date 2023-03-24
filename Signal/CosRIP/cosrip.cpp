@@ -1,8 +1,8 @@
 #include "cosrip.h"
 #include <QtMath>
 
-CosRIP::CosRIP(SignalVariables * const signalVariables)
-    :A_signal{signalVariables}
+CosRIP::CosRIP(SignalVariables * const signalVariables, const int &refreshNum)
+    :A_signal{signalVariables}, A_RandomGenerator{refreshNum}
 {
 
 }

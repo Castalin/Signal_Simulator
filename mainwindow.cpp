@@ -7,9 +7,8 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
     m_ctrDataMain = new ProcessIncomingData;
-    m_signalGenerator = new SignalGenerator(m_all_Data.getMainSignalVar(), m_all_Data.getModSignalVar(), m_all_Data.getNoiseVar());
-    m_signalDataMain = new SignalDataMain(m_signalGenerator);
     m_all_Data = All_Data();
+    m_signalDataSender = new SignalDataSender(m_all_Data.getMainSignalVar(), m_all_Data.getModSignalVar(), m_all_Data.getNoiseVar());
 
     w_ctrSettings_1 = new ControlSettingsOne;
     w_ctrSettings_2 = new ControlSettingsTwo;
@@ -18,13 +17,15 @@ MainWindow::MainWindow(QWidget *parent)
     w_ctrAddresses = new ControlAddresses;
     w_signalsUI = new SignalsUI(m_all_Data.getMainSignalVar(), m_all_Data.getModSignalVar());
     w_noiseUI = new NoiseUI(m_all_Data.getNoiseVar());
-    w_allPlots = new AllPlotsUI(m_signalGenerator, m_signalDataMain->getMessagePtr());
+    w_allPlots = new AllPlotsUI(m_all_Data.getMainSignalVar(), m_all_Data.getModSignalVar(), m_all_Data.getNoiseVar());
 
     QGroupBox *mainWidget = new QGroupBox(QString("  Signal Simulator"));
     QVBoxLayout *settingsLayout_1 = new QVBoxLayout;
     QVBoxLayout *settingsLayout_2 = new QVBoxLayout;
     QHBoxLayout *mainLayout = new QHBoxLayout;
     w_checkPlots = new QCheckBox(QString("Plots"));
+    w_startDrawing = new QPushButton(QString("Start"));
+    w_stopDrawing = new QPushButton(QString("Stop"));
 
     settingsLayout_1->addWidget(w_signalsUI);
     settingsLayout_1->addWidget(w_ctrAngle);
@@ -34,8 +35,14 @@ MainWindow::MainWindow(QWidget *parent)
     settingsLayout_2->addWidget(w_ctrSettings_1);
     settingsLayout_2->addWidget(w_ctrSettings_2);
     settingsLayout_2->addWidget(w_adc_Delay);
-    settingsLayout_2->addSpacerItem(new QSpacerItem(0, 25, QSizePolicy :: Minimum, QSizePolicy :: Minimum));
+    //settingsLayout_2->addSpacerItem(new QSpacerItem(0, 25, QSizePolicy :: Minimum, QSizePolicy :: Minimum));
+
     settingsLayout_2->addWidget(w_checkPlots, 0, Qt :: AlignCenter);
+    QHBoxLayout * twoButtons = new QHBoxLayout();
+    twoButtons->addWidget(w_startDrawing);
+    twoButtons->addWidget(w_stopDrawing);
+    w_stopDrawing->setEnabled(false);
+    settingsLayout_2->addLayout(twoButtons);
     settingsLayout_2->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy :: Minimum, QSizePolicy :: Expanding));
     //settingsLayout->setMargin(2);
 
@@ -79,26 +86,31 @@ MainWindow::MainWindow(QWidget *parent)
 
 
 
-    connect(w_ctrAddresses, &ControlAddresses :: signal_setSignalSettings, m_signalDataMain, &SignalDataMain :: slot_setAddressSettings);                   // binds address
-    connect(w_ctrAngle, &ControlAngle :: signal_angleValueChanged, m_signalDataMain, &SignalDataMain :: slot_angleChanged);
-    connect(w_ctrAngle, &ControlAngle :: signal_angleSpeedValueChanged, m_signalDataMain, &SignalDataMain :: slot_angleSpeedChanged);
-    connect(m_signalDataMain, &SignalDataMain :: signal_angleValueChanged, w_ctrAngle, QOverload<const double&> :: of(&ControlAngle :: slot_angleChanged));
+    connect(w_ctrAddresses, &ControlAddresses :: signal_setSignalSettings, m_signalDataSender, &SignalDataSender :: slot_setAddressSettings);                   // binds address
+    connect(w_ctrAngle, &ControlAngle :: signal_angleValueChanged, m_signalDataSender, &SignalDataSender :: slot_angleChanged);
+    connect(w_ctrAngle, &ControlAngle :: signal_angleSpeedValueChanged, m_signalDataSender, &SignalDataSender :: slot_angleSpeedChanged);
+    connect(m_signalDataSender, &SignalDataSender :: signal_angleValueChanged, w_ctrAngle, QOverload<const double&> :: of(&ControlAngle :: slot_angleChanged));
 
-    connect(w_ctrSettings_1, &ControlSettingsOne :: signal_RxValueChanged, m_signalDataMain, &SignalDataMain :: slot_RxEnableValueChanged);                 // signal_RxValueChanged has got info about rxEnable
-    connect(m_ctrDataMain, &ProcessIncomingData :: signal_controlSettingsTwo, m_signalDataMain, &SignalDataMain :: slot_startSourceScale);                      //signal_controlSettingsTwo has got info about sourceScale
-    connect(m_ctrDataMain, &ProcessIncomingData :: signal_controlSettingsTwo, m_signalGenerator, &SignalGenerator :: slot_setStrobeSize);
+    connect(w_ctrSettings_1, &ControlSettingsOne :: signal_RxValueChanged, m_signalDataSender, &SignalDataSender :: slot_RxEnableValueChanged);                 // signal_RxValueChanged has got info about rxEnable
+    connect(m_ctrDataMain, &ProcessIncomingData :: signal_startSourseScale, m_signalDataSender, &SignalDataSender :: slot_startSourceScale);                      //signal_controlSettingsTwo has got info about sourceScale
+    connect(m_ctrDataMain, &ProcessIncomingData :: signal_strobeChanged, m_signalDataSender, &SignalDataSender :: slot_setStrobeSize);
     connect(w_ctrSettings_1, QOverload<const int&>  :: of(&ControlSettingsOne :: signal_DecimationChanged), this, [this](const int &decimation)->void{m_all_Data.setDecimationFrequence(decimation);});
     connect(w_ctrSettings_1, QOverload<> :: of(&ControlSettingsOne :: signal_DecimationChanged), w_signalsUI, &SignalsUI :: slot_decimationFrequenceChanged);
 
-    connect(m_signalDataMain, &SignalDataMain :: finished, w_ctrAngle, &ControlAngle :: slot_stopBtn);                                                       // stops timers
-    connect(m_signalDataMain, &SignalDataMain :: finished, w_signalsUI, &SignalsUI :: slot_stopMovingSliderOut);                                                // stops timers
-    connect(w_signalsUI, &SignalsUI :: signal_signalType, m_signalGenerator, &SignalGenerator :: slot_setSignalType);
-    connect(w_noiseUI, &NoiseUI :: signal_noiseState, m_signalGenerator, &SignalGenerator :: slot_setNoiseState);
+    connect(m_signalDataSender, &SignalDataSender :: finished, w_ctrAngle, &ControlAngle :: slot_stopBtn);                                                       // stops timers
+    connect(m_signalDataSender, &SignalDataSender :: finished, w_signalsUI, &SignalsUI :: slot_stopMovingSliderOut);                                                // stops timers
+    connect(w_signalsUI, &SignalsUI :: signal_signalType, w_allPlots, &AllPlotsUI :: slot_setSignalType);
+    connect(w_noiseUI, &NoiseUI :: signal_noiseState, w_allPlots, &AllPlotsUI :: slot_setNoiseState);
 
-    connect(m_signalDataMain, &SignalDataMain :: finished, w_allPlots, &AllPlotsUI :: slot_threadStarted);
-    connect(m_signalDataMain, &SignalDataMain :: started, w_allPlots, &AllPlotsUI :: slot_threadEnded);
+    connect(w_signalsUI, &SignalsUI :: signal_signalType, m_signalDataSender, &SignalDataSender :: slot_setSignalType);
+    connect(w_noiseUI, &NoiseUI :: signal_noiseState, m_signalDataSender, &SignalDataSender :: slot_setNoiseState);
+
+    connect(w_ctrSettings_1, QOverload<const int&>  :: of(&ControlSettingsOne :: signal_DecimationChanged), w_allPlots, &AllPlotsUI :: slot_setDecimation);
+    connect(m_ctrDataMain, &ProcessIncomingData :: signal_strobeChanged, w_allPlots, &AllPlotsUI :: slot_setStrobeSize);
+
     connect(w_checkPlots, &QCheckBox :: stateChanged, w_allPlots, &AllPlotsUI :: slot_setPlottingEnable);
-
+    connect(w_startDrawing, &QPushButton :: clicked, this, [this]()->void{w_allPlots->slot_startDrawing();w_startDrawing->setEnabled(false);w_stopDrawing->setEnabled(true);});
+    connect(w_stopDrawing, &QPushButton :: clicked, this, [this]()->void{w_allPlots->slot_stopDrawing();w_startDrawing->setEnabled(true);w_stopDrawing->setEnabled(false);});
 
 }
 

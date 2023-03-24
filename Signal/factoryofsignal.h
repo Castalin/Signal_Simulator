@@ -3,11 +3,14 @@
 #include "QPair"
 #include "signals_defenition.h"
 #include <map>
+#include <QObject>
 
-class FactoryOfSignal
+class FactoryOfSignal : public QObject
 {
+    Q_OBJECT
 public:
-    FactoryOfSignal(SignalVariables *const signalVariables, ModSignalVariables *const modSignalVariables, NoiseVariables *const noiseVariables);
+    FactoryOfSignal(SignalVariables *const signalVariables, ModSignalVariables *const modSignalVariables,
+                    NoiseVariables *const noiseVariables, const int &refreshNum,  QObject *parent = nullptr);
 
 private:
     NoSignal m_noSignal;
@@ -46,8 +49,6 @@ private:
     double getSignalNoiseImChannel_2();
 
 public:
-    void setSignalType(const QPair<int, int> &signalType);
-    void setNoiseState(const QPair<int, int> &state);
     double getSignalRe();
     double getSignalIm();
     void resetI();
@@ -58,7 +59,9 @@ public:
     double (FactoryOfSignal :: *ptrToSignalReChannel_1)();
     double (FactoryOfSignal :: *ptrToSignalImChannel_1)();
 
-
+public slots:
+    void slot_setSignalType(const QPair<int, int> &signalType);
+    void slot_setNoiseState(const QPair<int, int> &state);
 };
 
 #endif // FACTORYOFSIGNAL_H
